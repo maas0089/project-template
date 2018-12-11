@@ -19,16 +19,16 @@ class Player extends Entity {
 
     public move() {
         if (this.keyboardListener.getLeftPressed()) {
-            this._xPos -= 4;
+            this.xPos -= 4;
         }
         if (this.keyboardListener.getUpPressed()) {
-            this._yPos -= 4;
+            this.yPos -= 4;
         }
         if (this.keyboardListener.getRightPressed()) {
-            this._xPos += 4;
+            this.xPos += 4;
         }
         if (this.keyboardListener.getdownPressed()) {
-            this._yPos += 4;
+            this.yPos += 4;
         }
     }
 

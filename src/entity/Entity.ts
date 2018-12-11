@@ -1,10 +1,10 @@
 class Entity {
-    protected _xPos: number;
-    protected _yPos: number;
-    protected readonly _height: number;
-    protected readonly _width: number;
-    private readonly _imageSrc: string;
-    private readonly _canvas: CanvasHelper;
+    protected xPos: number;
+    protected yPos: number;
+    protected readonly height: number;
+    protected readonly width: number;
+    private readonly imageSrc: string;
+    private readonly canvas: CanvasHelper;
 
     public constructor(
         canvas: HTMLCanvasElement,
@@ -14,35 +14,35 @@ class Entity {
         width: number,
         height: number
         ) {
-        this._canvas = CanvasHelper.Instance(canvas);
-        this._imageSrc = imageSource;
-        this._xPos = xCoor;
-        this._yPos = yCoor;
-        this._width = width;
-        this._height = height;
+        this.canvas = CanvasHelper.Instance(canvas);
+        this.imageSrc = imageSource;
+        this.xPos = xCoor;
+        this.yPos = yCoor;
+        this.width = width;
+        this.height = height;
     }
 
     public draw() {
-        this._canvas.writeImageFromFileToCanvas(this._imageSrc, this._xPos, this._yPos);
+        this.canvas.writeImageFromFileToCanvas(this.imageSrc, this.xPos, this.yPos);
     }
 
     public getX(): number
     {
-        return this._xPos;
+        return this.xPos;
     }
 
     public getY(): number
     {
-        return this._yPos;
+        return this.yPos;
     }
 
     public getWidth(): number
     {
-        return this._width;
+        return this.width;
     }
 
     public getHeight(): number
     {
-        return this._height;
+        return this.height;
     }
 }

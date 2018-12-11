@@ -21,7 +21,7 @@
             return this.instance;
         }
 
-        // end of singleton
+        // End of singleton
 
         /**
          * constructor

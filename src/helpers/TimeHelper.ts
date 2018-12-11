@@ -1,9 +1,9 @@
-class TimeHelper{
+class TimeHelper {
     private minutes: number;
     private seconds: number;
     private static instance: TimeHelper = null;
 
-    public static Instance(): TimeHelper{
+    public static Instance(): TimeHelper {
         if (this.instance == null) {
             this.instance = new TimeHelper();
         }
@@ -11,7 +11,7 @@ class TimeHelper{
 
     }
 
-    public constructor(){
+    public constructor() {
         this.minutes = 0;
         this.seconds = 0;
     }
