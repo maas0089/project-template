@@ -25,15 +25,9 @@
 
         /**
          * constructor
-         * @AccessModifier {public}
-         * Clears the canvas
          * @param {HTMLCanvasElement} aCanvas - the canvas to help with
          */
-        // THE CONSTRUCTOR IS CHANGED FROM PUBLIC TO PRIVATE.
-        // THIS IS REQUIRED WHEN WE WORK WITH SINGLETONS.
         private constructor(canvas: HTMLCanvasElement) {
-            // bind the passed argument to the local member
-            //construct all canvas
             this.canvas = canvas;
             this.canvas.width = window.innerWidth; 
             this.canvas.height = window.innerHeight;
@@ -46,165 +40,128 @@
         
         /**
          * Clear
-         * @AccessModifier {public}
          * Clears the canvas
          */
         public Clear(): void {
             // clear the screen
-            this.d_context.clearRect(0, 0, this.GetWidth(), this.GetHeight());
+            this.context.clearRect(0, 0, this.GetWidth(), this.GetHeight());
         }
 
-        /**
-         *
-         * @constructor
-         */
-        public BeginUpdate(): void {
-            this.d_context.save();
-        }
-
-        /**
-         *
-         * @constructor
-         */
-        public EndUpdate(): void {
-            this.d_context.clip();
-            this.d_context.restore();
-        }
 
         /**
          * GetCanvas
-         * @AccessModifier {public}
          * Getter to provide access to the canvas
          */
         public GetCanvas(): HTMLCanvasElement {
-            return this.d_canvas;
+            return this.canvas;
         }
 
         /**
          * GetCenter
-         * @AccessModifier {public}
          * returns the center coordinate
          */
         public GetCenter(): { X: number, Y: number } {
-            // return the center as a valid return
             return {X: this.GetWidth() / 2, Y: this.GetHeight() / 2};
         }
 
         /**
          * GetHeight
-         * @AccessModifier {public}
          * returns Height of the canvas
          */
         public GetHeight(): number {
-            // return the height of the canvas
-            return this.d_canvas.height;
+            return this.canvas.height;
         }
 
         /**
          * GetWidth
-         * @AccessModifier {public}
          * returns the Width of the canvas
          */
         public GetWidth(): number {
-            // return the width of the canvas
-            return this.d_canvas.width;
-        }
-
-        public UnregisterClickListener(fnName: string): void {
-            this.d_clickCommands.delete(fnName);
+            return this.canvas.width;
         }
 
         /**
          * writeTextToCanvas
-         * @AccessModifier {public}
-         * Handles the internal redirection of the click event.
          * @param {string} text -
          * @param {number} fontSize -
-         * @param {number} aXpos -
-         * @param {number} aYpos -
+         * @param {number} xpos -
+         * @param {number} ypos -
          * @param {string} color -
          * @param {CanvasTextAlign} alignment -
          */
-        public writeTextToCanvas(aText: string,
-                                 aFontSize: number,
-                                 aXpos: number,
-                                 aYpos: number,
-                                 aColor: string = "white",
-                                 aAlignment: CanvasTextAlign = "center") {
+        public writeTextToCanvas(text: string,
+                                 fontSize: number,
+                                 xpos: number,
+                                 ypos: number,
+                                 color: string = "white",
+                                 alignment: CanvasTextAlign = "center") {
 
-            this.d_context.font = `${aFontSize}px Minecraft`;
-            this.d_context.fillStyle = aColor;
-            this.d_context.textAlign = aAlignment;
-            this.d_context.fillText(aText, aXpos, aYpos);
+            this.context.font = `${fontSize}px Arial`; //TODO: decide on fontstyle
+            this.context.fillStyle = color;
+            this.context.textAlign = alignment;
+            this.context.fillText(text, xpos, ypos);
         }
 
         /**
-         * writeTextToCanvas
-         * @AccessModifier {public}
-         * Handles the internal redirection of the click event.
-         * @param {string} aSrc - the source of the resource
-         * @param {number} aXpos - the x axis value of the coordinate
-         * @param {number} aYpos - the y axis value of the coordinate
+         * @param {string} src - the source of the resource
+         * @param {number} xpos - the x axis value of the coordinate
+         * @param {number} ypos - the y axis value of the coordinate
          */
-        public writeImageFromFileToCanvas(aSrc: string,
-                                          aXpos: number,
-                                          aYpos: number) {
+        public writeImageFromFileToCanvas(src: string,
+                                          xpos: number,
+                                          ypos: number) {
 
             let image = new Image();
             // add the listener so the waiting will not affect the change
             image.addEventListener('load', () => {
                 //this.d_context.clip();
-                this.d_context.drawImage(image, aXpos, aYpos);
+                this.context.drawImage(image, xpos, ypos);
             });
 
             // load the source in the image.
-            image.src = aSrc;
+            image.src = src;
         }
 
-        public writeImageToCanvas(aImage: any,
-                                  aXpos: number,
-                                  aYpos: number): void {
+        public writeImageToCanvas(image: any,
+                                  xpos: number,
+                                  ypos: number): void {
 
-            this.d_context.drawImage(aImage, aXpos, aYpos);
+            this.context.drawImage(image, xpos, ypos);
         }
 
         /**
          *     /**
          * writeButtonToCanvas
-         * @AccessModifier {public}
          * Creates a button with a given text and set the callback
-         *      providing a callback is mandatory for the button has no use
-         *      withoud the callback.
          * @param aCaption - the caption to write
          * @param fnName -  the registerd name of the callback
          * @param fn - the callback method (click if the location of the button is clicked)
-         * @param aXpos - the left top x position of the button
-         * @param aYpos - the left top y position of the button
+         * @param xpos - the left top x position of the button
+         * @param ypos - the left top y position of the button
          */
-        public writeButtonToCanvas(aCaption: string, fnName: string, fn: () => void, aXpos: number = -1, aYpos: number = -1) {
+        public writeButtonToCanvas(caption: string, fnName: string, fn: () => void, xpos: number = -1, ypos: number = -1) {
             let buttonImage = new Image();
-            buttonImage.src = "./assets/images/SpaceShooterRedux/PNG/UI/buttonBlue.png";
-            // Make sure the image is loaded first otherwise nothing will draw.
+            buttonImage.src = "./assets/images//buttonBlue.png";
 
             buttonImage.addEventListener('load', (): void => {
-                let dx = aXpos;
-                let dy = aYpos;
+                let dx = xpos;
+                let dy = ypos;
                 // if x axis is not set, lets center the button horizontally
                 if (dx < 0) dx = (this.GetWidth() - buttonImage.width) / 2;
                 // if y axis is not set, lets center the button vertically
                 if (dy < 0) dy = this.GetHeight() / 2 + buttonImage.height;
 
                 // center the text based upon the font
-                let fontX = dx + ((buttonImage.width + aCaption.length - 18) / 2); // - 1/2 fontsize + buttonBorder
+                let fontX = dx + ((buttonImage.width + caption.length - 18) / 2); // - 1/2 fontsize + buttonBorder
                 let fontY = dy + (buttonImage.height - 12); // - 1/2 fontsize + buttonBorder
-                this.d_context.drawImage(buttonImage, dx, dy);
-                this.writeTextToCanvas(aCaption, 20, fontX, fontY, '#000');
+                this.context.drawImage(buttonImage, dx, dy);
+                this.writeTextToCanvas(caption, 20, fontX, fontY, '#000');
 
                 // check if there is a valid callback given
                 // if the callback is valid store the callback in the Map
-                if (fn != null) {
-                    this.d_clickCommands.set(fnName, new ButtonAction(dx, dy, buttonImage.height, buttonImage.width, fn));
-                }
+                // if (fn != null) {
+                //     this.clickCommands.set(fnName, new ButtonAction(dx, dy, buttonImage.height, buttonImage.width, fn));
+                // }
             });
 
         }
