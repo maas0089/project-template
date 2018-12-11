@@ -16,7 +16,7 @@ class ScreenLevel extends ScreenBase {
         countryFlag: string
     ) {
         super(canvas);
-        this.screenQuiz = new ScreenQuiz();
+        this.screenQuiz = new ScreenQuiz(canvas);
 
         this.spikes = spikes;
         this.platforms = platforms;
