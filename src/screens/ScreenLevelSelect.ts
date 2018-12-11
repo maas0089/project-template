@@ -5,7 +5,7 @@ class ScreenLevelSelect extends ScreenBase{
 
     public constructor(canvas: HTMLCanvasElement){
         super(canvas);
-        this.screenLevel = new ScreenLevel();
+        this.screenLevel = new ScreenLevel(canvas);
     }
 
     public draw(): void {

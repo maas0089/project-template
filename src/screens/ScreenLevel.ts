@@ -9,20 +9,20 @@ class ScreenLevel extends ScreenBase {
 
     constructor(
         canvas: HTMLCanvasElement,
-        spikes: Array<Spike>,
-        platforms: Array<Platform>,
-        player: Player,
-        imageMap: string,
-        countryFlag: string
+        // spikes: Array<Spike>,
+        // platforms: Array<Platform>,
+        // player: Player,
+        // imageMap: string,
+        // countryFlag: string
     ) {
         super(canvas);
-        this.screenQuiz = new ScreenQuiz();
+        this.screenQuiz = new ScreenQuiz(canvas);
 
-        this.spikes = spikes;
-        this.platforms = platforms;
-        this.player = player;
-        this.imageMap = imageMap;
-        this.countryFlag = countryFlag;
+        // this.spikes = spikes;
+        // this.platforms = platforms;
+        // this.player = player;
+        // this.imageMap = imageMap;
+        // this.countryFlag = countryFlag;
     }
 
     public draw() {
