@@ -35,8 +35,8 @@ class ScreenLevel extends ScreenBase {
     }
 }
 
-function init(): void {
-    const Untravel = new ScreenLevel();
-    Untravel.draw();
-}
-window.addEventListener('load', init);
+// function init(): void {
+//     const Untravel = new ScreenLevel();
+//     Untravel.draw();
+// }
+// window.addEventListener('load', init);
