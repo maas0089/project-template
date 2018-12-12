@@ -1,6 +1,6 @@
 class ScreenLevel extends ScreenBase {
 
-    private screenQuiz: ScreenQuiz;
+    // private screenQuiz: ScreenQuiz = new ScreenQuiz();
     private spikes: Array<Spike>;
     private platforms: Array<Platform>;
     private player: Player;
@@ -9,15 +9,13 @@ class ScreenLevel extends ScreenBase {
     private background: string;
 
     constructor(
-        canvas: HTMLCanvasElement,
         // spikes: Array<Spike>,
         // platforms: Array<Platform>,
         // player: Player,
         // imageMap: string,
         // countryFlag: string
     ) {
-        super(canvas);
-        this.screenQuiz = new ScreenQuiz(canvas);
+        super();
 
         // this.spikes = spikes;
         // this.platforms = platforms;
@@ -32,12 +30,12 @@ class ScreenLevel extends ScreenBase {
 
     public drawScreenQuiz(): void {
         this.canvasHelper.Clear();
-        this.screenQuiz.draw();
+        // this.screenQuiz.draw();
     }
 }
 
-function testInit(): void {
-    const Untravel = new ScreenLevel(<HTMLCanvasElement>document.getElementById('canvas'));
-    Untravel.draw();
-}
-window.addEventListener('load', testInit);
+// function testInit(): void {
+//     const Untravel = new ScreenLevel(<HTMLCanvasElement>document.getElementById('canvas'));
+//     Untravel.draw();
+// }
+// window.addEventListener('load', testInit);

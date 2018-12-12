@@ -1,10 +1,9 @@
 class ScreenEndResult extends ScreenBase {
 
-    private screenHighScore: ScreenHighScore;
+    // private screenHighScore: ScreenHighScore = new ScreenHighScore();
 
-    constructor(canvas: HTMLCanvasElement) {
-        super(canvas);
-        this.screenHighScore = new ScreenHighScore(canvas);
+    constructor() {
+        super();
     }
 
     public draw(): void {
@@ -13,6 +12,6 @@ class ScreenEndResult extends ScreenBase {
 
     public drawScreenHighScore(): void {
         this.canvasHelper.Clear();
-        this.screenHighScore.draw();
+        // this.screenHighScore.draw();
     }
 }

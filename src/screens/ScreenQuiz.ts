@@ -2,11 +2,10 @@ class ScreenQuiz extends ScreenBase{
 
     private imageLocations: Array<string>;
     private qAndA: Array<string>;
-    private screenEndresult: ScreenEndResult;
+    // private screenEndresult: ScreenEndResult = new ScreenEndResult;
 
-    public constructor(canvas: HTMLCanvasElement){
-        super(canvas);
-        this.screenEndresult = new ScreenEndResult(canvas);
+    public constructor(){
+        super();
     }
 
     public draw(): void {
@@ -19,7 +18,7 @@ class ScreenQuiz extends ScreenBase{
 
     public drawScreenLevel(): void {
         this.canvasHelper.Clear();
-        this.screenEndresult.draw();
+        // this.screenEndresult.draw();
     }
 
 }

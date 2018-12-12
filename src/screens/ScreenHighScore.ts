@@ -1,11 +1,10 @@
 class ScreenHighScore extends ScreenBase {
 
-    private screenLevelSelect: ScreenLevelSelect;
+    // private screenLevelSelect: ScreenLevelSelect = new ScreenLevelSelect();
     private highscores: Array<any>; // this array will contain objects
 
-    constructor(canvas: HTMLCanvasElement) {
-        super(canvas);
-        this.screenLevelSelect = new ScreenLevelSelect(canvas);
+    constructor() {
+        super();
     }
 
     public draw(): void {
@@ -14,6 +13,6 @@ class ScreenHighScore extends ScreenBase {
 
     public drawScreenLevelSelect(): void {
         this.canvasHelper.Clear();
-        this.screenLevelSelect.draw();
+        // this.screenLevelSelect.draw();
     }
 }

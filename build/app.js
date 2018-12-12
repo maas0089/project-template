@@ -1,6 +1,6 @@
 class Entity {
     constructor(canvas, imageSource, xCoor, yCoor, width, height) {
-        this.canvas = CanvasHelper.Instance(canvas);
+        this.canvas = CanvasHelper.Instance();
         this.imageSrc = imageSource;
         this.xPos = xCoor;
         this.yPos = yCoor;
@@ -69,9 +69,9 @@ class CanvasHelper {
         this.canvas.height = window.innerHeight;
         this.context = this.canvas.getContext('2d');
     }
-    static Instance(canvas) {
+    static Instance() {
         if (this.instance == null) {
-            this.instance = new CanvasHelper(canvas);
+            this.instance = new CanvasHelper(document.getElementById('canvas'));
         }
         return this.instance;
     }
@@ -210,56 +210,44 @@ class TimeHelper {
 }
 TimeHelper.instance = null;
 class ScreenBase {
-    constructor(p_canvas) {
-        this.canvasHelper = CanvasHelper.Instance(p_canvas);
+    constructor() {
+        this.canvasHelper = CanvasHelper.Instance();
         this.timer = TimeHelper.Instance();
     }
 }
 class ScreenEndResult extends ScreenBase {
-    constructor(canvas) {
-        super(canvas);
-        this.screenHighScore = new ScreenHighScore(canvas);
+    constructor() {
+        super();
     }
     draw() {
     }
     drawScreenHighScore() {
         this.canvasHelper.Clear();
-        this.screenHighScore.draw();
     }
 }
 class ScreenHighScore extends ScreenBase {
-    constructor(canvas) {
-        super(canvas);
-        this.screenLevelSelect = new ScreenLevelSelect(canvas);
+    constructor() {
+        super();
     }
     draw() {
     }
     drawScreenLevelSelect() {
         this.canvasHelper.Clear();
-        this.screenLevelSelect.draw();
     }
 }
 class ScreenLevel extends ScreenBase {
-    constructor(canvas) {
-        super(canvas);
-        this.screenQuiz = new ScreenQuiz(canvas);
+    constructor() {
+        super();
     }
     draw() {
     }
     drawScreenQuiz() {
         this.canvasHelper.Clear();
-        this.screenQuiz.draw();
     }
 }
-function testInit() {
-    const Untravel = new ScreenLevel(document.getElementById('canvas'));
-    Untravel.draw();
-}
-window.addEventListener('load', testInit);
 class ScreenLevelSelect extends ScreenBase {
-    constructor(canvas) {
-        super(canvas);
-        this.screenLevel = new ScreenLevel(canvas);
+    constructor() {
+        super();
     }
     draw() {
         this.canvasHelper.writeTextToCanvas('UNtRAVEL', 50, this.canvasHelper.GetCenter().X, 0);
@@ -267,18 +255,11 @@ class ScreenLevelSelect extends ScreenBase {
     }
     drawScreenLevel() {
         this.canvasHelper.Clear();
-        this.screenLevel.draw();
     }
 }
-function init() {
-    const Untravel = new ScreenLevelSelect(document.getElementById('canvas'));
-    Untravel.draw();
-}
-window.addEventListener('load', init);
 class ScreenQuiz extends ScreenBase {
-    constructor(canvas) {
-        super(canvas);
-        this.screenEndresult = new ScreenEndResult(canvas);
+    constructor() {
+        super();
     }
     draw() {
     }
@@ -286,7 +267,6 @@ class ScreenQuiz extends ScreenBase {
     }
     drawScreenLevel() {
         this.canvasHelper.Clear();
-        this.screenEndresult.draw();
     }
 }
 //# sourceMappingURL=app.js.map

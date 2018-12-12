@@ -1,11 +1,10 @@
 class ScreenLevelSelect extends ScreenBase {
 
     private continents: Array<string>;
-    private screenLevel: ScreenLevel;
+    // private screenLevel: ScreenLevel = new ScreenLevel;
 
-    public constructor(canvas: HTMLCanvasElement){
-        super(canvas);
-        this.screenLevel = new ScreenLevel(canvas);
+    public constructor(){
+        super();
     }
 
     public draw(): void {
@@ -16,13 +15,13 @@ class ScreenLevelSelect extends ScreenBase {
 
     public drawScreenLevel(): void {
         this.canvasHelper.Clear();
-        this.screenLevel.draw();
+        // this.screenLevel.draw();
     }
 
 }
 
-function init(): void {
-    const Untravel = new ScreenLevelSelect(<HTMLCanvasElement>document.getElementById('canvas'));
-    Untravel.draw();
-}
-window.addEventListener('load', init);
+// function init(): void {
+//     const Untravel = new ScreenLevelSelect();
+//     Untravel.draw();
+// }
+// window.addEventListener('load', init);

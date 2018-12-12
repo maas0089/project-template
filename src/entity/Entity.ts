@@ -14,7 +14,7 @@ class Entity {
         width: number,
         height: number
         ) {
-        this.canvas = CanvasHelper.Instance(canvas);
+        this.canvas = CanvasHelper.Instance();
         this.imageSrc = imageSource;
         this.xPos = xCoor;
         this.yPos = yCoor;
