@@ -10,13 +10,10 @@
 
         private static instance: CanvasHelper = null;
 
-        public static Instance(canvas: HTMLCanvasElement = null): CanvasHelper {
+        public static Instance(): CanvasHelper {
 
             if (this.instance == null) {
-                if (canvas == null) {
-                    throw new DOMException("The first time the instance is created a Canvas must be given.");
-                }
-                this.instance = new CanvasHelper(canvas);
+                this.instance = new CanvasHelper(<HTMLCanvasElement>document.getElementById('canvas'));
             }
             return this.instance;
         }

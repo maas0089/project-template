@@ -9,7 +9,8 @@ class ScreenLevelSelect extends ScreenBase {
     }
 
     public draw(): void {
-        this.canvasHelper.writeTextToCanvas('UNtRAVEL', 50, this.canvasHelper.GetCenter().X, 0)
+        this.canvasHelper.writeTextToCanvas('UNtRAVEL', 50, this.canvasHelper.GetCenter().X, 0);
+        this.canvasHelper.writeImageFromFileToCanvas('./assets/images/buttonBlue.png', this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y + 20);
 
     }
 
