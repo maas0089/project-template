@@ -210,8 +210,8 @@ class TimeHelper {
 }
 TimeHelper.instance = null;
 class ScreenBase {
-    constructor(canvas) {
-        this.canvasHelper = CanvasHelper.Instance(canvas);
+    constructor(p_canvas) {
+        this.canvasHelper = CanvasHelper.Instance(p_canvas);
         this.timer = TimeHelper.Instance();
     }
 }
