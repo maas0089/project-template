@@ -8,7 +8,7 @@ class Entity {
         this.height = height;
     }
     draw() {
-        this.canvas.writeImageFromFileToCanvas(this.imageSrc, this.xPos, this.yPos);
+        this.canvas.writeImageFromFileToCanvas(this.imageSrc, this.xPos, this.yPos, this.width, this.height);
     }
     getX() {
         return this.xPos;
@@ -125,10 +125,10 @@ class CanvasHelper {
         this.context.textAlign = alignment;
         this.context.fillText(text, xpos, ypos);
     }
-    writeImageFromFileToCanvas(src, xpos, ypos) {
+    writeImageFromFileToCanvas(src, xpos, ypos, width, height) {
         let image = new Image();
         image.addEventListener('load', () => {
-            this.context.drawImage(image, xpos, ypos);
+            this.context.drawImage(image, xpos, ypos, width, height);
         });
         image.src = src;
     }
@@ -273,17 +273,11 @@ class ScreenLevel extends ScreenBase {
     }
     draw() {
         console.log("This is ScreenLevel speaking.");
-        this.canvasHelper.writeImageFromFileToCanvas("/assets/images/MovingPlatform_Long.png", this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y);
     }
     drawScreenQuiz() {
         this.canvasHelper.Clear();
     }
 }
-function init() {
-    const Untravel = new ScreenLevel();
-    Untravel.draw();
-}
-window.addEventListener('load', init);
 class ScreenLevelSelect extends ScreenBase {
     constructor() {
         super();
@@ -294,10 +288,16 @@ class ScreenLevelSelect extends ScreenBase {
         };
     }
     draw() {
-        this.canvasHelper.writeTextToCanvas('UNtRAVEL', 50, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y);
+        this.canvasHelper.writeTextToCanvas('UNtRAVEL', 50, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y / 3);
+        this.canvasHelper.writeImageFromFileToCanvas('./assets/images/maps/Europa-kaart.png', this.canvasHelper.GetCenter().X - 65, this.canvasHelper.GetCenter().Y - 65, 130, 130);
         this.canvasHelper.writeButtonToCanvas("Play", 'StartGameCommand', this.drawScreenLevel, undefined, this.canvasHelper.GetCenter().Y + 200);
     }
 }
+function init() {
+    const Untravel = new ScreenLevelSelect();
+    Untravel.draw();
+}
+window.addEventListener('load', init);
 class ScreenQuiz extends ScreenBase {
     constructor() {
         super();
