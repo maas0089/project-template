@@ -9,6 +9,7 @@ class ScreenLevelSelect extends ScreenBase{
     }
 
     public draw(): void {
+        this.canvasHelper.writeTextToCanvas('UNtRAVEL', 50, this.canvasHelper.GetCenter().X, 0)
 
     }
 
@@ -18,3 +19,9 @@ class ScreenLevelSelect extends ScreenBase{
     }
 
 }
+
+function init(): void {
+    const Untravel = new ScreenLevelSelect(<HTMLCanvasElement>document.getElementById('canvas'));
+    Untravel.draw();
+}
+window.addEventListener('load', init);

@@ -6,7 +6,7 @@ class ScreenQuiz extends ScreenBase{
 
     public constructor(canvas: HTMLCanvasElement){
         super(canvas);
-        this.screenEndresult = new ScreenEndResult();
+        this.screenEndresult = new ScreenEndResult(canvas);
     }
 
     public draw(): void {
