@@ -4,7 +4,7 @@
         private readonly context: CanvasRenderingContext2D; 
 
         // !There is no class ButtonAction
-        // private clickCommands: Map<string, ButtonAction> = new Map<string, ButtonAction>();
+        private clickCommands: Map<string, ButtonAction> = new Map<string, ButtonAction>();
 
         // Singleton
 
@@ -32,8 +32,24 @@
             // get the context from the canvas
             this.context = this.canvas.getContext('2d');
 
+            document.addEventListener('click', (event: any) => {
+                this.OnClick(event);
+            });
+
         }
 
+        private OnClick(Event: any) {
+            let X = Event.x;
+            let Y = Event.y;
+
+            this.clickCommands.forEach((value: ButtonAction, key: string) => {
+                value.ExecuteIfInArea(X, Y);
+            });
+        }
+
+        public UnregisterClickListener(fnName: string): void {
+            this.clickCommands.delete(fnName);
+        }
         
         /**
          * Clear
@@ -90,7 +106,7 @@
                                  fontSize: number,
                                  xpos: number,
                                  ypos: number,
-                                 color: string = "white",
+                                 color: string = "black",
                                  alignment: CanvasTextAlign = "center") {
 
             this.context.font = `${fontSize}px Arial`; //TODO: decide on fontstyle
@@ -156,9 +172,9 @@
 
                 // check if there is a valid callback given
                 // if the callback is valid store the callback in the Map
-                // if (fn != null) {
-                //     this.clickCommands.set(fnName, new ButtonAction(dx, dy, buttonImage.height, buttonImage.width, fn));
-                // }
+                if (fn != null) {
+                    this.clickCommands.set(fnName, new ButtonAction(dx, dy, buttonImage.height, buttonImage.width, fn));
+                }
             });
 
         }

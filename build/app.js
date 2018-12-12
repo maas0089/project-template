@@ -62,18 +62,47 @@ class Spike extends Entity {
         super(canvas, imageSource, xCoor, yCoor, width, height);
     }
 }
+class ButtonAction {
+    constructor(x, y, h, w, fn) {
+        this.x = x;
+        this.y = y;
+        this.h = h;
+        this.w = w;
+        this.fn = fn;
+    }
+    ExecuteIfInArea(x, y) {
+        if (x > this.x && x < this.x + this.w &&
+            y > this.y && y < this.y + this.h) {
+            this.fn();
+        }
+    }
+}
 class CanvasHelper {
     constructor(canvas) {
+        this.clickCommands = new Map();
         this.canvas = canvas;
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
         this.context = this.canvas.getContext('2d');
+        document.addEventListener('click', (event) => {
+            this.OnClick(event);
+        });
     }
     static Instance() {
         if (this.instance == null) {
             this.instance = new CanvasHelper(document.getElementById('canvas'));
         }
         return this.instance;
+    }
+    OnClick(Event) {
+        let X = Event.x;
+        let Y = Event.y;
+        this.clickCommands.forEach((value, key) => {
+            value.ExecuteIfInArea(X, Y);
+        });
+    }
+    UnregisterClickListener(fnName) {
+        this.clickCommands.delete(fnName);
     }
     Clear() {
         this.context.clearRect(0, 0, this.GetWidth(), this.GetHeight());
@@ -90,7 +119,7 @@ class CanvasHelper {
     GetWidth() {
         return this.canvas.width;
     }
-    writeTextToCanvas(text, fontSize, xpos, ypos, color = "white", alignment = "center") {
+    writeTextToCanvas(text, fontSize, xpos, ypos, color = "black", alignment = "center") {
         this.context.font = `${fontSize}px Arial`;
         this.context.fillStyle = color;
         this.context.textAlign = alignment;
@@ -120,6 +149,9 @@ class CanvasHelper {
             let fontY = dy + (buttonImage.height - 12);
             this.context.drawImage(buttonImage, dx, dy);
             this.writeTextToCanvas(caption, 20, fontX, fontY, '#000');
+            if (fn != null) {
+                this.clickCommands.set(fnName, new ButtonAction(dx, dy, buttonImage.height, buttonImage.width, fn));
+            }
         });
     }
 }
@@ -248,13 +280,15 @@ class ScreenLevel extends ScreenBase {
 class ScreenLevelSelect extends ScreenBase {
     constructor() {
         super();
+        this.drawScreenLevel = () => {
+            console.log('click');
+            this.canvasHelper.UnregisterClickListener('StartGameCommand');
+            this.canvasHelper.Clear();
+        };
     }
     draw() {
-        this.canvasHelper.writeTextToCanvas('UNtRAVEL', 50, this.canvasHelper.GetCenter().X, 0);
-        this.canvasHelper.writeImageFromFileToCanvas('./assets/images/buttonBlue.png', this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y + 20);
-    }
-    drawScreenLevel() {
-        this.canvasHelper.Clear();
+        this.canvasHelper.writeTextToCanvas('UNtRAVEL', 50, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y);
+        this.canvasHelper.writeButtonToCanvas("Play", 'StartGameCommand', this.drawScreenLevel, undefined, this.canvasHelper.GetCenter().Y + 200);
     }
 }
 class ScreenQuiz extends ScreenBase {
