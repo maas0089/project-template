@@ -1,4 +1,4 @@
-class ScreenLevelSelect extends ScreenBase{
+class ScreenLevelSelect extends ScreenBase {
 
     private continents: Array<string>;
     private screenLevel: ScreenLevel;
