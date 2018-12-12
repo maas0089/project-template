@@ -3,8 +3,8 @@ abstract class ScreenBase {
     protected readonly canvasHelper: CanvasHelper;
     protected timer: TimeHelper;
 
-    protected constructor() {
-        this.canvasHelper = CanvasHelper.Instance();
+    protected constructor(canvas: HTMLCanvasElement) {
+        this.canvasHelper = CanvasHelper.Instance(canvas);
         this.timer = TimeHelper.Instance();
 
     }

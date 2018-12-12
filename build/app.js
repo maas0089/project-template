@@ -64,13 +64,12 @@ class Spike extends Entity {
 }
 class CanvasHelper {
     constructor(canvas) {
-        this.canvas = document.getElementById('canvas');
         this.canvas = canvas;
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
         this.context = this.canvas.getContext('2d');
     }
-    static Instance(canvas = null) {
+    static Instance(canvas) {
         if (this.instance == null) {
             this.instance = new CanvasHelper(canvas);
         }
@@ -252,6 +251,11 @@ class ScreenLevel extends ScreenBase {
         this.screenQuiz.draw();
     }
 }
+function testInit() {
+    const Untravel = new ScreenLevel(document.getElementById('canvas'));
+    Untravel.draw();
+}
+window.addEventListener('load', testInit);
 class ScreenLevelSelect extends ScreenBase {
     constructor(canvas) {
         super(canvas);
