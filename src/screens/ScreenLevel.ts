@@ -6,6 +6,7 @@ class ScreenLevel extends ScreenBase {
     private player: Player;
     private imageMap: string;
     private countryFlag: string;
+    private background: string;
 
     constructor(
         canvas: HTMLCanvasElement,
@@ -26,7 +27,7 @@ class ScreenLevel extends ScreenBase {
     }
 
     public draw() {
-
+        
     }
 
     public drawScreenQuiz(): void {
@@ -34,3 +35,9 @@ class ScreenLevel extends ScreenBase {
         this.screenQuiz.draw();
     }
 }
+
+function testInit(): void {
+    const Untravel = new ScreenLevel(<HTMLCanvasElement>document.getElementById('canvas'));
+    Untravel.draw();
+}
+window.addEventListener('load', testInit);

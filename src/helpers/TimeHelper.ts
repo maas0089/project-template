@@ -17,7 +17,7 @@ class TimeHelper {
     }
 
     public startTimer(): void {
-        let interval = setInterval(()=> {
+        let interval = setInterval( () => {
             if(this.seconds < 60){
                 this.seconds++
             }
