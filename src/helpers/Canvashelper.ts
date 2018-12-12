@@ -119,16 +119,20 @@
          * @param {string} src - the source of the resource
          * @param {number} xpos - the x axis value of the coordinate
          * @param {number} ypos - the y axis value of the coordinate
+         * @param {number} width
+         * @param {number} height
          */
         public writeImageFromFileToCanvas(src: string,
                                           xpos: number,
-                                          ypos: number) {
+                                          ypos: number,
+                                          width: number,
+                                          height: number) {
 
             let image = new Image();
             // add the listener so the waiting will not affect the change
             image.addEventListener('load', () => {
                 //this.d_context.clip();
-                this.context.drawImage(image, xpos, ypos);
+                this.context.drawImage(image, xpos, ypos, width, height);
             });
 
             // load the source in the image.
