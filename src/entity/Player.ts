@@ -5,14 +5,13 @@ class Player extends Entity {
     private keyboardListener: KeyboardHelper;
 
     public constructor(
-        canvas: HTMLCanvasElement,
-        imageSource: string,
         xCoor: number,
         yCoor: number,
-        width: number,
-        height: number
     ) {
-        super(canvas, imageSource, xCoor, yCoor, width, height);
+        super(xCoor, yCoor);
+        this.imageSrc = '.assets/images/..';
+        this.width = 12;
+        this.height = 20;
 
         this.keyboardListener = new KeyboardHelper();
     }

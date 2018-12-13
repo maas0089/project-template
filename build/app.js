@@ -9,15 +9,13 @@ let init = function () {
 };
 window.addEventListener('load', init);
 class Entity {
-    constructor(canvas, imageSource, xCoor, yCoor, width, height) {
+    constructor(xCoor, yCoor) {
         this.canvas = CanvasHelper.Instance();
-        this.imageSrc = imageSource;
         this.xPos = xCoor;
         this.yPos = yCoor;
-        this.width = width;
-        this.height = height;
     }
     draw() {
+        this.canvas.writeImageFromFileToCanvas(this.imageSrc, this.xPos, this.yPos, this.width, this.height);
     }
     getX() {
         return this.xPos;
@@ -33,13 +31,19 @@ class Entity {
     }
 }
 class Platform extends Entity {
-    constructor(canvas, imageSource, xCoor, yCoor, width, height) {
-        super(canvas, imageSource, xCoor, yCoor, width, height);
+    constructor(xCoor, yCoor) {
+        super(xCoor, yCoor);
+        this.imageSrc = './assets/images/...';
+        this.width = 25;
+        this.height = 30;
     }
 }
 class Player extends Entity {
-    constructor(canvas, imageSource, xCoor, yCoor, width, height) {
-        super(canvas, imageSource, xCoor, yCoor, width, height);
+    constructor(xCoor, yCoor) {
+        super(xCoor, yCoor);
+        this.imageSrc = '.assets/images/..';
+        this.width = 12;
+        this.height = 20;
         this.keyboardListener = new KeyboardHelper();
     }
     move() {
@@ -67,8 +71,11 @@ class Player extends Entity {
     }
 }
 class Spike extends Entity {
-    constructor(canvas, imageSource, xCoor, yCoor, width, height) {
-        super(canvas, imageSource, xCoor, yCoor, width, height);
+    constructor(xCoor, yCoor) {
+        super(xCoor, yCoor);
+        this.imageSrc = './assets/images/...';
+        this.width = 20;
+        this.height = 30;
     }
 }
 class ButtonAction {
@@ -289,21 +296,12 @@ class ScreenLevel extends ScreenBase {
     }
     draw() {
         console.log("This is ScreenLevel speaking.");
-<<<<<<< HEAD
         this.canvasHelper.writeImageFromFileToCanvas("/assets/images/MovingPlatform_Long.png", this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y, 100, 30);
-=======
-        this.canvasHelper.writeImageToCanvas("/assets/images/MovingPlatform_Long.png", this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y);
->>>>>>> 1eb8bffba562fe01245d11c94368725027ab0793
     }
     drawScreenQuiz() {
         this.canvasHelper.Clear();
     }
 }
-function init() {
-    const Untravel = new ScreenLevel();
-    Untravel.draw();
-}
-window.addEventListener('load', init);
 class ScreenLevelSelect extends ScreenBase {
     constructor() {
         super();
