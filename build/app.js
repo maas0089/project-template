@@ -30,11 +30,19 @@ class Entity {
         return this.height;
     }
 }
+class Flag extends Entity {
+    constructor(xCoor, yCoor) {
+        super(xCoor, yCoor);
+        this.imageSrc = "./assets/images/flags/Nederland.png";
+        this.width = 55;
+        this.height = 80;
+    }
+}
 class Platform extends Entity {
     constructor(xCoor, yCoor) {
         super(xCoor, yCoor);
         this.imageSrc = './assets/images/MovingPlatform_Long.png';
-        this.width = 60;
+        this.width = 80;
         this.height = 25;
     }
 }
@@ -74,8 +82,8 @@ class Spike extends Entity {
     constructor(xCoor, yCoor) {
         super(xCoor, yCoor);
         this.imageSrc = './assets/images/spikes/Spike_Group.png';
-        this.width = 20;
-        this.height = 30;
+        this.width = 80;
+        this.height = 20;
     }
 }
 class ButtonAction {
@@ -305,14 +313,26 @@ class ScreenLevel extends ScreenBase {
             this.platforms.forEach((element) => {
                 element.draw();
             });
+            this.countryFlag.draw();
             this.canvasHelper.Clear();
         };
-        this.player = new Player(this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y - 20);
-        this.spikes.push(new Spike(this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y));
-        this.platforms.push(new Platform(this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y));
-        this.platforms.push(new Platform(this.canvasHelper.GetCenter().X + 160, this.canvasHelper.GetCenter().Y - 10));
-        this.platforms.push(new Platform(this.canvasHelper.GetCenter().X + 320, this.canvasHelper.GetCenter().Y + 20));
-        this.platforms.push(new Platform(this.canvasHelper.GetCenter().X + 480, this.canvasHelper.GetCenter().Y + 40));
+        this.player = new Player(100, this.canvasHelper.GetCenter().Y - 20);
+        this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y));
+        this.platforms.push(new Platform(250, this.canvasHelper.GetCenter().Y - 10));
+        this.platforms.push(new Platform(180, this.canvasHelper.GetCenter().Y + 40));
+        this.spikes.push(new Spike(180, this.canvasHelper.GetCenter().Y + 25));
+        this.platforms.push(new Platform(380, this.canvasHelper.GetCenter().Y + 60));
+        this.platforms.push(new Platform(470, this.canvasHelper.GetCenter().Y + 120));
+        this.spikes.push(new Spike(470, this.canvasHelper.GetCenter().Y + 105));
+        this.platforms.push(new Platform(600, this.canvasHelper.GetCenter().Y + 160));
+        this.platforms.push(new Platform(760, this.canvasHelper.GetCenter().Y + 180));
+        this.platforms.push(new Platform(860, this.canvasHelper.GetCenter().Y + 140));
+        this.platforms.push(new Platform(960, this.canvasHelper.GetCenter().Y + 100));
+        this.platforms.push(new Platform(1060, this.canvasHelper.GetCenter().Y + 60));
+        this.platforms.push(new Platform(1200, this.canvasHelper.GetCenter().Y + 200));
+        this.spikes.push(new Spike(1200, this.canvasHelper.GetCenter().Y + 185));
+        this.platforms.push(new Platform(1300, this.canvasHelper.GetCenter().Y + 140));
+        this.countryFlag = new Flag(1340, this.canvasHelper.GetCenter().Y + 65);
     }
     draw() {
         window.setInterval(this.drawPlayer, 1000 / 30);

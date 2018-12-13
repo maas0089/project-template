@@ -8,7 +8,7 @@ class Platform extends Entity {
     ) {
         super(xCoor, yCoor);
         this.imageSrc = './assets/images/MovingPlatform_Long.png';
-        this.width = 60;
+        this.width = 80;
         this.height = 25;
     }
 }

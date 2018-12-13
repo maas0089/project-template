@@ -1,14 +1,14 @@
 ///<reference path="Entity.ts" />
 
-class Spike extends Entity {
+class Flag extends Entity {
 
     public constructor(
         xCoor: number,
         yCoor: number,
     ) {
         super(xCoor, yCoor);
-        this.imageSrc = './assets/images/spikes/Spike_Group.png';
-        this.width = 80;
-        this.height = 20;
+        this.imageSrc = "./assets/images/flags/Nederland.png";
+        this.width = 55;
+        this.height = 80;
     }
 }
