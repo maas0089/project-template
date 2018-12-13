@@ -26,7 +26,12 @@ class ScreenLevel extends ScreenBase {
 
     public draw() {
         console.log("This is ScreenLevel speaking.");
-        this.canvasHelper.writeImageFromFileToCanvas("/assets/images/MovingPlatform_Long.png", this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y);
+
+        this.canvasHelper.writeImageToCanvas(
+            "/assets/images/MovingPlatform_Long.png",
+            this.canvasHelper.GetCenter().X,
+            this.canvasHelper.GetCenter().Y
+        );
     }
 
     public drawScreenQuiz(): void {
@@ -35,8 +40,8 @@ class ScreenLevel extends ScreenBase {
     }
 }
 
-// function init(): void {
-//     const Untravel = new ScreenLevel();
-//     Untravel.draw();
-// }
-// window.addEventListener('load', init);
+function init(): void {
+    const Untravel = new ScreenLevel();
+    Untravel.draw();
+}
+window.addEventListener('load', init);
