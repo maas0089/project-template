@@ -5,6 +5,7 @@ class ScreenLevelSelect extends ScreenBase {
 
     public constructor(){
         super();
+        this.canvasHelper.ChangeScreen()
     }
 
     public draw(): void {
@@ -18,13 +19,7 @@ class ScreenLevelSelect extends ScreenBase {
         console.log('click');
         this.canvasHelper.UnregisterClickListener('StartGameCommand');
         this.canvasHelper.Clear();
-        // this.screenLevel.draw();
+        this.canvasHelper.ChangeScreen(new ScreenLevel());
     }
 
 }
-
-function init(): void {
-    const Untravel = new ScreenLevelSelect();
-    Untravel.draw();
-}
-window.addEventListener('load', init);

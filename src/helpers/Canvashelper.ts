@@ -2,9 +2,8 @@
 
         private readonly canvas: HTMLCanvasElement;
         private readonly context: CanvasRenderingContext2D; 
-
-        // !There is no class ButtonAction
         private clickCommands: Map<string, ButtonAction> = new Map<string, ButtonAction>();
+        private currentScreen: ScreenBase;
 
         // Singleton
 
@@ -36,6 +35,19 @@
                 this.OnClick(event);
             });
 
+        }
+
+        public ChangeScreen = (newScreen: ScreenBase = null): void => {
+            if (newScreen == null) {
+                return; // return continuing this method would result in unexpected behaviour.
+            }
+
+            // if there is currently a Screen object let that object handle required actions beforeExit
+            // if (this.currentScreen != null) {
+            //     this.currentScreen.BeforeExit();
+            // }
+            this.currentScreen = newScreen;
+            this.currentScreen.draw();
         }
 
         private OnClick(Event: any) {
