@@ -1,3 +1,13 @@
+class App {
+    constructor() {
+        this.canvasHelper = CanvasHelper.Instance();
+        this.canvasHelper.ChangeScreen(new ScreenLevelSelect());
+    }
+}
+let init = function () {
+    const myGame = new App();
+};
+window.addEventListener('load', init);
 class Entity {
     constructor(canvas, imageSource, xCoor, yCoor, width, height) {
         this.canvas = CanvasHelper.Instance();
@@ -8,7 +18,6 @@ class Entity {
         this.height = height;
     }
     draw() {
-        this.canvas.writeImageFromFileToCanvas(this.imageSrc, this.xPos, this.yPos, this.width, this.height);
     }
     getX() {
         return this.xPos;
@@ -80,6 +89,13 @@ class ButtonAction {
 class CanvasHelper {
     constructor(canvas) {
         this.clickCommands = new Map();
+        this.ChangeScreen = (newScreen = null) => {
+            if (newScreen == null) {
+                return;
+            }
+            this.currentScreen = newScreen;
+            this.currentScreen.draw();
+        };
         this.canvas = canvas;
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
@@ -273,7 +289,11 @@ class ScreenLevel extends ScreenBase {
     }
     draw() {
         console.log("This is ScreenLevel speaking.");
+<<<<<<< HEAD
         this.canvasHelper.writeImageFromFileToCanvas("/assets/images/MovingPlatform_Long.png", this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y, 100, 30);
+=======
+        this.canvasHelper.writeImageToCanvas("/assets/images/MovingPlatform_Long.png", this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y);
+>>>>>>> 1eb8bffba562fe01245d11c94368725027ab0793
     }
     drawScreenQuiz() {
         this.canvasHelper.Clear();
@@ -291,7 +311,9 @@ class ScreenLevelSelect extends ScreenBase {
             console.log('click');
             this.canvasHelper.UnregisterClickListener('StartGameCommand');
             this.canvasHelper.Clear();
+            this.canvasHelper.ChangeScreen(new ScreenLevel());
         };
+        this.canvasHelper.ChangeScreen();
     }
     draw() {
         this.canvasHelper.writeTextToCanvas('UNtRAVEL', 50, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y / 3);
