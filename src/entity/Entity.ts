@@ -23,7 +23,7 @@ class Entity {
     }
 
     public draw() {
-        this.canvas.writeImageFromFileToCanvas(this.imageSrc, this.xPos, this.yPos);
+        this.canvas.writeImageFromFileToCanvas(this.imageSrc, this.xPos, this.yPos, this.width, this.height);
     }
 
     public getX(): number
