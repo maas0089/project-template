@@ -7,8 +7,8 @@ class Platform extends Entity {
         yCoor: number,
     ) {
         super(xCoor, yCoor);
-        this.imageSrc = './assets/images/...';
-        this.width = 25;
-        this.height = 30;
+        this.imageSrc = './assets/images/MovingPlatform_Long.png';
+        this.width = 60;
+        this.height = 25;
     }
 }

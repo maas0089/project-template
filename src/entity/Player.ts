@@ -9,7 +9,7 @@ class Player extends Entity {
         yCoor: number,
     ) {
         super(xCoor, yCoor);
-        this.imageSrc = '.assets/images/..';
+        this.imageSrc = './assets/images/character/stand.png';
         this.width = 12;
         this.height = 20;
 

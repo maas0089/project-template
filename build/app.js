@@ -33,15 +33,15 @@ class Entity {
 class Platform extends Entity {
     constructor(xCoor, yCoor) {
         super(xCoor, yCoor);
-        this.imageSrc = './assets/images/...';
-        this.width = 25;
-        this.height = 30;
+        this.imageSrc = './assets/images/MovingPlatform_Long.png';
+        this.width = 60;
+        this.height = 25;
     }
 }
 class Player extends Entity {
     constructor(xCoor, yCoor) {
         super(xCoor, yCoor);
-        this.imageSrc = '.assets/images/..';
+        this.imageSrc = './assets/images/character/stand.png';
         this.width = 12;
         this.height = 20;
         this.keyboardListener = new KeyboardHelper();
@@ -73,7 +73,7 @@ class Player extends Entity {
 class Spike extends Entity {
     constructor(xCoor, yCoor) {
         super(xCoor, yCoor);
-        this.imageSrc = './assets/images/...';
+        this.imageSrc = './assets/images/spikes/Spike_Group.png';
         this.width = 20;
         this.height = 30;
     }
@@ -182,30 +182,30 @@ CanvasHelper.instance = null;
 class KeyboardHelper {
     constructor() {
         this.keyDownHandler = (event) => {
-            if (event.keyCode == 37) {
+            if (event.keyCode == 65) {
                 this.leftPressed = true;
             }
-            if (event.keyCode == 38) {
+            if (event.keyCode == 87) {
                 this.upPressed = true;
             }
-            if (event.keyCode == 39) {
+            if (event.keyCode == 68) {
                 this.rightPressed = true;
             }
-            if (event.keyCode == 40) {
+            if (event.keyCode == 83) {
                 this.downPressed = true;
             }
         };
         this.keyUpHandler = (event) => {
-            if (event.keyCode == 37) {
+            if (event.keyCode == 65) {
                 this.leftPressed = false;
             }
-            if (event.keyCode == 38) {
+            if (event.keyCode == 87) {
                 this.upPressed = false;
             }
-            if (event.keyCode == 39) {
+            if (event.keyCode == 68) {
                 this.rightPressed = false;
             }
-            if (event.keyCode == 40) {
+            if (event.keyCode == 83) {
                 this.downPressed = false;
             }
         };
@@ -293,10 +293,26 @@ class ScreenHighScore extends ScreenBase {
 class ScreenLevel extends ScreenBase {
     constructor() {
         super();
+        this.spikes = new Array();
+        this.platforms = new Array();
+        this.drawPlayer = () => {
+            console.log("This is ScreenLevel speaking.");
+            this.player.draw();
+            this.player.move();
+            this.spikes.forEach((element) => {
+                element.draw();
+            });
+            this.platforms.forEach((element) => {
+                element.draw();
+            });
+            this.canvasHelper.Clear();
+        };
+        this.player = new Player(400, 400);
+        this.spikes.push(new Spike(this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y));
+        this.platforms.push(new Platform(this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y));
     }
     draw() {
-        console.log("This is ScreenLevel speaking.");
-        this.canvasHelper.writeImageFromFileToCanvas("/assets/images/MovingPlatform_Long.png", this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y, 100, 30);
+        window.setInterval(this.drawPlayer, 1000 / 30);
     }
     drawScreenQuiz() {
         this.canvasHelper.Clear();
