@@ -48,16 +48,16 @@ class Player extends Entity {
     }
     move() {
         if (this.keyboardListener.getLeftPressed()) {
-            this.xPos -= 4;
+            this.xPos -= 3;
         }
         if (this.keyboardListener.getUpPressed()) {
-            this.yPos -= 4;
+            this.yPos -= 2;
         }
         if (this.keyboardListener.getRightPressed()) {
-            this.xPos += 4;
+            this.xPos += 3;
         }
         if (this.keyboardListener.getdownPressed()) {
-            this.yPos += 4;
+            this.yPos += 3;
         }
     }
     collisionDetection(enemy) {
@@ -307,9 +307,12 @@ class ScreenLevel extends ScreenBase {
             });
             this.canvasHelper.Clear();
         };
-        this.player = new Player(400, 400);
+        this.player = new Player(this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y - 20);
         this.spikes.push(new Spike(this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y));
         this.platforms.push(new Platform(this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y));
+        this.platforms.push(new Platform(this.canvasHelper.GetCenter().X + 160, this.canvasHelper.GetCenter().Y - 10));
+        this.platforms.push(new Platform(this.canvasHelper.GetCenter().X + 320, this.canvasHelper.GetCenter().Y + 20));
+        this.platforms.push(new Platform(this.canvasHelper.GetCenter().X + 480, this.canvasHelper.GetCenter().Y + 40));
     }
     draw() {
         window.setInterval(this.drawPlayer, 1000 / 30);
