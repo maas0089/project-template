@@ -250,7 +250,7 @@ class TimeHelper {
     }
     startTimer() {
         let interval = setInterval(() => {
-            if (this.seconds < 60) {
+            if (this.seconds < 59) {
                 this.seconds++;
             }
             else {
@@ -304,7 +304,14 @@ class ScreenLevel extends ScreenBase {
         this.spikes = new Array();
         this.platforms = new Array();
         this.drawPlayer = () => {
+            let time = this.timer.getTime();
             console.log("This is ScreenLevel speaking.");
+            console.log(time.Seconds);
+            this.canvasHelper.Clear();
+            if (time.Seconds < 10)
+                this.canvasHelper.writeTextToCanvas(`Time ${time.Minutes}:0${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y, 'black');
+            else
+                this.canvasHelper.writeTextToCanvas(`Time ${time.Minutes}:${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y, 'black');
             this.player.draw();
             this.player.move();
             this.spikes.forEach((element) => {
@@ -314,7 +321,6 @@ class ScreenLevel extends ScreenBase {
                 element.draw();
             });
             this.countryFlag.draw();
-            this.canvasHelper.Clear();
         };
         this.player = new Player(100, this.canvasHelper.GetCenter().Y - 20);
         this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y));
@@ -335,6 +341,7 @@ class ScreenLevel extends ScreenBase {
         this.countryFlag = new Flag(1340, this.canvasHelper.GetCenter().Y + 65);
     }
     draw() {
+        this.timer.startTimer();
         window.setInterval(this.drawPlayer, 1000 / 30);
     }
     drawScreenQuiz() {

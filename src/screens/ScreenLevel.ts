@@ -31,11 +31,17 @@ class ScreenLevel extends ScreenBase {
     }
 
     public draw(){
+        this.timer.startTimer();
         window.setInterval(this.drawPlayer, 1000 / 30);
     }
 
     public drawPlayer = () => {
+        let time = this.timer.getTime();
         console.log("This is ScreenLevel speaking.");
+        console.log(time.Seconds);
+        this.canvasHelper.Clear();
+        if(time.Seconds < 10) this.canvasHelper.writeTextToCanvas(`Time ${time.Minutes}:0${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y, 'black');
+        else this.canvasHelper.writeTextToCanvas(`Time ${time.Minutes}:${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y, 'black');
 
         this.player.draw();
         this.player.move();
@@ -47,7 +53,6 @@ class ScreenLevel extends ScreenBase {
         })
         this.countryFlag.draw();
 
-        this.canvasHelper.Clear();
     }
 
 
