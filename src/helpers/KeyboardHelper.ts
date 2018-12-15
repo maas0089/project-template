@@ -18,7 +18,7 @@ class KeyboardHelper {
         if (event.keyCode == 65) {
             this.leftPressed = true;
         }
-        if (event.keyCode == 87) {
+        if (event.keyCode == 32) {
             this.upPressed = true;
         }
         if (event.keyCode == 68) {
@@ -33,7 +33,7 @@ class KeyboardHelper {
         if (event.keyCode == 65) {
             this.leftPressed = false;
         }
-        if (event.keyCode == 87) {
+        if (event.keyCode == 32) {
             this.upPressed = false;
         }
         if (event.keyCode == 68) {

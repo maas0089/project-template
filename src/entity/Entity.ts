@@ -5,7 +5,7 @@ class Entity {
     protected width: number;
     protected image: any;
     protected imageSrc: string;
-    private canvas: CanvasHelper;
+    protected canvas: CanvasHelper;
 
     public constructor(
         xCoor: number,

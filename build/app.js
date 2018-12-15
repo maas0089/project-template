@@ -58,6 +58,9 @@ class Platform extends Entity {
 class Player extends Entity {
     constructor(xCoor, yCoor) {
         super(xCoor, yCoor);
+        this.jumpStart = 0;
+        this.currentJump = 0;
+        this.jumpEnd = 18;
         this.width = 12;
         this.height = 20;
         this.gravity = 3;
@@ -79,25 +82,35 @@ class Player extends Entity {
             this.xPos -= 3;
         }
         if (this.keyboardListener.getUpPressed()) {
-            this.yPos -= 2;
+            if (this.currentJump < this.jumpEnd) {
+                this.yPos -= 2;
+                this.currentJump++;
+            }
+            else {
+                this.fall();
+            }
         }
         else
             this.fall();
         if (this.keyboardListener.getRightPressed()) {
             this.xPos += 3;
         }
+        if (this.getY() > this.canvas.GetHeight())
+            this.resetPosition();
     }
     fall() {
         this.yPos += this.gravity;
+        this.currentJump = this.jumpEnd;
     }
     stopFalling() {
         this.yPos -= this.gravity;
+        this.currentJump = this.jumpStart;
     }
     platformCollision(platform) {
         if (this.getX() < platform.getX() + platform.getWidth() &&
             this.getX() + this.getWidth() > platform.getX() &&
             this.getY() + this.getHeight() > platform.getY() &&
-            this.getY() + this.getHeight() < platform.getY() + platform.getHeight()) {
+            this.getY() + this.getHeight() < platform.getY() + 4) {
             return true;
         }
         return false;
@@ -238,7 +251,7 @@ class KeyboardHelper {
             if (event.keyCode == 65) {
                 this.leftPressed = true;
             }
-            if (event.keyCode == 87) {
+            if (event.keyCode == 32) {
                 this.upPressed = true;
             }
             if (event.keyCode == 68) {
@@ -252,7 +265,7 @@ class KeyboardHelper {
             if (event.keyCode == 65) {
                 this.leftPressed = false;
             }
-            if (event.keyCode == 87) {
+            if (event.keyCode == 32) {
                 this.upPressed = false;
             }
             if (event.keyCode == 68) {

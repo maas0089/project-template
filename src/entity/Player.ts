@@ -6,6 +6,9 @@ class Player extends Entity {
     private startX: number;
     private startY: number;
     private gravity: number;
+    private jumpStart: number = 0;
+    private currentJump: number = 0;
+    private jumpEnd: number = 18
 
     public constructor(
         xCoor: number,
@@ -30,34 +33,38 @@ class Player extends Entity {
         this.keyboardListener = new KeyboardHelper();
     }
 
-    public resetPosition() {
+    public resetPosition(): void {
         this.xPos = this.startX;
         this.yPos = this.startY;
     }
 
-    public move() {
+    public move(): void {
         if (this.keyboardListener.getLeftPressed()) {
             this.xPos -= 3;
         }
         if (this.keyboardListener.getUpPressed()) {
-            this.yPos -= 2;
+            if (this.currentJump < this.jumpEnd){
+                this.yPos -= 2;
+                this.currentJump ++;
+            } else {
+                this.fall();
+            }
         }
         else this.fall();
-        // else this.fall();
         if (this.keyboardListener.getRightPressed()) {
             this.xPos += 3;
         }
-        // if (this.keyboardListener.getdownPressed()) {
-        //     this.yPos += 3;
-        // }
+        if(this.getY() > this.canvas.GetHeight()) this.resetPosition();
     }
 
     public fall() {
         this.yPos += this.gravity;
+        this.currentJump = this.jumpEnd;
     }
 
     public stopFalling() {
         this.yPos -= this.gravity;
+        this.currentJump = this.jumpStart;
     }
 
     public platformCollision(platform: Entity): boolean {
@@ -66,7 +73,7 @@ class Player extends Entity {
             this.getX() < platform.getX() + platform.getWidth() &&
             this.getX() + this.getWidth() > platform.getX() &&
             this.getY() + this.getHeight() > platform.getY() &&
-            this.getY() + this.getHeight() < platform.getY() + platform.getHeight()
+            this.getY() + this.getHeight() < platform.getY() + 4
         ) {
             return true;
         }
