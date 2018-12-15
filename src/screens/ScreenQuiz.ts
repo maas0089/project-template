@@ -9,7 +9,7 @@ class ScreenQuiz extends ScreenBase{
     }
 
     public draw(): void {
-
+        this.canvasHelper.writeTextToCanvas('QUIZ SCREEN', 50, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y);
     }
     
     public checkAnswer(): void {

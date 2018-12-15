@@ -7,8 +7,16 @@ class Spike extends Entity {
         yCoor: number,
     ) {
         super(xCoor, yCoor);
-        this.imageSrc = './assets/images/spikes/Spike_Group.png';
+        // this.imageSrc = './assets/images/spikes/Spike_Group.png';
         this.width = 80;
         this.height = 20;
+
+        let img = new Image();
+        img.addEventListener('load', () => {
+            this.image = img;
+        });
+
+        img.src = './assets/images/spikes/Spike_Group.png';
+
     }
 }

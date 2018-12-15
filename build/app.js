@@ -15,7 +15,8 @@ class Entity {
         this.yPos = yCoor;
     }
     draw() {
-        this.canvas.writeImageFromFileToCanvas(this.imageSrc, this.xPos, this.yPos, this.width, this.height);
+        if (this.image != null)
+            this.canvas.writeImageToCanvas(this.image, this.xPos, this.yPos, this.width, this.height);
     }
     getX() {
         return this.xPos;
@@ -33,26 +34,45 @@ class Entity {
 class Flag extends Entity {
     constructor(xCoor, yCoor) {
         super(xCoor, yCoor);
-        this.imageSrc = "./assets/images/flags/Nederland.png";
         this.width = 55;
         this.height = 80;
+        let img = new Image();
+        img.addEventListener('load', () => {
+            this.image = img;
+        });
+        img.src = './assets/images/flags/Nederland.png';
     }
 }
 class Platform extends Entity {
     constructor(xCoor, yCoor) {
         super(xCoor, yCoor);
-        this.imageSrc = './assets/images/MovingPlatform_Long.png';
         this.width = 80;
         this.height = 25;
+        let img = new Image();
+        img.addEventListener('load', () => {
+            this.image = img;
+        });
+        img.src = './assets/images/MovingPlatform_Long.png';
     }
 }
 class Player extends Entity {
     constructor(xCoor, yCoor) {
         super(xCoor, yCoor);
-        this.imageSrc = './assets/images/character/stand.png';
         this.width = 12;
         this.height = 20;
+        this.gravity = 3;
+        this.startX = xCoor;
+        this.startY = yCoor;
+        let img = new Image();
+        img.addEventListener('load', () => {
+            this.image = img;
+        });
+        img.src = './assets/images/character/stand.png';
         this.keyboardListener = new KeyboardHelper();
+    }
+    resetPosition() {
+        this.xPos = this.startX;
+        this.yPos = this.startY;
     }
     move() {
         if (this.keyboardListener.getLeftPressed()) {
@@ -61,18 +81,32 @@ class Player extends Entity {
         if (this.keyboardListener.getUpPressed()) {
             this.yPos -= 2;
         }
+        else
+            this.fall();
         if (this.keyboardListener.getRightPressed()) {
             this.xPos += 3;
         }
-        if (this.keyboardListener.getdownPressed()) {
-            this.yPos += 3;
-        }
     }
-    collisionDetection(enemy) {
-        if (this.getX() < enemy.getX() + enemy.getWidth() &&
-            this.getX() + this.getWidth() > enemy.getX() &&
-            this.getY() < enemy.getY() + enemy.getHeight() &&
-            this.getY() + this.getHeight() > enemy.getY()) {
+    fall() {
+        this.yPos += this.gravity;
+    }
+    stopFalling() {
+        this.yPos -= this.gravity;
+    }
+    platformCollision(platform) {
+        if (this.getX() < platform.getX() + platform.getWidth() &&
+            this.getX() + this.getWidth() > platform.getX() &&
+            this.getY() + this.getHeight() > platform.getY() &&
+            this.getY() + this.getHeight() < platform.getY() + platform.getHeight()) {
+            return true;
+        }
+        return false;
+    }
+    entityCollision(entity) {
+        if (this.getX() < entity.getX() + entity.getWidth() &&
+            this.getX() + this.getWidth() > entity.getX() &&
+            this.getY() < entity.getY() + entity.getHeight() &&
+            this.getY() + this.getHeight() > entity.getY()) {
             return true;
         }
         return false;
@@ -81,9 +115,13 @@ class Player extends Entity {
 class Spike extends Entity {
     constructor(xCoor, yCoor) {
         super(xCoor, yCoor);
-        this.imageSrc = './assets/images/spikes/Spike_Group.png';
         this.width = 80;
         this.height = 20;
+        let img = new Image();
+        img.addEventListener('load', () => {
+            this.image = img;
+        });
+        img.src = './assets/images/spikes/Spike_Group.png';
     }
 }
 class ButtonAction {
@@ -138,6 +176,13 @@ class CanvasHelper {
     Clear() {
         this.context.clearRect(0, 0, this.GetWidth(), this.GetHeight());
     }
+    BeginUpdate() {
+        this.context.save();
+    }
+    EndUpdate() {
+        this.context.clip();
+        this.context.restore();
+    }
     GetCanvas() {
         return this.canvas;
     }
@@ -163,8 +208,8 @@ class CanvasHelper {
         });
         image.src = src;
     }
-    writeImageToCanvas(image, xpos, ypos) {
-        this.context.drawImage(image, xpos, ypos);
+    writeImageToCanvas(image, xpos, ypos, width, height) {
+        this.context.drawImage(image, xpos, ypos, width, height);
     }
     writeButtonToCanvas(caption, fnName, fn, xpos = -1, ypos = -1) {
         let buttonImage = new Image();
@@ -305,22 +350,32 @@ class ScreenLevel extends ScreenBase {
         this.platforms = new Array();
         this.drawPlayer = () => {
             let time = this.timer.getTime();
-            console.log("This is ScreenLevel speaking.");
-            console.log(time.Seconds);
+            this.canvasHelper.BeginUpdate();
             this.canvasHelper.Clear();
             if (time.Seconds < 10)
-                this.canvasHelper.writeTextToCanvas(`Time ${time.Minutes}:0${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y, 'black');
+                this.canvasHelper.writeTextToCanvas(`Tijd ${time.Minutes}:0${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, 50, 'black');
             else
-                this.canvasHelper.writeTextToCanvas(`Time ${time.Minutes}:${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y, 'black');
-            this.player.draw();
-            this.player.move();
+                this.canvasHelper.writeTextToCanvas(`Tijd ${time.Minutes}:${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, 50, 'black');
             this.spikes.forEach((element) => {
                 element.draw();
+                if (this.player.entityCollision(element))
+                    this.player.resetPosition();
             });
             this.platforms.forEach((element) => {
                 element.draw();
+                if (this.player.platformCollision(element))
+                    this.player.stopFalling();
             });
+            this.player.draw();
+            this.player.move();
             this.countryFlag.draw();
+            this.canvasHelper.EndUpdate();
+            if (!this.player.entityCollision(this.countryFlag)) {
+                requestAnimationFrame(this.drawPlayer);
+            }
+            else {
+                this.drawScreenQuiz();
+            }
         };
         this.player = new Player(100, this.canvasHelper.GetCenter().Y - 20);
         this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y));
@@ -341,11 +396,13 @@ class ScreenLevel extends ScreenBase {
         this.countryFlag = new Flag(1340, this.canvasHelper.GetCenter().Y + 65);
     }
     draw() {
+        console.log("This is ScreenLevel speaking.");
         this.timer.startTimer();
-        window.setInterval(this.drawPlayer, 1000 / 30);
+        this.drawPlayer();
     }
     drawScreenQuiz() {
         this.canvasHelper.Clear();
+        this.canvasHelper.ChangeScreen(new ScreenQuiz());
     }
 }
 class ScreenLevelSelect extends ScreenBase {
@@ -370,6 +427,7 @@ class ScreenQuiz extends ScreenBase {
         super();
     }
     draw() {
+        this.canvasHelper.writeTextToCanvas('QUIZ SCREEN', 50, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y);
     }
     checkAnswer() {
     }

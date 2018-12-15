@@ -72,6 +72,17 @@
             this.context.clearRect(0, 0, this.GetWidth(), this.GetHeight());
         }
 
+        public BeginUpdate(): void {
+            this.context.save();
+        }
+
+        public EndUpdate(): void {
+            this.context.clip();
+            this.context.restore();
+        }
+
+
+
 
         /**
          * GetCanvas
@@ -143,7 +154,6 @@
             let image = new Image();
             // add the listener so the waiting will not affect the change
             image.addEventListener('load', () => {
-                //this.d_context.clip();
                 this.context.drawImage(image, xpos, ypos, width, height);
             });
 
@@ -153,9 +163,11 @@
 
         public writeImageToCanvas(image: any,
                                   xpos: number,
-                                  ypos: number): void {
+                                  ypos: number,
+                                  width: number,
+                                  height: number): void {
 
-            this.context.drawImage(image, xpos, ypos);
+            this.context.drawImage(image, xpos, ypos, width, height);
         }
 
         /**

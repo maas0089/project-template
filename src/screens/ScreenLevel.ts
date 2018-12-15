@@ -31,33 +31,50 @@ class ScreenLevel extends ScreenBase {
     }
 
     public draw(){
+        console.log("This is ScreenLevel speaking.");
         this.timer.startTimer();
-        window.setInterval(this.drawPlayer, 1000 / 30);
+        this.drawPlayer();
+
+        // window.setInterval(this.drawPlayer, 1000 / 30);
     }
 
     public drawPlayer = () => {
         let time = this.timer.getTime();
-        console.log("This is ScreenLevel speaking.");
-        console.log(time.Seconds);
-        this.canvasHelper.Clear();
-        if(time.Seconds < 10) this.canvasHelper.writeTextToCanvas(`Time ${time.Minutes}:0${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y, 'black');
-        else this.canvasHelper.writeTextToCanvas(`Time ${time.Minutes}:${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y, 'black');
 
-        this.player.draw();
-        this.player.move();
+        this.canvasHelper.BeginUpdate();
+
+        this.canvasHelper.Clear();
+        if(time.Seconds < 10) this.canvasHelper.writeTextToCanvas(`Tijd ${time.Minutes}:0${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, 50, 'black');
+        else this.canvasHelper.writeTextToCanvas(`Tijd ${time.Minutes}:${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, 50, 'black');
+
         this.spikes.forEach((element: Entity): void => {
             element.draw();
+            if(this.player.entityCollision(element)) this.player.resetPosition();
         });
         this.platforms.forEach((element: Entity): void => {
             element.draw();
+            if(this.player.platformCollision(element)) this.player.stopFalling();
         })
+
+        this.player.draw();
+        this.player.move();
+
         this.countryFlag.draw();
+
+        this.canvasHelper.EndUpdate();
+
+        if(!this.player.entityCollision(this.countryFlag)) {
+            requestAnimationFrame(this.drawPlayer);
+        } 
+        else {
+            this.drawScreenQuiz();
+        }
 
     }
 
 
     public drawScreenQuiz(): void {
         this.canvasHelper.Clear();
-        // this.screenQuiz.draw();
+        this.canvasHelper.ChangeScreen(new ScreenQuiz());
     }
 }
