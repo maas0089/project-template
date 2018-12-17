@@ -179,10 +179,15 @@
          * @param fn - the callback method (click if the location of the button is clicked)
          * @param xpos - the left top x position of the button
          * @param ypos - the left top y position of the button
+         * @param button - which button to use (0 or 1)
          */
-        public writeButtonToCanvas(caption: string, fnName: string, fn: () => void, xpos: number = -1, ypos: number = -1) {
+        public writeButtonToCanvas(caption: string, fnName: string, fn: () => void, xpos: number = -1, ypos: number = -1, button: number = 0) {
+            let buttonSource = [
+                "./assets/images/buttonBlue.png",
+                "./assets/images/correctButtonBlue.png"
+            ]
             let buttonImage = new Image();
-            buttonImage.src = "./assets/images//buttonBlue.png";
+            buttonImage.src = `${buttonSource[button]}`;
 
             buttonImage.addEventListener('load', (): void => {
                 let dx = xpos;

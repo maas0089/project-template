@@ -224,9 +224,13 @@ class CanvasHelper {
     writeImageToCanvas(image, xpos, ypos, width, height) {
         this.context.drawImage(image, xpos, ypos, width, height);
     }
-    writeButtonToCanvas(caption, fnName, fn, xpos = -1, ypos = -1) {
+    writeButtonToCanvas(caption, fnName, fn, xpos = -1, ypos = -1, button = 0) {
+        let buttonSource = [
+            "./assets/images/buttonBlue.png",
+            "./assets/images/correctButtonBlue.png"
+        ];
         let buttonImage = new Image();
-        buttonImage.src = "./assets/images//buttonBlue.png";
+        buttonImage.src = `${buttonSource[button]}`;
         buttonImage.addEventListener('load', () => {
             let dx = xpos;
             let dy = ypos;
@@ -483,12 +487,35 @@ class ScreenQuiz extends ScreenBase {
                 c: 'Haarlem'
             }
         ];
-        this.correct = 0;
-        this.checkAnswer = () => {
+        this.firstAnswer = 0;
+        this.secondAnswer = 0;
+        this.thirdAnswer = 0;
+        this.checkAnswerOne = () => {
             console.log('Correct!');
-            this.correct++;
-            if (this.correct == 3)
+            this.firstAnswer = 1;
+            this.removeButtons();
+            if (this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1)
                 this.drawScreenEndResult();
+            else
+                this.drawScreenQuiz(this.firstAnswer, this.secondAnswer, this.thirdAnswer);
+        };
+        this.checkAnswerTwo = () => {
+            console.log('Correct!');
+            this.secondAnswer = 1;
+            this.removeButtons();
+            if (this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1)
+                this.drawScreenEndResult();
+            else
+                this.drawScreenQuiz(this.firstAnswer, this.secondAnswer, this.thirdAnswer);
+        };
+        this.checkAnswerThree = () => {
+            console.log('Correct!');
+            this.thirdAnswer = 1;
+            this.removeButtons();
+            if (this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1)
+                this.drawScreenEndResult();
+            else
+                this.drawScreenQuiz(this.firstAnswer, this.secondAnswer, this.thirdAnswer);
         };
         this.drawScreenLevel = () => {
             this.canvasHelper.Clear();
@@ -501,6 +528,7 @@ class ScreenQuiz extends ScreenBase {
             this.canvasHelper.ChangeScreen(new ScreenEndResult);
         };
         this.removeButtons = () => {
+            this.canvasHelper.Clear();
             this.canvasHelper.UnregisterClickListener('startGame1');
             this.canvasHelper.UnregisterClickListener('startGame2');
             this.canvasHelper.UnregisterClickListener('startGame3');
@@ -513,18 +541,21 @@ class ScreenQuiz extends ScreenBase {
         };
     }
     draw() {
+        this.drawScreenQuiz(0, 0, 0);
+    }
+    drawScreenQuiz(first, second, third) {
         this.timer.pauseTimer();
         this.canvasHelper.writeTextToCanvas('Wat ligt hier?', 50, this.canvasHelper.GetCenter().X, 50);
-        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[0]}`, 100, 100, 504, 597);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[0].a}`, 'startGame1', this.checkAnswer, this.canvasHelper.GetWidth() * 0.6, 100);
+        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[0]}`, 350, 100, 504, 597);
+        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[0].a}`, 'startGame1', this.checkAnswerOne, this.canvasHelper.GetWidth() * 0.6, 100, first);
         this.canvasHelper.writeButtonToCanvas(`${this.qAndA[0].b}`, 'startGame2', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 150);
         this.canvasHelper.writeButtonToCanvas(`${this.qAndA[0].c}`, 'startGame3', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 200);
         this.canvasHelper.writeButtonToCanvas(`${this.qAndA[1].a}`, 'startGame4', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 300);
         this.canvasHelper.writeButtonToCanvas(`${this.qAndA[1].b}`, 'startGame5', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 350);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[1].c}`, 'startGame6', this.checkAnswer, this.canvasHelper.GetWidth() * 0.6, 400);
+        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[1].c}`, 'startGame6', this.checkAnswerTwo, this.canvasHelper.GetWidth() * 0.6, 400, second);
         this.canvasHelper.writeButtonToCanvas(`${this.qAndA[2].a}`, 'startGame7', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 500);
         this.canvasHelper.writeButtonToCanvas(`${this.qAndA[2].b}`, 'startGame8', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 550);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[2].c}`, 'startGame9', this.checkAnswer, this.canvasHelper.GetWidth() * 0.6, 600);
+        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[2].c}`, 'startGame9', this.checkAnswerThree, this.canvasHelper.GetWidth() * 0.6, 600, third);
     }
 }
 //# sourceMappingURL=app.js.map
