@@ -7,11 +7,14 @@ class ScreenEndResult extends ScreenBase {
     }
 
     public draw(): void {
-
+        this.canvasHelper.writeTextToCanvas('END SCREEN', 50, this.canvasHelper.GetCenter().X, 50);
+        this.canvasHelper.writeButtonToCanvas('Back', 'back', this.drawScreenHighScore, undefined, undefined);
     }
 
-    public drawScreenHighScore(): void {
+    public drawScreenHighScore = (): void => {
         this.canvasHelper.Clear();
-        // this.screenHighScore.draw();
+        this.canvasHelper.UnregisterClickListener('back');
+        this.canvasHelper.ChangeScreen(new ScreenQuiz);
+
     }
 }

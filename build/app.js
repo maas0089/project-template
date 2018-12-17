@@ -339,11 +339,15 @@ class ScreenBase {
 class ScreenEndResult extends ScreenBase {
     constructor() {
         super();
+        this.drawScreenHighScore = () => {
+            this.canvasHelper.Clear();
+            this.canvasHelper.UnregisterClickListener('back');
+            this.canvasHelper.ChangeScreen(new ScreenQuiz);
+        };
     }
     draw() {
-    }
-    drawScreenHighScore() {
-        this.canvasHelper.Clear();
+        this.canvasHelper.writeTextToCanvas('END SCREEN', 50, this.canvasHelper.GetCenter().X, 50);
+        this.canvasHelper.writeButtonToCanvas('Back', 'back', this.drawScreenHighScore, undefined, undefined);
     }
 }
 class ScreenHighScore extends ScreenBase {
@@ -438,14 +442,46 @@ class ScreenLevelSelect extends ScreenBase {
 class ScreenQuiz extends ScreenBase {
     constructor() {
         super();
+        this.correct = 0;
+        this.checkAnswer = () => {
+            console.log('Correct!');
+            this.correct++;
+            if (this.correct == 3)
+                this.drawScreenEndResult();
+        };
+        this.drawScreenLevel = () => {
+            this.canvasHelper.Clear();
+            this.removeButtons();
+            this.canvasHelper.ChangeScreen(new ScreenLevel);
+        };
+        this.drawScreenEndResult = () => {
+            this.canvasHelper.Clear();
+            this.removeButtons();
+            this.canvasHelper.ChangeScreen(new ScreenEndResult);
+        };
+        this.removeButtons = () => {
+            this.canvasHelper.UnregisterClickListener('startGame1');
+            this.canvasHelper.UnregisterClickListener('startGame2');
+            this.canvasHelper.UnregisterClickListener('startGame3');
+            this.canvasHelper.UnregisterClickListener('startGame4');
+            this.canvasHelper.UnregisterClickListener('startGame5');
+            this.canvasHelper.UnregisterClickListener('startGame6');
+            this.canvasHelper.UnregisterClickListener('startGame7');
+            this.canvasHelper.UnregisterClickListener('startGame8');
+            this.canvasHelper.UnregisterClickListener('startGame9');
+        };
     }
     draw() {
-        this.canvasHelper.writeTextToCanvas('QUIZ SCREEN', 50, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y);
-    }
-    checkAnswer() {
-    }
-    drawScreenLevel() {
-        this.canvasHelper.Clear();
+        this.canvasHelper.writeTextToCanvas('Wat ligt hier?', 50, this.canvasHelper.GetCenter().X, 50);
+        this.canvasHelper.writeButtonToCanvas('1A', 'startGame1', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 100);
+        this.canvasHelper.writeButtonToCanvas('1B', 'startGame2', this.checkAnswer, this.canvasHelper.GetWidth() * 0.6, 150);
+        this.canvasHelper.writeButtonToCanvas('1C', 'startGame3', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 200);
+        this.canvasHelper.writeButtonToCanvas('2A', 'startGame4', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 300);
+        this.canvasHelper.writeButtonToCanvas('2B', 'startGame5', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 350);
+        this.canvasHelper.writeButtonToCanvas('2C', 'startGame6', this.checkAnswer, this.canvasHelper.GetWidth() * 0.6, 400);
+        this.canvasHelper.writeButtonToCanvas('3A', 'startGame7', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 500);
+        this.canvasHelper.writeButtonToCanvas('3B', 'startGame8', this.checkAnswer, this.canvasHelper.GetWidth() * 0.6, 550);
+        this.canvasHelper.writeButtonToCanvas('3C', 'startGame9', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 600);
     }
 }
 //# sourceMappingURL=app.js.map
