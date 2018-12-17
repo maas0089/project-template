@@ -9,6 +9,7 @@ class ScreenQuiz extends ScreenBase{
     }
 
     public draw(): void {
+        this.timer.pauseTimer();
         this.canvasHelper.writeTextToCanvas('Wat ligt hier?', 50, this.canvasHelper.GetCenter().X, 50);
 
         //question 2 (answer B)

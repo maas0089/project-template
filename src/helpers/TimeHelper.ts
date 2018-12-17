@@ -2,6 +2,7 @@ class TimeHelper {
     private minutes: number;
     private seconds: number;
     private static instance: TimeHelper = null;
+    private interval: any;
 
     public static Instance(): TimeHelper {
         if (this.instance == null) {
@@ -17,19 +18,19 @@ class TimeHelper {
     }
 
     public startTimer(): void {
-        let interval = setInterval( () => {
-            if(this.seconds < 59){
-                this.seconds++
-            }
-            else{
-                this.seconds = 0;
-                this.minutes++;
-            }            
-        }, 1000)
+            this.interval = setInterval( () => {
+                if(this.seconds < 59){
+                    this.seconds++
+                }
+                else{
+                    this.seconds = 0;
+                    this.minutes++;
+                }            
+            }, 1000)
     }
 
     public pauseTimer(): void {
-
+        clearInterval(this.interval);
     }
 
     public stopTimer(): void {
@@ -37,6 +38,7 @@ class TimeHelper {
     }
 
     public resetTimer(): void {
+        clearInterval(this.interval);
         this.minutes = 0;
         this.seconds = 0;
     }
