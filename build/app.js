@@ -60,7 +60,7 @@ class Player extends Entity {
         super(xCoor, yCoor);
         this.jumpStart = 0;
         this.currentJump = 0;
-        this.jumpEnd = 18;
+        this.jumpEnd = 22;
         this.width = 12;
         this.height = 20;
         this.gravity = 3;
@@ -398,23 +398,23 @@ class ScreenLevel extends ScreenBase {
                 this.drawScreenQuiz();
             }
         };
-        this.player = new Player(100, this.canvasHelper.GetCenter().Y - 20);
-        this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y));
-        this.platforms.push(new Platform(250, this.canvasHelper.GetCenter().Y - 10));
-        this.platforms.push(new Platform(180, this.canvasHelper.GetCenter().Y + 40));
-        this.spikes.push(new Spike(180, this.canvasHelper.GetCenter().Y + 25));
-        this.platforms.push(new Platform(380, this.canvasHelper.GetCenter().Y + 60));
-        this.platforms.push(new Platform(470, this.canvasHelper.GetCenter().Y + 120));
-        this.spikes.push(new Spike(470, this.canvasHelper.GetCenter().Y + 105));
-        this.platforms.push(new Platform(600, this.canvasHelper.GetCenter().Y + 160));
-        this.platforms.push(new Platform(760, this.canvasHelper.GetCenter().Y + 180));
-        this.platforms.push(new Platform(860, this.canvasHelper.GetCenter().Y + 140));
-        this.platforms.push(new Platform(960, this.canvasHelper.GetCenter().Y + 100));
-        this.platforms.push(new Platform(1060, this.canvasHelper.GetCenter().Y + 60));
-        this.platforms.push(new Platform(1200, this.canvasHelper.GetCenter().Y + 200));
-        this.spikes.push(new Spike(1200, this.canvasHelper.GetCenter().Y + 185));
-        this.platforms.push(new Platform(1300, this.canvasHelper.GetCenter().Y + 140));
-        this.countryFlag = new Flag(1340, this.canvasHelper.GetCenter().Y + 65);
+        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 180);
+        this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 200));
+        this.platforms.push(new Platform(250, this.canvasHelper.GetCenter().Y + 190));
+        this.platforms.push(new Platform(180, this.canvasHelper.GetCenter().Y + 240));
+        this.spikes.push(new Spike(180, this.canvasHelper.GetCenter().Y + 225));
+        this.platforms.push(new Platform(380, this.canvasHelper.GetCenter().Y + 260));
+        this.platforms.push(new Platform(470, this.canvasHelper.GetCenter().Y + 320));
+        this.spikes.push(new Spike(470, this.canvasHelper.GetCenter().Y + 305));
+        this.platforms.push(new Platform(600, this.canvasHelper.GetCenter().Y + 360));
+        this.platforms.push(new Platform(760, this.canvasHelper.GetCenter().Y + 380));
+        this.platforms.push(new Platform(860, this.canvasHelper.GetCenter().Y + 340));
+        this.platforms.push(new Platform(960, this.canvasHelper.GetCenter().Y + 300));
+        this.platforms.push(new Platform(1060, this.canvasHelper.GetCenter().Y + 260));
+        this.platforms.push(new Platform(1200, this.canvasHelper.GetCenter().Y + 400));
+        this.spikes.push(new Spike(1200, this.canvasHelper.GetCenter().Y + 385));
+        this.platforms.push(new Platform(1300, this.canvasHelper.GetCenter().Y + 340));
+        this.countryFlag = new Flag(1340, this.canvasHelper.GetCenter().Y + 265);
     }
     draw() {
         console.log("This is ScreenLevel speaking.");
