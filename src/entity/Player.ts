@@ -8,7 +8,7 @@ class Player extends Entity {
     private gravity: number;
     private jumpStart: number = 0;
     private currentJump: number = 0;
-    private jumpEnd: number = 18
+    private jumpEnd: number = 22;
 
     public constructor(
         xCoor: number,

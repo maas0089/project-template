@@ -206,4 +206,8 @@
             });
 
         }
+
+        public drawBorder(xCoor: number, yCoor: number, width: number, height: number) {
+            this.context.strokeRect(xCoor, yCoor, width, height);
+        }
     }

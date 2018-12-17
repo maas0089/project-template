@@ -243,6 +243,9 @@ class CanvasHelper {
             }
         });
     }
+    drawBorder(xCoor, yCoor, width, height) {
+        this.context.strokeRect(xCoor, yCoor, width, height);
+    }
 }
 CanvasHelper.instance = null;
 class KeyboardHelper {
@@ -365,7 +368,7 @@ class ScreenLevel extends ScreenBase {
         super();
         this.spikes = new Array();
         this.platforms = new Array();
-        this.drawPlayer = () => {
+        this.drawScreenLevel = () => {
             let time = this.timer.getTime();
             this.canvasHelper.BeginUpdate();
             this.canvasHelper.Clear();
@@ -373,6 +376,7 @@ class ScreenLevel extends ScreenBase {
                 this.canvasHelper.writeTextToCanvas(`Tijd ${time.Minutes}:0${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, 50, 'black');
             else
                 this.canvasHelper.writeTextToCanvas(`Tijd ${time.Minutes}:${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, 50, 'black');
+            this.controlsInstructions();
             this.spikes.forEach((element) => {
                 element.draw();
                 if (this.player.entityCollision(element))
@@ -388,7 +392,7 @@ class ScreenLevel extends ScreenBase {
             this.countryFlag.draw();
             this.canvasHelper.EndUpdate();
             if (!this.player.entityCollision(this.countryFlag)) {
-                requestAnimationFrame(this.drawPlayer);
+                requestAnimationFrame(this.drawScreenLevel);
             }
             else {
                 this.drawScreenQuiz();
@@ -415,7 +419,13 @@ class ScreenLevel extends ScreenBase {
     draw() {
         console.log("This is ScreenLevel speaking.");
         this.timer.startTimer();
-        this.drawPlayer();
+        this.drawScreenLevel();
+    }
+    controlsInstructions() {
+        this.canvasHelper.writeTextToCanvas("Links: A", 20, 30, 50, undefined, "left");
+        this.canvasHelper.writeTextToCanvas("Rechts: D", 20, 30, 80, undefined, "left");
+        this.canvasHelper.writeTextToCanvas("Springen: Spatiebalk (ingedrukt houden)", 20, 30, 110, undefined, "left");
+        this.canvasHelper.drawBorder(0, 0, 400, 120);
     }
     drawScreenQuiz() {
         this.canvasHelper.Clear();

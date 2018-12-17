@@ -27,18 +27,23 @@ class ScreenLevel extends ScreenBase {
         this.platforms.push(new Platform(1200, this.canvasHelper.GetCenter().Y + 200)); // platform with spike 3
         this.spikes.push(new Spike(1200, this.canvasHelper.GetCenter().Y + 185));
         this.platforms.push(new Platform(1300, this.canvasHelper.GetCenter().Y + 140)); // platform with flag
-        this.countryFlag = new Flag(1340, this.canvasHelper.GetCenter().Y + 65); // Y -75 
+        this.countryFlag = new Flag(1340, this.canvasHelper.GetCenter().Y + 65); // Y -75
     }
 
-    public draw(){
+    public draw() {
         console.log("This is ScreenLevel speaking.");
         this.timer.startTimer();
-        this.drawPlayer();
-
-        // window.setInterval(this.drawPlayer, 1000 / 30);
+        this.drawScreenLevel();
     }
 
-    public drawPlayer = () => {
+    public controlsInstructions() {
+        this.canvasHelper.writeTextToCanvas("Links: A", 20, 30, 50, undefined, "left");
+        this.canvasHelper.writeTextToCanvas("Rechts: D", 20, 30, 80, undefined, "left");
+        this.canvasHelper.writeTextToCanvas("Springen: Spatiebalk (ingedrukt houden)", 20, 30, 110, undefined, "left");
+        this.canvasHelper.drawBorder(0, 0, 400, 120);
+    }
+
+    public drawScreenLevel = () => {
         let time = this.timer.getTime();
 
         this.canvasHelper.BeginUpdate();
@@ -46,6 +51,8 @@ class ScreenLevel extends ScreenBase {
         this.canvasHelper.Clear();
         if(time.Seconds < 10) this.canvasHelper.writeTextToCanvas(`Tijd ${time.Minutes}:0${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, 50, 'black');
         else this.canvasHelper.writeTextToCanvas(`Tijd ${time.Minutes}:${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, 50, 'black');
+
+        this.controlsInstructions();
 
         this.spikes.forEach((element: Entity): void => {
             element.draw();
@@ -64,7 +71,7 @@ class ScreenLevel extends ScreenBase {
         this.canvasHelper.EndUpdate();
 
         if(!this.player.entityCollision(this.countryFlag)) {
-            requestAnimationFrame(this.drawPlayer);
+            requestAnimationFrame(this.drawScreenLevel);
         } 
         else {
             this.drawScreenQuiz();
