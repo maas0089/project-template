@@ -8,6 +8,8 @@ class ScreenLevel extends ScreenBase {
     private countryFlag: Flag;
     private background: string;
     private screenQuiz: ScreenQuiz = ScreenQuiz.Instance();
+    private currentLevel = this.screenQuiz.getCurrentQuestion() + 1;
+
 
     //TODO: change spike width and height to match the platform
     constructor() {
@@ -16,11 +18,10 @@ class ScreenLevel extends ScreenBase {
 
     public draw() {
         console.log("This is ScreenLevel speaking.");
-        let currentLevel = this.screenQuiz.getCurrentQuestion() + 1;
-        console.log(`This is level: ${currentLevel}`);
-        if (currentLevel == 1) this.drawLevelOne();
-        if (currentLevel == 2) this.drawLevelTwo();
-        if (currentLevel == 3) this.drawLevelThree();
+        console.log(`This is level: ${this.currentLevel}`);
+        if (this.currentLevel == 1) this.drawLevelOne();
+        if (this.currentLevel == 2) this.drawLevelTwo();
+        if (this.currentLevel == 3) this.drawLevelThree();
         this.timer.startTimer();
         this.drawScreenLevel();
     }
@@ -97,6 +98,8 @@ class ScreenLevel extends ScreenBase {
         else this.canvasHelper.writeTextToCanvas(`Tijd ${time.Minutes}:${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, 50, 'black');
 
         this.controlsInstructions();
+
+        this.canvasHelper.writeTextToCanvas(`Level ${this.currentLevel}`, 20, this.canvasHelper.GetWidth() - 20, 30, undefined, "right");
 
         this.spikes.forEach((element: Entity): void => {
             element.draw();
