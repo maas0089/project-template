@@ -10,9 +10,12 @@ class ScreenQuiz extends ScreenBase{
 
     private imageLocations: Array<string> = [
         "./assets/questions/Netherlands1.png",
-        './assets/questions/Netherlands1.png', 
-        './assets/questions/Netherlands1.png'
+        './assets/questions/Netherlands2.png', 
+        './assets/questions/Netherlands3.png'
     ];
+
+    private totalquestion: number = this.imageLocations.length - 1
+
     private qAndA: Array<any> = [
         {
             a1: 'Arnhem', // correct
@@ -153,6 +156,14 @@ class ScreenQuiz extends ScreenBase{
         this.canvasHelper.UnregisterClickListener('startGame7');
         this.canvasHelper.UnregisterClickListener('startGame8');
         this.canvasHelper.UnregisterClickListener('startGame9');
+    }
+
+    public getCurrentQuestion(): number {
+        return this.question;
+    }
+
+    public getMaxQuestion(): number {
+        return this.totalquestion;
     }
 
 }
