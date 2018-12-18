@@ -351,11 +351,7 @@ class ScreenEndResult extends ScreenBase {
         this.screenQuiz = ScreenQuiz.Instance();
         this.drawNextLevelScreen = () => {
             this.canvasHelper.Clear();
-<<<<<<< HEAD
-            this.canvasHelper.UnregisterClickListener('replay');
-=======
             this.canvasHelper.UnregisterClickListener('continue');
->>>>>>> accfb7f55b397eee1e98268bf80c5973ff4a7022
             this.canvasHelper.ChangeScreen(new ScreenLevel);
         };
         this.drawScreenLevelSelect = () => {
@@ -373,14 +369,10 @@ class ScreenEndResult extends ScreenBase {
             this.canvasHelper.writeTextToCanvas(` ${time.Minutes}:0${time.Seconds}`, 30, this.canvasHelper.GetCenter().X, 350, 'black');
         else
             this.canvasHelper.writeTextToCanvas(` ${time.Minutes}:${time.Seconds}`, 30, this.canvasHelper.GetCenter().X, 350, 'black');
-<<<<<<< HEAD
-        this.canvasHelper.writeButtonToCanvas('Volgend level', 'replay', this.drawScreenHighScore, undefined, undefined);
-=======
         if (this.screenQuiz.getCurrentQuestion() == this.screenQuiz.getMaxQuestion())
             this.canvasHelper.writeButtonToCanvas('Speel opnieuw', 'continue', this.drawScreenLevelSelect, undefined, undefined);
         else
             this.canvasHelper.writeButtonToCanvas('Volgend level', 'continue', this.drawNextLevelScreen, undefined, undefined);
->>>>>>> accfb7f55b397eee1e98268bf80c5973ff4a7022
     }
 }
 class ScreenHighScore extends ScreenBase {
@@ -488,13 +480,8 @@ class ScreenQuiz extends ScreenBase {
         this.thirdAnswer = 0;
         this.imageLocations = [
             "./assets/questions/Netherlands1.png",
-<<<<<<< HEAD
-            './assets/questions/Netherlands1.png',
-            './assets/questions/Netherlands1.png'
-=======
             './assets/questions/Netherlands2.png',
             './assets/questions/Netherlands3.png'
->>>>>>> accfb7f55b397eee1e98268bf80c5973ff4a7022
         ];
         this.totalquestion = this.imageLocations.length - 1;
         this.qAndA = [
@@ -606,24 +593,24 @@ class ScreenQuiz extends ScreenBase {
         this.timer.pauseTimer();
         this.canvasHelper.writeTextToCanvas('Wat ligt hier?', 50, this.canvasHelper.GetCenter().X, 50);
         this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, 350, 100, 504, 597);
+        this.canvasHelper.writeTextToCanvas("A", 20, this.canvasHelper.GetWidth() * 0.59, 125, "red");
         this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].a1}`, 'startGame1', this.checkAnswerOne, this.canvasHelper.GetWidth() * 0.6, 100, this.firstAnswer);
         this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].b1}`, 'startGame2', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 150);
         this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].c1}`, 'startGame3', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 200);
+        this.canvasHelper.writeTextToCanvas("B", 20, this.canvasHelper.GetWidth() * 0.59, 325, "red");
         this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].a2}`, 'startGame4', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 300);
         this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].b2}`, 'startGame5', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 350);
         this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].c2}`, 'startGame6', this.checkAnswerTwo, this.canvasHelper.GetWidth() * 0.6, 400, this.secondAnswer);
+        this.canvasHelper.writeTextToCanvas("C", 20, this.canvasHelper.GetWidth() * 0.59, 525, "red");
         this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].a3}`, 'startGame7', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 500);
         this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].b3}`, 'startGame8', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 550);
         this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].c3}`, 'startGame9', this.checkAnswerThree, this.canvasHelper.GetWidth() * 0.6, 600, this.thirdAnswer);
-<<<<<<< HEAD
-=======
     }
     getCurrentQuestion() {
         return this.question;
     }
     getMaxQuestion() {
         return this.totalquestion;
->>>>>>> accfb7f55b397eee1e98268bf80c5973ff4a7022
     }
 }
 ScreenQuiz.instance = null;
