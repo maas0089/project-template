@@ -351,7 +351,6 @@ class ScreenEndResult extends ScreenBase {
         this.drawScreenHighScore = () => {
             this.canvasHelper.Clear();
             this.canvasHelper.UnregisterClickListener('replay');
-            this.timer.resetTimer();
             this.canvasHelper.ChangeScreen(new ScreenLevel);
         };
     }
@@ -363,7 +362,7 @@ class ScreenEndResult extends ScreenBase {
             this.canvasHelper.writeTextToCanvas(` ${time.Minutes}:0${time.Seconds}`, 30, this.canvasHelper.GetCenter().X, 350, 'black');
         else
             this.canvasHelper.writeTextToCanvas(` ${time.Minutes}:${time.Seconds}`, 30, this.canvasHelper.GetCenter().X, 350, 'black');
-        this.canvasHelper.writeButtonToCanvas('Speel opnieuw', 'replay', this.drawScreenHighScore, undefined, undefined);
+        this.canvasHelper.writeButtonToCanvas('Volgend level', 'replay', this.drawScreenHighScore, undefined, undefined);
     }
 }
 class ScreenHighScore extends ScreenBase {
@@ -435,14 +434,14 @@ class ScreenLevel extends ScreenBase {
         this.drawScreenLevel();
     }
     controlsInstructions() {
-        this.canvasHelper.writeTextToCanvas("Links: A", 20, 30, 50, undefined, "left");
-        this.canvasHelper.writeTextToCanvas("Rechts: D", 20, 30, 80, undefined, "left");
-        this.canvasHelper.writeTextToCanvas("Springen: Spatiebalk (ingedrukt houden)", 20, 30, 110, undefined, "left");
-        this.canvasHelper.drawBorder(0, 0, 400, 120);
+        this.canvasHelper.writeTextToCanvas("Links: A", 20, 30, 25, undefined, "left");
+        this.canvasHelper.writeTextToCanvas("Rechts: D", 20, 30, 55, undefined, "left");
+        this.canvasHelper.writeTextToCanvas("Springen: Spatiebalk (ingedrukt houden)", 20, 30, 85, undefined, "left");
+        this.canvasHelper.drawBorder(0, 0, 400, 95);
     }
     drawScreenQuiz() {
         this.canvasHelper.Clear();
-        this.canvasHelper.ChangeScreen(new ScreenQuiz());
+        this.canvasHelper.ChangeScreen(ScreenQuiz.Instance());
     }
 }
 class ScreenLevelSelect extends ScreenBase {
@@ -465,31 +464,50 @@ class ScreenLevelSelect extends ScreenBase {
 class ScreenQuiz extends ScreenBase {
     constructor() {
         super();
-        this.imageLocations = [
-            "./assets/questions/Netherlands1.png",
-            'source',
-            'source'
-        ];
-        this.qAndA = [
-            {
-                a: 'Arnhem',
-                b: 'Amersfoort',
-                c: 'Nijmegen'
-            },
-            {
-                a: 'Gelderland',
-                b: 'Drenthe',
-                c: 'Overijssel'
-            },
-            {
-                a: 'Amsterdam',
-                b: 'Leiden',
-                c: 'Haarlem'
-            }
-        ];
+        this.question = 0;
         this.firstAnswer = 0;
         this.secondAnswer = 0;
         this.thirdAnswer = 0;
+        this.imageLocations = [
+            "./assets/questions/Netherlands1.png",
+            './assets/questions/Netherlands1.png',
+            './assets/questions/Netherlands1.png'
+        ];
+        this.qAndA = [
+            {
+                a1: 'Arnhem',
+                b1: 'Amersfoort',
+                c1: 'Nijmegen',
+                a2: 'Gelderland',
+                b2: 'Drenthe',
+                c2: 'Overijssel',
+                a3: 'Amsterdam',
+                b3: 'Leiden',
+                c3: 'Haarlem'
+            },
+            {
+                a1: 'Leeuwarden',
+                b1: 'Groningen',
+                c1: 'Assen',
+                a2: 'Rotterdam',
+                b2: 'Den Haag',
+                c2: 'Middelburg',
+                a3: 'Limburg',
+                b3: 'Gelderland',
+                c3: 'Noord-Brabant'
+            },
+            {
+                a1: 'Lelystad',
+                b1: 'Amsterdam',
+                c1: 'Zwolle',
+                a2: 'Noord-Holland',
+                b2: 'Zeeland',
+                c2: 'Zuid-Holland',
+                a3: 'Eindhoven',
+                b3: 'Venlo',
+                c3: 'Maastricht'
+            }
+        ];
         this.checkAnswerOne = () => {
             console.log('Correct!');
             this.firstAnswer = 1;
@@ -497,7 +515,7 @@ class ScreenQuiz extends ScreenBase {
             if (this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1)
                 this.drawScreenEndResult();
             else
-                this.drawScreenQuiz(this.firstAnswer, this.secondAnswer, this.thirdAnswer);
+                this.drawScreenQuiz();
         };
         this.checkAnswerTwo = () => {
             console.log('Correct!');
@@ -506,7 +524,7 @@ class ScreenQuiz extends ScreenBase {
             if (this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1)
                 this.drawScreenEndResult();
             else
-                this.drawScreenQuiz(this.firstAnswer, this.secondAnswer, this.thirdAnswer);
+                this.drawScreenQuiz();
         };
         this.checkAnswerThree = () => {
             console.log('Correct!');
@@ -515,7 +533,7 @@ class ScreenQuiz extends ScreenBase {
             if (this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1)
                 this.drawScreenEndResult();
             else
-                this.drawScreenQuiz(this.firstAnswer, this.secondAnswer, this.thirdAnswer);
+                this.drawScreenQuiz();
         };
         this.drawScreenLevel = () => {
             this.canvasHelper.Clear();
@@ -540,22 +558,40 @@ class ScreenQuiz extends ScreenBase {
             this.canvasHelper.UnregisterClickListener('startGame9');
         };
     }
-    draw() {
-        this.drawScreenQuiz(0, 0, 0);
+    static Instance() {
+        if (this.instance == null) {
+            this.instance = new ScreenQuiz();
+        }
+        return this.instance;
     }
-    drawScreenQuiz(first, second, third) {
+    draw() {
+        if (this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1) {
+            this.question++;
+            this.firstAnswer = 0;
+            this.secondAnswer = 0;
+            this.thirdAnswer = 0;
+        }
+        else {
+            this.firstAnswer = 0;
+            this.secondAnswer = 0;
+            this.thirdAnswer = 0;
+        }
+        this.drawScreenQuiz();
+    }
+    drawScreenQuiz() {
         this.timer.pauseTimer();
         this.canvasHelper.writeTextToCanvas('Wat ligt hier?', 50, this.canvasHelper.GetCenter().X, 50);
-        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[0]}`, 350, 100, 504, 597);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[0].a}`, 'startGame1', this.checkAnswerOne, this.canvasHelper.GetWidth() * 0.6, 100, first);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[0].b}`, 'startGame2', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 150);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[0].c}`, 'startGame3', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 200);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[1].a}`, 'startGame4', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 300);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[1].b}`, 'startGame5', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 350);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[1].c}`, 'startGame6', this.checkAnswerTwo, this.canvasHelper.GetWidth() * 0.6, 400, second);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[2].a}`, 'startGame7', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 500);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[2].b}`, 'startGame8', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 550);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[2].c}`, 'startGame9', this.checkAnswerThree, this.canvasHelper.GetWidth() * 0.6, 600, third);
+        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, 350, 100, 504, 597);
+        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].a1}`, 'startGame1', this.checkAnswerOne, this.canvasHelper.GetWidth() * 0.6, 100, this.firstAnswer);
+        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].b1}`, 'startGame2', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 150);
+        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].c1}`, 'startGame3', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 200);
+        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].a2}`, 'startGame4', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 300);
+        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].b2}`, 'startGame5', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 350);
+        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].c2}`, 'startGame6', this.checkAnswerTwo, this.canvasHelper.GetWidth() * 0.6, 400, this.secondAnswer);
+        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].a3}`, 'startGame7', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 500);
+        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].b3}`, 'startGame8', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 550);
+        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].c3}`, 'startGame9', this.checkAnswerThree, this.canvasHelper.GetWidth() * 0.6, 600, this.thirdAnswer);
     }
 }
+ScreenQuiz.instance = null;
 //# sourceMappingURL=app.js.map
