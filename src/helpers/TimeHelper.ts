@@ -1,6 +1,7 @@
 class TimeHelper {
     private minutes: number;
     private seconds: number;
+    private score: number;
     private static instance: TimeHelper = null;
     private interval: any;
 
@@ -15,16 +16,19 @@ class TimeHelper {
     public constructor() {
         this.minutes = 0;
         this.seconds = 0;
+        this.score = 0;
     }
 
     public startTimer(): void {
             this.interval = setInterval( () => {
                 if(this.seconds < 59){
                     this.seconds++
+                    this.score++
                 }
                 else{
                     this.seconds = 0;
                     this.minutes++;
+                    this.score++;
                 }            
             }, 1000)
     }
@@ -41,9 +45,14 @@ class TimeHelper {
         clearInterval(this.interval);
         this.minutes = 0;
         this.seconds = 0;
+        this.score = 0;
     }
 
-    getTime(): {Minutes: number, Seconds: number} {
+    public getTime(): {Minutes: number, Seconds: number} {
         return {Minutes: this.minutes, Seconds: this.seconds}
+    }
+
+    public getScore(): number {
+        return this.score;
     }
 }

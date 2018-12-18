@@ -306,6 +306,7 @@ class TimeHelper {
     constructor() {
         this.minutes = 0;
         this.seconds = 0;
+        this.score = 0;
     }
     static Instance() {
         if (this.instance == null) {
@@ -317,10 +318,12 @@ class TimeHelper {
         this.interval = setInterval(() => {
             if (this.seconds < 59) {
                 this.seconds++;
+                this.score++;
             }
             else {
                 this.seconds = 0;
                 this.minutes++;
+                this.score++;
             }
         }, 1000);
     }
@@ -333,9 +336,13 @@ class TimeHelper {
         clearInterval(this.interval);
         this.minutes = 0;
         this.seconds = 0;
+        this.score = 0;
     }
     getTime() {
         return { Minutes: this.minutes, Seconds: this.seconds };
+    }
+    getScore() {
+        return this.score;
     }
 }
 TimeHelper.instance = null;
@@ -354,11 +361,10 @@ class ScreenEndResult extends ScreenBase {
             this.canvasHelper.UnregisterClickListener('continue');
             this.canvasHelper.ChangeScreen(new ScreenLevel);
         };
-        this.drawScreenLevelSelect = () => {
+        this.drawScreenHighScore = () => {
             this.canvasHelper.Clear();
-            this.timer.resetTimer();
             this.canvasHelper.UnregisterClickListener('continue');
-            this.canvasHelper.ChangeScreen(new ScreenLevelSelect);
+            this.canvasHelper.ChangeScreen(ScreenHighScore.Instance());
         };
     }
     draw() {
@@ -369,8 +375,8 @@ class ScreenEndResult extends ScreenBase {
             this.canvasHelper.writeTextToCanvas(` ${time.Minutes}:0${time.Seconds}`, 30, this.canvasHelper.GetCenter().X, 350, 'black');
         else
             this.canvasHelper.writeTextToCanvas(` ${time.Minutes}:${time.Seconds}`, 30, this.canvasHelper.GetCenter().X, 350, 'black');
-        if (this.screenQuiz.getCurrentQuestion() == this.screenQuiz.getMaxQuestion())
-            this.canvasHelper.writeButtonToCanvas('Speel opnieuw', 'continue', this.drawScreenLevelSelect, undefined, undefined);
+        if (this.screenQuiz.getCurrentQuestion() > this.screenQuiz.getMaxQuestion())
+            this.canvasHelper.writeButtonToCanvas('Highscores', 'continue', this.drawScreenHighScore, undefined, undefined);
         else
             this.canvasHelper.writeButtonToCanvas('Volgend level', 'continue', this.drawNextLevelScreen, undefined, undefined);
     }
@@ -378,13 +384,69 @@ class ScreenEndResult extends ScreenBase {
 class ScreenHighScore extends ScreenBase {
     constructor() {
         super();
+        this.screenQuiz = ScreenQuiz.Instance();
+        this.highscores = [
+            600,
+            600,
+            600
+        ];
+        this.highscoreText = [
+            '10:00',
+            '10:00',
+            '10:00'
+        ];
+        this.drawScreenLevelSelect = () => {
+            this.canvasHelper.Clear();
+            this.timer.resetTimer();
+            this.screenQuiz.resetQuestion();
+            this.canvasHelper.UnregisterClickListener('replay');
+            this.canvasHelper.ChangeScreen(new ScreenLevelSelect);
+        };
+    }
+    static Instance() {
+        if (this.instance == null) {
+            this.instance = new ScreenHighScore();
+        }
+        return this.instance;
     }
     draw() {
-    }
-    drawScreenLevelSelect() {
-        this.canvasHelper.Clear();
+        this.minutes = this.timer.getTime().Minutes;
+        if (this.timer.getTime().Seconds < 10)
+            this.seconds = `0${this.timer.getTime().Seconds}`;
+        else
+            this.seconds = `${this.timer.getTime().Seconds}`;
+        if (this.timer.getTime().Seconds < 10) {
+            let seconds = `0${this.timer.getTime().Seconds}`;
+        }
+        let score = this.timer.getScore();
+        let center = this.canvasHelper.GetCenter();
+        this.canvasHelper.writeTextToCanvas('Highscores', 50, this.canvasHelper.GetCenter().X, 100);
+        if (this.highscores[0] > score) {
+            this.highscores[2] = this.highscores[1];
+            this.highscoreText[2] = this.highscoreText[1];
+            this.highscores[1] = this.highscores[0];
+            this.highscoreText[1] = this.highscoreText[0];
+            this.highscores[0] = score;
+            this.highscoreText[0] = `${this.minutes}:${this.seconds}`;
+        }
+        else if (this.highscores[1] > score) {
+            this.highscores[2] = this.highscores[1];
+            this.highscoreText[2] = this.highscoreText[1];
+            this.highscores[1] = score;
+            this.highscoreText[1] = `${this.minutes}:${this.seconds}`;
+        }
+        else if (this.highscores[2] > score) {
+            this.highscores[2] = score;
+            this.highscoreText[2] = `${this.minutes}:${this.seconds}`;
+        }
+        this.highscoreText.forEach((element, index) => {
+            center.Y += 80;
+            this.canvasHelper.writeTextToCanvas(`${index + 1}: ${element}`, 40, center.X, center.Y - 100);
+        });
+        this.canvasHelper.writeButtonToCanvas('Speel opnieuw', 'replay', this.drawScreenLevelSelect, undefined, this.canvasHelper.GetHeight() * 0.9);
     }
 }
+ScreenHighScore.instance = null;
 class ScreenLevel extends ScreenBase {
     constructor() {
         super();
@@ -647,6 +709,9 @@ class ScreenQuiz extends ScreenBase {
         this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].a3}`, 'startGame7', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 500);
         this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].b3}`, 'startGame8', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 550);
         this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].c3}`, 'startGame9', this.checkAnswerThree, this.canvasHelper.GetWidth() * 0.6, 600, this.thirdAnswer);
+    }
+    resetQuestion() {
+        this.question = 0;
     }
     getCurrentQuestion() {
         return this.question;

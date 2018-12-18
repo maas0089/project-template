@@ -167,6 +167,10 @@ class ScreenQuiz extends ScreenBase{
         this.canvasHelper.UnregisterClickListener('startGame9');
     }
 
+    public resetQuestion(): void {
+        this.question = 0;
+    }
+
     public getCurrentQuestion(): number {
         return this.question;
     }

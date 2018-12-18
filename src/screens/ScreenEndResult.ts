@@ -14,7 +14,7 @@ class ScreenEndResult extends ScreenBase {
         this.canvasHelper.writeTextToCanvas('Tijd:', 30, this.canvasHelper.GetCenter().X, 250);
         if(time.Seconds < 10) this.canvasHelper.writeTextToCanvas(` ${time.Minutes}:0${time.Seconds}`, 30, this.canvasHelper.GetCenter().X, 350, 'black');
         else this.canvasHelper.writeTextToCanvas(` ${time.Minutes}:${time.Seconds}`, 30, this.canvasHelper.GetCenter().X, 350, 'black');
-        if(this.screenQuiz.getCurrentQuestion() == this.screenQuiz.getMaxQuestion()) this.canvasHelper.writeButtonToCanvas('Speel opnieuw', 'continue', this.drawScreenLevelSelect, undefined, undefined);
+        if(this.screenQuiz.getCurrentQuestion() > this.screenQuiz.getMaxQuestion()) this.canvasHelper.writeButtonToCanvas('Highscores', 'continue', this.drawScreenHighScore, undefined, undefined);
         else this.canvasHelper.writeButtonToCanvas('Volgend level', 'continue', this.drawNextLevelScreen, undefined, undefined);
     }
 
@@ -25,10 +25,9 @@ class ScreenEndResult extends ScreenBase {
 
     }
 
-    public drawScreenLevelSelect = (): void => {
+    public drawScreenHighScore = (): void => {
         this.canvasHelper.Clear();
-        this.timer.resetTimer();
         this.canvasHelper.UnregisterClickListener('continue');
-        this.canvasHelper.ChangeScreen(new ScreenLevelSelect);
+        this.canvasHelper.ChangeScreen(ScreenHighScore.Instance());
     }
 }
