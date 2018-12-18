@@ -72,17 +72,17 @@ class ScreenQuiz extends ScreenBase{
     }
 
     public draw(): void {
-        if(this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1) {
-            this.question++;
-            this.firstAnswer = 0;
-            this.secondAnswer = 0;
-            this.thirdAnswer = 0;
-        }
-        else {
-            this.firstAnswer = 0;
-            this.secondAnswer = 0;
-            this.thirdAnswer = 0;
-        }
+        // if(this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1) {
+        //     this.question++;
+        //     this.firstAnswer = 0;
+        //     this.secondAnswer = 0;
+        //     this.thirdAnswer = 0;
+        // }
+        // else {
+        //     this.firstAnswer = 0;
+        //     this.secondAnswer = 0;
+        //     this.thirdAnswer = 0;
+        // }
         this.drawScreenQuiz()
     }
 
@@ -145,6 +145,12 @@ class ScreenQuiz extends ScreenBase{
     public drawScreenEndResult = (): void => {
         this.canvasHelper.Clear();
         this.removeButtons();
+
+        this.question++;
+        this.firstAnswer = 0;
+        this.secondAnswer = 0;
+        this.thirdAnswer = 0;
+
         this.canvasHelper.ChangeScreen(new ScreenEndResult);
     }
 
