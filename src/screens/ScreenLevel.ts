@@ -82,6 +82,6 @@ class ScreenLevel extends ScreenBase {
 
     public drawScreenQuiz(): void {
         this.canvasHelper.Clear();
-        this.canvasHelper.ChangeScreen(new ScreenQuiz());
+        this.canvasHelper.ChangeScreen(ScreenQuiz.Instance());
     }
 }
