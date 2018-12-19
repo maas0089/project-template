@@ -19,9 +19,10 @@ class ScreenLevel extends ScreenBase {
     public draw() {
         console.log("This is ScreenLevel speaking.");
         console.log(`This is level: ${this.currentLevel}`);
-        if (this.currentLevel == 1) this.drawLevelOne();
-        if (this.currentLevel == 2) this.drawLevelTwo();
-        if (this.currentLevel == 3) this.drawLevelThree();
+        // if (this.currentLevel == 1) this.drawLevelOne();
+        // if (this.currentLevel == 2) this.drawLevelTwo();
+        // if (this.currentLevel == 3) this.drawLevelThree();
+        this.drawLevelTwo();
         this.timer.startTimer();
         this.drawScreenLevel();
     }
@@ -57,10 +58,13 @@ class ScreenLevel extends ScreenBase {
         this.platforms.push(new Platform(630, this.canvasHelper.GetCenter().Y + 225)); // platform with spike 2
         this.spikes.push(new Spike(630, this.canvasHelper.GetCenter().Y + 210));
         this.platforms.push(new Platform(710, this.canvasHelper.GetCenter().Y + 250)); // platform 5
-        this.platforms.push(new Platform(950, this.canvasHelper.GetCenter().Y + 360)); // platform 6
-        this.platforms.push(new Platform(1100, this.canvasHelper.GetCenter().Y + 350)); // platform 7
-        this.platforms.push(new Platform(1250, this.canvasHelper.GetCenter().Y + 340)); // platform with flag
-        this.countryFlag = new Flag(1290, this.canvasHelper.GetCenter().Y + 265); // Y -75
+        this.platforms.push(new Platform(820, this.canvasHelper.GetCenter().Y + 210)); // platform 6
+        this.platforms.push(new Platform(920, this.canvasHelper.GetCenter().Y + 175)); // platform 7
+        this.platforms.push(new Platform(990, this.canvasHelper.GetCenter().Y + 210)); // platform with spike 3
+        this.spikes.push(new Spike(990, this.canvasHelper.GetCenter().Y + 195));
+        this.platforms.push(new Platform(1050, this.canvasHelper.GetCenter().Y + 250)); // platform 8
+        this.platforms.push(new Platform(1550, this.canvasHelper.GetCenter().Y + 340)); // platform with flag
+        this.countryFlag = new Flag(1590, this.canvasHelper.GetCenter().Y + 265); // Y -75
     }
 
     public drawLevelThree(): void {
@@ -86,7 +90,7 @@ class ScreenLevel extends ScreenBase {
         this.platforms.push(new Platform(620, this.canvasHelper.GetCenter().Y + 170)); // platform 13 - is the easier jump, but takes longer to get to the finish
         this.platforms.push(new Platform(730, this.canvasHelper.GetCenter().Y + 130)); // platform 14 - highest platform, jump to 12 from here - easier route
         this.platforms.push(new Platform(1040, this.canvasHelper.GetCenter().Y + 220)); // platform 15
-        this.platforms.push(new Platform(1190, this.canvasHelper.GetCenter().Y + 270)); // platofrm 16
+        this.platforms.push(new Platform(1200, this.canvasHelper.GetCenter().Y + 270)); // platofrm 16
         this.platforms.push(new Platform(1350, this.canvasHelper.GetCenter().Y + 340)); // platform with flag
         this.countryFlag = new Flag(1390, this.canvasHelper.GetCenter().Y + 265); // Y -75
     }
