@@ -64,21 +64,31 @@ class ScreenLevel extends ScreenBase {
     }
 
     public drawLevelThree(): void {
-        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 400);
+        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 400); // x = 100, y = C + 400
         this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 420)); // starting position for player
         this.platforms.push(new Platform(200, this.canvasHelper.GetCenter().Y + 380)); // platform 2
         this.platforms.push(new Platform(310, this.canvasHelper.GetCenter().Y + 335)); // platform 3
         this.platforms.push(new Platform(400, this.canvasHelper.GetCenter().Y + 290)); // platform 4
         this.platforms.push(new Platform(500, this.canvasHelper.GetCenter().Y + 270)); // platform with spike 1
         this.spikes.push(new Spike(500, this.canvasHelper.GetCenter().Y + 255));
-        this.platforms.push(new Platform(480, this.canvasHelper.GetCenter().Y + 400)); // platform 5
-        this.platforms.push(new Platform(660, this.canvasHelper.GetCenter().Y + 400)); // platform 6
-        this.platforms.push(new Platform(800, this.canvasHelper.GetCenter().Y + 410)); // platform 7
-        this.platforms.push(new Platform(940, this.canvasHelper.GetCenter().Y + 390)) // platform 8
-        this.platforms.push(new Platform(1070, this.canvasHelper.GetCenter().Y + 370)); // platform 9
-        this.platforms.push(new Platform(1180, this.canvasHelper.GetCenter().Y + 355)); // platform 10
-        this.platforms.push(new Platform(1300, this.canvasHelper.GetCenter().Y + 340)); // platform with flag
-        this.countryFlag = new Flag(1340, this.canvasHelper.GetCenter().Y + 265); // Y -75
+        this.platforms.push(new Platform(510, this.canvasHelper.GetCenter().Y + 400)); // platform 5
+        this.platforms.push(new Platform(660, this.canvasHelper.GetCenter().Y + 400)); // platform 6 - start of stairway to heaven
+        this.platforms.push(new Platform(740, this.canvasHelper.GetCenter().Y + 360)); // platform 7
+        this.platforms.push(new Platform(650, this.canvasHelper.GetCenter().Y + 320)); // platform 8
+        this.platforms.push(new Platform(750, this.canvasHelper.GetCenter().Y + 280)); // platform 9
+        this.platforms.push(new Platform(640, this.canvasHelper.GetCenter().Y + 240)); // platform 10
+        this.platforms.push(new Platform(770, this.canvasHelper.GetCenter().Y + 200)); // platform 11
+        this.platforms.push(new Platform(935, this.canvasHelper.GetCenter().Y + 170)); // platform 12 - difficult jump. grants a faster way to the finish
+        this.platforms.push(new Platform(875, this.canvasHelper.GetCenter().Y + 280)); // platform with spike 2
+        this.spikes.push(new Spike(875, this.canvasHelper.GetCenter().Y + 265));
+        this.platforms.push(new Platform(955, this.canvasHelper.GetCenter().Y + 300)); // platform with spike 3
+        this.spikes.push(new Spike(955, this.canvasHelper.GetCenter().Y + 285));
+        this.platforms.push(new Platform(620, this.canvasHelper.GetCenter().Y + 170)); // platform 13 - is the easier jump, but takes longer to get to the finish
+        this.platforms.push(new Platform(730, this.canvasHelper.GetCenter().Y + 130)); // platform 14 - highest platform, jump to 12 from here - easier route
+        this.platforms.push(new Platform(1040, this.canvasHelper.GetCenter().Y + 220)); // platform 15
+        this.platforms.push(new Platform(1190, this.canvasHelper.GetCenter().Y + 270)); // platofrm 16
+        this.platforms.push(new Platform(1350, this.canvasHelper.GetCenter().Y + 340)); // platform with flag
+        this.countryFlag = new Flag(1390, this.canvasHelper.GetCenter().Y + 265); // Y -75
     }
 
     public controlsInstructions() {

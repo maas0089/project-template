@@ -541,14 +541,24 @@ class ScreenLevel extends ScreenBase {
         this.platforms.push(new Platform(400, this.canvasHelper.GetCenter().Y + 290));
         this.platforms.push(new Platform(500, this.canvasHelper.GetCenter().Y + 270));
         this.spikes.push(new Spike(500, this.canvasHelper.GetCenter().Y + 255));
-        this.platforms.push(new Platform(480, this.canvasHelper.GetCenter().Y + 400));
+        this.platforms.push(new Platform(510, this.canvasHelper.GetCenter().Y + 400));
         this.platforms.push(new Platform(660, this.canvasHelper.GetCenter().Y + 400));
-        this.platforms.push(new Platform(800, this.canvasHelper.GetCenter().Y + 410));
-        this.platforms.push(new Platform(940, this.canvasHelper.GetCenter().Y + 390));
-        this.platforms.push(new Platform(1070, this.canvasHelper.GetCenter().Y + 370));
-        this.platforms.push(new Platform(1180, this.canvasHelper.GetCenter().Y + 355));
-        this.platforms.push(new Platform(1300, this.canvasHelper.GetCenter().Y + 340));
-        this.countryFlag = new Flag(1340, this.canvasHelper.GetCenter().Y + 265);
+        this.platforms.push(new Platform(740, this.canvasHelper.GetCenter().Y + 360));
+        this.platforms.push(new Platform(650, this.canvasHelper.GetCenter().Y + 320));
+        this.platforms.push(new Platform(750, this.canvasHelper.GetCenter().Y + 280));
+        this.platforms.push(new Platform(640, this.canvasHelper.GetCenter().Y + 240));
+        this.platforms.push(new Platform(770, this.canvasHelper.GetCenter().Y + 200));
+        this.platforms.push(new Platform(935, this.canvasHelper.GetCenter().Y + 170));
+        this.platforms.push(new Platform(875, this.canvasHelper.GetCenter().Y + 280));
+        this.spikes.push(new Spike(875, this.canvasHelper.GetCenter().Y + 265));
+        this.platforms.push(new Platform(955, this.canvasHelper.GetCenter().Y + 300));
+        this.spikes.push(new Spike(955, this.canvasHelper.GetCenter().Y + 285));
+        this.platforms.push(new Platform(620, this.canvasHelper.GetCenter().Y + 170));
+        this.platforms.push(new Platform(730, this.canvasHelper.GetCenter().Y + 130));
+        this.platforms.push(new Platform(1040, this.canvasHelper.GetCenter().Y + 220));
+        this.platforms.push(new Platform(1190, this.canvasHelper.GetCenter().Y + 270));
+        this.platforms.push(new Platform(1350, this.canvasHelper.GetCenter().Y + 340));
+        this.countryFlag = new Flag(1390, this.canvasHelper.GetCenter().Y + 265);
     }
     controlsInstructions() {
         this.canvasHelper.writeTextToCanvas("Links: A", 20, 30, 25, undefined, "left");
