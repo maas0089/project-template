@@ -1,6 +1,6 @@
 class ScreenHighScore extends ScreenBase {
 
-    private screenQuiz: ScreenQuiz = ScreenQuiz.Instance();
+    // private screenQuiz: ScreenQuiz = EuropeQuiz.Instance();
     private highscores: Array<number> = [
         600,
         600,
@@ -85,7 +85,7 @@ class ScreenHighScore extends ScreenBase {
     public drawScreenLevelSelect = (): void => {
         this.canvasHelper.Clear();
         this.timer.resetTimer();
-        this.screenQuiz.resetQuestion();
+        // this.screenQuiz.resetQuestion();
         this.canvasHelper.UnregisterClickListener('replay');
         this.canvasHelper.ChangeScreen(new ScreenLevelSelect);
     }

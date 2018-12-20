@@ -10,16 +10,29 @@ class ScreenLevelSelect extends ScreenBase {
 
     public draw(): void {
         this.canvasHelper.writeTextToCanvas('UNtRAVEL', 50, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y / 3);
-        this.canvasHelper.writeImageFromFileToCanvas('./assets/images/maps/Europa-kaart.png', this.canvasHelper.GetCenter().X - 65, this.canvasHelper.GetCenter().Y - 65, 130, 130)
-        this.canvasHelper.writeButtonToCanvas("Start", 'StartGameCommand', this.drawScreenLevel, undefined, this.canvasHelper.GetCenter().Y + 200);
+        this.canvasHelper.writeImageFromFileToCanvas('./assets/images/maps/Europa-kaart.png', this.canvasHelper.GetWidth() * 0.6 + 50, this.canvasHelper.GetCenter().Y - 65, 130, 130)
+        this.canvasHelper.writeButtonToCanvas("Europa", 'StartEurope', this.drawEuropeLevel, this.canvasHelper.GetWidth() * 0.6, this.canvasHelper.GetCenter().Y + 200);
+        this.canvasHelper.writeButtonToCanvas("America", 'StartAmerica', this.drawAmericaLevel, this.canvasHelper.GetWidth() * 0.3, this.canvasHelper.GetCenter().Y + 200)
 
     }
 
-    public drawScreenLevel = (): void => {
-        console.log('click');
-        this.canvasHelper.UnregisterClickListener('StartGameCommand');
+    public drawEuropeLevel = (): void => {
+        console.log('Europe');
+        this.removeButtons();
+        this.canvasHelper.ChangeScreen(new EuropeLevel);
+    }
+
+    public drawAmericaLevel = (): void => {
+        console.log('America');
+        this.removeButtons();
+        this.canvasHelper.ChangeScreen(new AmericaLevel);
+
+    }
+
+    public removeButtons = (): void => {
         this.canvasHelper.Clear();
-        this.canvasHelper.ChangeScreen(new ScreenLevel());
+        this.canvasHelper.UnregisterClickListener('StartEurope');
+        this.canvasHelper.UnregisterClickListener('StartAmerica');
     }
 
 }

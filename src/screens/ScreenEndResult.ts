@@ -1,6 +1,6 @@
-class ScreenEndResult extends ScreenBase {
+abstract class ScreenEndResult extends ScreenBase {
 
-    private screenQuiz: ScreenQuiz = ScreenQuiz.Instance();
+    protected screenQuiz: ScreenQuiz;
 
     constructor() {
         super();
@@ -14,20 +14,11 @@ class ScreenEndResult extends ScreenBase {
         this.canvasHelper.writeTextToCanvas('Tijd:', 30, this.canvasHelper.GetCenter().X, 250);
         if(time.Seconds < 10) this.canvasHelper.writeTextToCanvas(` ${time.Minutes}:0${time.Seconds}`, 30, this.canvasHelper.GetCenter().X, 350, 'black');
         else this.canvasHelper.writeTextToCanvas(` ${time.Minutes}:${time.Seconds}`, 30, this.canvasHelper.GetCenter().X, 350, 'black');
-        if(this.screenQuiz.getCurrentQuestion() > this.screenQuiz.getMaxQuestion()) this.canvasHelper.writeButtonToCanvas('Highscores', 'continue', this.drawScreenHighScore, undefined, undefined);
+        if(this.screenQuiz.getCurrentQuestion() > this.screenQuiz.getMaxQuestion() - 1) this.canvasHelper.writeButtonToCanvas('Highscores', 'continue', this.drawScreenHighScore, undefined, undefined);
         else this.canvasHelper.writeButtonToCanvas('Volgend level', 'continue', this.drawNextLevelScreen, undefined, undefined);
     }
 
-    public drawNextLevelScreen = (): void => {
-        this.canvasHelper.Clear();
-        this.canvasHelper.UnregisterClickListener('continue');
-        this.canvasHelper.ChangeScreen(new ScreenLevel);
+    public abstract drawNextLevelScreen(): void;
 
-    }
-
-    public drawScreenHighScore = (): void => {
-        this.canvasHelper.Clear();
-        this.canvasHelper.UnregisterClickListener('continue');
-        this.canvasHelper.ChangeScreen(ScreenHighScore.Instance());
-    }
+    public abstract drawScreenHighScore(): void;
 }

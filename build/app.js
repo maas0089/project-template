@@ -8,6 +8,529 @@ let init = function () {
     const myGame = new App();
 };
 window.addEventListener('load', init);
+class ScreenBase {
+    constructor() {
+        this.canvasHelper = CanvasHelper.Instance();
+        this.timer = TimeHelper.Instance();
+    }
+}
+class ScreenEndResult extends ScreenBase {
+    constructor() {
+        super();
+    }
+    draw() {
+        let time = this.timer.getTime();
+        this.canvasHelper.writeTextToCanvas('Level voltooid!', 50, this.canvasHelper.GetCenter().X, 100);
+        this.canvasHelper.writeTextToCanvas('Tijd:', 30, this.canvasHelper.GetCenter().X, 250);
+        if (time.Seconds < 10)
+            this.canvasHelper.writeTextToCanvas(` ${time.Minutes}:0${time.Seconds}`, 30, this.canvasHelper.GetCenter().X, 350, 'black');
+        else
+            this.canvasHelper.writeTextToCanvas(` ${time.Minutes}:${time.Seconds}`, 30, this.canvasHelper.GetCenter().X, 350, 'black');
+        if (this.screenQuiz.getCurrentQuestion() > this.screenQuiz.getMaxQuestion() - 1)
+            this.canvasHelper.writeButtonToCanvas('Highscores', 'continue', this.drawScreenHighScore, undefined, undefined);
+        else
+            this.canvasHelper.writeButtonToCanvas('Volgend level', 'continue', this.drawNextLevelScreen, undefined, undefined);
+    }
+}
+class AmericaEndResult extends ScreenEndResult {
+    constructor() {
+        super();
+        this.drawNextLevelScreen = () => {
+            this.canvasHelper.Clear();
+            this.canvasHelper.UnregisterClickListener('continue');
+            this.canvasHelper.ChangeScreen(new AmericaLevel);
+        };
+        this.drawScreenHighScore = () => {
+            this.canvasHelper.Clear();
+            this.screenQuiz.resetQuestion();
+            this.canvasHelper.UnregisterClickListener('continue');
+            this.canvasHelper.ChangeScreen(ScreenHighScore.Instance());
+        };
+        console.log('this is AmericaEndResult');
+        this.screenQuiz = AmericaQuiz.Instance();
+    }
+}
+class ScreenQuiz extends ScreenBase {
+    constructor() {
+        super();
+        this.question = 0;
+        this.firstAnswer = 0;
+        this.secondAnswer = 0;
+        this.thirdAnswer = 0;
+        this.wrongAnswerOne = () => {
+            if (this.firstAnswer != 1)
+                this.drawScreenLevel();
+        };
+        this.wrongAnswerTwo = () => {
+            if (this.secondAnswer != 1)
+                this.drawScreenLevel();
+        };
+        this.wrongAnswerThree = () => {
+            if (this.thirdAnswer != 1)
+                this.drawScreenLevel();
+        };
+        this.checkAnswerOne = () => {
+            console.log('Correct!');
+            this.firstAnswer = 1;
+            this.removeButtons();
+            if (this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1)
+                this.drawScreenEndResult();
+            else
+                this.drawScreenQuiz();
+        };
+        this.checkAnswerTwo = () => {
+            console.log('Correct!');
+            this.secondAnswer = 1;
+            this.removeButtons();
+            if (this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1)
+                this.drawScreenEndResult();
+            else
+                this.drawScreenQuiz();
+        };
+        this.checkAnswerThree = () => {
+            console.log('Correct!');
+            this.thirdAnswer = 1;
+            this.removeButtons();
+            if (this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1)
+                this.drawScreenEndResult();
+            else
+                this.drawScreenQuiz();
+        };
+        this.removeButtons = () => {
+            this.canvasHelper.Clear();
+            this.canvasHelper.UnregisterClickListener('startGame1');
+            this.canvasHelper.UnregisterClickListener('startGame2');
+            this.canvasHelper.UnregisterClickListener('startGame3');
+            this.canvasHelper.UnregisterClickListener('startGame4');
+            this.canvasHelper.UnregisterClickListener('startGame5');
+            this.canvasHelper.UnregisterClickListener('startGame6');
+            this.canvasHelper.UnregisterClickListener('startGame7');
+            this.canvasHelper.UnregisterClickListener('startGame8');
+            this.canvasHelper.UnregisterClickListener('startGame9');
+        };
+    }
+    draw() {
+        this.drawScreenQuiz();
+    }
+    drawScreenQuiz() {
+        this.timer.pauseTimer();
+        this.canvasHelper.writeTextToCanvas('Wat ligt hier?', 50, this.canvasHelper.GetCenter().X, 50);
+        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, 350, 100, 504, 597);
+        this.canvasHelper.writeTextToCanvas(this.qAndA[this.question].letter1, 20, this.canvasHelper.GetWidth() * 0.59, 125, "red");
+        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].a1}`, 'startGame1', this.checkAnswerOne, this.canvasHelper.GetWidth() * 0.6, 100, this.firstAnswer);
+        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].b1}`, 'startGame2', this.wrongAnswerOne, this.canvasHelper.GetWidth() * 0.6, 150);
+        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].c1}`, 'startGame3', this.wrongAnswerOne, this.canvasHelper.GetWidth() * 0.6, 200);
+        this.canvasHelper.writeTextToCanvas(this.qAndA[this.question].letter2, 20, this.canvasHelper.GetWidth() * 0.59, 325, "red");
+        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].a2}`, 'startGame4', this.wrongAnswerTwo, this.canvasHelper.GetWidth() * 0.6, 300);
+        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].b2}`, 'startGame5', this.wrongAnswerTwo, this.canvasHelper.GetWidth() * 0.6, 350);
+        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].c2}`, 'startGame6', this.checkAnswerTwo, this.canvasHelper.GetWidth() * 0.6, 400, this.secondAnswer);
+        this.canvasHelper.writeTextToCanvas(this.qAndA[this.question].letter3, 20, this.canvasHelper.GetWidth() * 0.59, 525, "red");
+        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].a3}`, 'startGame7', this.wrongAnswerThree, this.canvasHelper.GetWidth() * 0.6, 500);
+        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].b3}`, 'startGame8', this.wrongAnswerThree, this.canvasHelper.GetWidth() * 0.6, 550);
+        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].c3}`, 'startGame9', this.checkAnswerThree, this.canvasHelper.GetWidth() * 0.6, 600, this.thirdAnswer);
+    }
+    resetQuestion() {
+        this.question = 0;
+    }
+    getCurrentQuestion() {
+        return this.question;
+    }
+    getMaxQuestion() {
+        return this.totalquestion;
+    }
+}
+class AmericaQuiz extends ScreenQuiz {
+    constructor() {
+        super();
+        this.drawScreenLevel = () => {
+            this.canvasHelper.Clear();
+            this.removeButtons();
+            this.canvasHelper.ChangeScreen(new AmericaLevel);
+        };
+        this.drawScreenEndResult = () => {
+            this.canvasHelper.Clear();
+            this.removeButtons();
+            this.question++;
+            this.firstAnswer = 0;
+            this.secondAnswer = 0;
+            this.thirdAnswer = 0;
+            this.canvasHelper.ChangeScreen(new AmericaEndResult);
+        };
+        console.log('this is AmericaQuiz');
+        this.totalquestion = 3;
+        this.imageLocations = [
+            "./assets/questions/Netherlands1.png",
+            './assets/questions/Netherlands2.png',
+            './assets/questions/Netherlands3.png'
+        ];
+        this.qAndA = [
+            {
+                letter1: 'A',
+                a1: 'Arnhem',
+                b1: 'Amersfoort',
+                c1: 'Nijmegen',
+                letter2: 'b',
+                a2: 'Gelderland',
+                b2: 'Drenthe',
+                c2: 'Overijssel',
+                letter3: 'C',
+                a3: 'Amsterdam',
+                b3: 'Leiden',
+                c3: 'Haarlem'
+            },
+            {
+                letter1: 'A',
+                a1: 'Leeuwarden',
+                b1: 'Groningen',
+                c1: 'Assen',
+                letter2: 'B',
+                a2: 'Rotterdam',
+                b2: 'Den Haag',
+                c2: 'Middelburg',
+                letter3: 'c',
+                a3: 'Limburg',
+                b3: 'Gelderland',
+                c3: 'Noord-Brabant'
+            },
+            {
+                letter1: 'A',
+                a1: 'Lelystad',
+                b1: 'Amsterdam',
+                c1: 'Zwolle',
+                letter2: 'b',
+                a2: 'Noord-Holland',
+                b2: 'Zeeland',
+                c2: 'Zuid-Holland',
+                letter3: 'C',
+                a3: 'Eindhoven',
+                b3: 'Venlo',
+                c3: 'Maastricht'
+            }
+        ];
+    }
+    static Instance() {
+        if (this.instance == null) {
+            this.instance = new AmericaQuiz();
+        }
+        return this.instance;
+    }
+}
+AmericaQuiz.instance = null;
+class ScreenLevel extends ScreenBase {
+    constructor() {
+        super();
+        this.spikes = new Array();
+        this.platforms = new Array();
+        this.drawScreenLevel = () => {
+            let time = this.timer.getTime();
+            this.canvasHelper.BeginUpdate();
+            this.canvasHelper.Clear();
+            if (time.Seconds < 10)
+                this.canvasHelper.writeTextToCanvas(`Tijd ${time.Minutes}:0${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, 50, 'black');
+            else
+                this.canvasHelper.writeTextToCanvas(`Tijd ${time.Minutes}:${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, 50, 'black');
+            this.controlsInstructions();
+            this.canvasHelper.writeTextToCanvas(`Level ${this.currentLevel}`, 20, this.canvasHelper.GetWidth() - 20, 30, undefined, "right");
+            this.spikes.forEach((element) => {
+                element.draw();
+                if (this.player.entityCollision(element))
+                    this.player.resetPosition();
+            });
+            this.platforms.forEach((element) => {
+                element.draw();
+                if (this.player.platformCollision(element))
+                    this.player.stopFalling();
+            });
+            this.player.draw();
+            this.player.move();
+            this.countryFlag.draw();
+            this.canvasHelper.EndUpdate();
+            if (!this.player.entityCollision(this.countryFlag)) {
+                requestAnimationFrame(this.drawScreenLevel);
+            }
+            else {
+                this.drawScreenQuiz();
+            }
+        };
+    }
+    draw() {
+        console.log("This is ScreenLevel speaking.");
+        console.log(`This is level: ${this.currentLevel}`);
+        if (this.currentLevel == 1)
+            this.drawLevelOne();
+        if (this.currentLevel == 2)
+            this.drawLevelTwo();
+        if (this.currentLevel == 3)
+            this.drawLevelThree();
+        this.timer.startTimer();
+        this.drawScreenLevel();
+    }
+    controlsInstructions() {
+        this.canvasHelper.writeTextToCanvas("Links: A", 20, 30, 25, undefined, "left");
+        this.canvasHelper.writeTextToCanvas("Rechts: D", 20, 30, 55, undefined, "left");
+        this.canvasHelper.writeTextToCanvas("Springen: Spatiebalk (ingedrukt houden)", 20, 30, 85, undefined, "left");
+        this.canvasHelper.drawBorder(0, 0, 400, 95);
+    }
+}
+class AmericaLevel extends ScreenLevel {
+    constructor() {
+        super();
+        console.log('this is AmericaLevel');
+        this.screenQuiz = AmericaQuiz.Instance();
+        this.currentLevel = this.screenQuiz.getCurrentQuestion() + 1;
+    }
+    drawLevelOne() {
+        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 180);
+        this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 200));
+        this.platforms.push(new Platform(250, this.canvasHelper.GetCenter().Y + 190));
+        this.platforms.push(new Platform(180, this.canvasHelper.GetCenter().Y + 240));
+        this.spikes.push(new Spike(180, this.canvasHelper.GetCenter().Y + 225));
+        this.platforms.push(new Platform(380, this.canvasHelper.GetCenter().Y + 260));
+        this.platforms.push(new Platform(470, this.canvasHelper.GetCenter().Y + 320));
+        this.spikes.push(new Spike(470, this.canvasHelper.GetCenter().Y + 305));
+        this.platforms.push(new Platform(600, this.canvasHelper.GetCenter().Y + 360));
+        this.platforms.push(new Platform(760, this.canvasHelper.GetCenter().Y + 380));
+        this.platforms.push(new Platform(860, this.canvasHelper.GetCenter().Y + 340));
+        this.platforms.push(new Platform(960, this.canvasHelper.GetCenter().Y + 300));
+        this.platforms.push(new Platform(1060, this.canvasHelper.GetCenter().Y + 260));
+        this.platforms.push(new Platform(1200, this.canvasHelper.GetCenter().Y + 400));
+        this.spikes.push(new Spike(1200, this.canvasHelper.GetCenter().Y + 385));
+        this.platforms.push(new Platform(1300, this.canvasHelper.GetCenter().Y + 340));
+        this.countryFlag = new Flag(1340, this.canvasHelper.GetCenter().Y + 265);
+    }
+    drawLevelTwo() {
+        this.player = new Player(100, this.canvasHelper.GetCenter().Y);
+        this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 20));
+        this.platforms.push(new Platform(200, this.canvasHelper.GetCenter().Y + 50));
+        this.platforms.push(new Platform(330, this.canvasHelper.GetCenter().Y + 120));
+        this.spikes.push(new Spike(330, this.canvasHelper.GetCenter().Y + 105));
+        this.platforms.push(new Platform(430, this.canvasHelper.GetCenter().Y + 200));
+        this.platforms.push(new Platform(550, this.canvasHelper.GetCenter().Y + 190));
+        this.platforms.push(new Platform(630, this.canvasHelper.GetCenter().Y + 225));
+        this.spikes.push(new Spike(630, this.canvasHelper.GetCenter().Y + 210));
+        this.platforms.push(new Platform(710, this.canvasHelper.GetCenter().Y + 250));
+        this.platforms.push(new Platform(820, this.canvasHelper.GetCenter().Y + 210));
+        this.platforms.push(new Platform(920, this.canvasHelper.GetCenter().Y + 175));
+        this.platforms.push(new Platform(990, this.canvasHelper.GetCenter().Y + 210));
+        this.spikes.push(new Spike(990, this.canvasHelper.GetCenter().Y + 195));
+        this.platforms.push(new Platform(1050, this.canvasHelper.GetCenter().Y + 250));
+        this.platforms.push(new Platform(1130, this.canvasHelper.GetCenter().Y + 275));
+        this.spikes.push(new Spike(1130, this.canvasHelper.GetCenter().Y + 260));
+        this.platforms.push(new Platform(1210, this.canvasHelper.GetCenter().Y + 250));
+        this.platforms.push(new Platform(1320, this.canvasHelper.GetCenter().Y + 220));
+        this.platforms.push(new Platform(1480, this.canvasHelper.GetCenter().Y + 210));
+        this.platforms.push(new Platform(1630, this.canvasHelper.GetCenter().Y + 200));
+        this.countryFlag = new Flag(1670, this.canvasHelper.GetCenter().Y + 125);
+    }
+    drawLevelThree() {
+        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 400);
+        this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 420));
+        this.platforms.push(new Platform(200, this.canvasHelper.GetCenter().Y + 380));
+        this.platforms.push(new Platform(310, this.canvasHelper.GetCenter().Y + 335));
+        this.platforms.push(new Platform(400, this.canvasHelper.GetCenter().Y + 290));
+        this.platforms.push(new Platform(500, this.canvasHelper.GetCenter().Y + 270));
+        this.spikes.push(new Spike(500, this.canvasHelper.GetCenter().Y + 255));
+        this.platforms.push(new Platform(510, this.canvasHelper.GetCenter().Y + 400));
+        this.platforms.push(new Platform(660, this.canvasHelper.GetCenter().Y + 400));
+        this.platforms.push(new Platform(740, this.canvasHelper.GetCenter().Y + 360));
+        this.platforms.push(new Platform(650, this.canvasHelper.GetCenter().Y + 320));
+        this.platforms.push(new Platform(750, this.canvasHelper.GetCenter().Y + 280));
+        this.platforms.push(new Platform(640, this.canvasHelper.GetCenter().Y + 240));
+        this.platforms.push(new Platform(770, this.canvasHelper.GetCenter().Y + 200));
+        this.platforms.push(new Platform(935, this.canvasHelper.GetCenter().Y + 170));
+        this.platforms.push(new Platform(875, this.canvasHelper.GetCenter().Y + 280));
+        this.spikes.push(new Spike(875, this.canvasHelper.GetCenter().Y + 265));
+        this.platforms.push(new Platform(955, this.canvasHelper.GetCenter().Y + 300));
+        this.spikes.push(new Spike(955, this.canvasHelper.GetCenter().Y + 285));
+        this.platforms.push(new Platform(620, this.canvasHelper.GetCenter().Y + 170));
+        this.platforms.push(new Platform(730, this.canvasHelper.GetCenter().Y + 130));
+        this.platforms.push(new Platform(1040, this.canvasHelper.GetCenter().Y + 220));
+        this.platforms.push(new Platform(1200, this.canvasHelper.GetCenter().Y + 270));
+        this.platforms.push(new Platform(1350, this.canvasHelper.GetCenter().Y + 340));
+        this.countryFlag = new Flag(1390, this.canvasHelper.GetCenter().Y + 265);
+    }
+    drawScreenQuiz() {
+        this.canvasHelper.Clear();
+        this.canvasHelper.ChangeScreen(AmericaQuiz.Instance());
+    }
+}
+class EuropeEndResult extends ScreenEndResult {
+    constructor() {
+        super();
+        this.drawNextLevelScreen = () => {
+            this.canvasHelper.Clear();
+            this.canvasHelper.UnregisterClickListener('continue');
+            this.canvasHelper.ChangeScreen(new EuropeLevel);
+        };
+        this.drawScreenHighScore = () => {
+            this.canvasHelper.Clear();
+            this.screenQuiz.resetQuestion();
+            this.canvasHelper.UnregisterClickListener('continue');
+            this.canvasHelper.ChangeScreen(ScreenHighScore.Instance());
+        };
+        console.log('this is EuropeEndResult');
+        this.screenQuiz = EuropeQuiz.Instance();
+    }
+}
+class EuropeLevel extends ScreenLevel {
+    constructor() {
+        super();
+        console.log('this is EuropeLevel');
+        this.screenQuiz = EuropeQuiz.Instance();
+        this.currentLevel = this.screenQuiz.getCurrentQuestion() + 1;
+    }
+    drawLevelOne() {
+        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 180);
+        this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 200));
+        this.platforms.push(new Platform(250, this.canvasHelper.GetCenter().Y + 190));
+        this.platforms.push(new Platform(180, this.canvasHelper.GetCenter().Y + 240));
+        this.spikes.push(new Spike(180, this.canvasHelper.GetCenter().Y + 225));
+        this.platforms.push(new Platform(380, this.canvasHelper.GetCenter().Y + 260));
+        this.platforms.push(new Platform(470, this.canvasHelper.GetCenter().Y + 320));
+        this.spikes.push(new Spike(470, this.canvasHelper.GetCenter().Y + 305));
+        this.platforms.push(new Platform(600, this.canvasHelper.GetCenter().Y + 360));
+        this.platforms.push(new Platform(760, this.canvasHelper.GetCenter().Y + 380));
+        this.platforms.push(new Platform(860, this.canvasHelper.GetCenter().Y + 340));
+        this.platforms.push(new Platform(960, this.canvasHelper.GetCenter().Y + 300));
+        this.platforms.push(new Platform(1060, this.canvasHelper.GetCenter().Y + 260));
+        this.platforms.push(new Platform(1200, this.canvasHelper.GetCenter().Y + 400));
+        this.spikes.push(new Spike(1200, this.canvasHelper.GetCenter().Y + 385));
+        this.platforms.push(new Platform(1300, this.canvasHelper.GetCenter().Y + 340));
+        this.countryFlag = new Flag(1340, this.canvasHelper.GetCenter().Y + 265);
+    }
+    drawLevelTwo() {
+        this.player = new Player(100, this.canvasHelper.GetCenter().Y);
+        this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 20));
+        this.platforms.push(new Platform(200, this.canvasHelper.GetCenter().Y + 50));
+        this.platforms.push(new Platform(330, this.canvasHelper.GetCenter().Y + 120));
+        this.spikes.push(new Spike(330, this.canvasHelper.GetCenter().Y + 105));
+        this.platforms.push(new Platform(430, this.canvasHelper.GetCenter().Y + 200));
+        this.platforms.push(new Platform(550, this.canvasHelper.GetCenter().Y + 190));
+        this.platforms.push(new Platform(630, this.canvasHelper.GetCenter().Y + 225));
+        this.spikes.push(new Spike(630, this.canvasHelper.GetCenter().Y + 210));
+        this.platforms.push(new Platform(710, this.canvasHelper.GetCenter().Y + 250));
+        this.platforms.push(new Platform(820, this.canvasHelper.GetCenter().Y + 210));
+        this.platforms.push(new Platform(920, this.canvasHelper.GetCenter().Y + 175));
+        this.platforms.push(new Platform(990, this.canvasHelper.GetCenter().Y + 210));
+        this.spikes.push(new Spike(990, this.canvasHelper.GetCenter().Y + 195));
+        this.platforms.push(new Platform(1050, this.canvasHelper.GetCenter().Y + 250));
+        this.platforms.push(new Platform(1130, this.canvasHelper.GetCenter().Y + 275));
+        this.spikes.push(new Spike(1130, this.canvasHelper.GetCenter().Y + 260));
+        this.platforms.push(new Platform(1210, this.canvasHelper.GetCenter().Y + 250));
+        this.platforms.push(new Platform(1320, this.canvasHelper.GetCenter().Y + 220));
+        this.platforms.push(new Platform(1480, this.canvasHelper.GetCenter().Y + 210));
+        this.platforms.push(new Platform(1630, this.canvasHelper.GetCenter().Y + 200));
+        this.countryFlag = new Flag(1670, this.canvasHelper.GetCenter().Y + 125);
+    }
+    drawLevelThree() {
+        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 400);
+        this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 420));
+        this.platforms.push(new Platform(200, this.canvasHelper.GetCenter().Y + 380));
+        this.platforms.push(new Platform(310, this.canvasHelper.GetCenter().Y + 335));
+        this.platforms.push(new Platform(400, this.canvasHelper.GetCenter().Y + 290));
+        this.platforms.push(new Platform(500, this.canvasHelper.GetCenter().Y + 270));
+        this.spikes.push(new Spike(500, this.canvasHelper.GetCenter().Y + 255));
+        this.platforms.push(new Platform(510, this.canvasHelper.GetCenter().Y + 400));
+        this.platforms.push(new Platform(660, this.canvasHelper.GetCenter().Y + 400));
+        this.platforms.push(new Platform(740, this.canvasHelper.GetCenter().Y + 360));
+        this.platforms.push(new Platform(650, this.canvasHelper.GetCenter().Y + 320));
+        this.platforms.push(new Platform(750, this.canvasHelper.GetCenter().Y + 280));
+        this.platforms.push(new Platform(640, this.canvasHelper.GetCenter().Y + 240));
+        this.platforms.push(new Platform(770, this.canvasHelper.GetCenter().Y + 200));
+        this.platforms.push(new Platform(935, this.canvasHelper.GetCenter().Y + 170));
+        this.platforms.push(new Platform(875, this.canvasHelper.GetCenter().Y + 280));
+        this.spikes.push(new Spike(875, this.canvasHelper.GetCenter().Y + 265));
+        this.platforms.push(new Platform(955, this.canvasHelper.GetCenter().Y + 300));
+        this.spikes.push(new Spike(955, this.canvasHelper.GetCenter().Y + 285));
+        this.platforms.push(new Platform(620, this.canvasHelper.GetCenter().Y + 170));
+        this.platforms.push(new Platform(730, this.canvasHelper.GetCenter().Y + 130));
+        this.platforms.push(new Platform(1040, this.canvasHelper.GetCenter().Y + 220));
+        this.platforms.push(new Platform(1200, this.canvasHelper.GetCenter().Y + 270));
+        this.platforms.push(new Platform(1350, this.canvasHelper.GetCenter().Y + 340));
+        this.countryFlag = new Flag(1390, this.canvasHelper.GetCenter().Y + 265);
+    }
+    drawScreenQuiz() {
+        this.canvasHelper.Clear();
+        this.canvasHelper.ChangeScreen(EuropeQuiz.Instance());
+    }
+}
+class EuropeQuiz extends ScreenQuiz {
+    constructor() {
+        super();
+        this.drawScreenLevel = () => {
+            this.canvasHelper.Clear();
+            this.removeButtons();
+            this.canvasHelper.ChangeScreen(new EuropeLevel);
+        };
+        this.drawScreenEndResult = () => {
+            this.canvasHelper.Clear();
+            this.removeButtons();
+            this.question++;
+            this.firstAnswer = 0;
+            this.secondAnswer = 0;
+            this.thirdAnswer = 0;
+            this.canvasHelper.ChangeScreen(new EuropeEndResult);
+        };
+        console.log('this is EuropeQuiz');
+        this.totalquestion = 3;
+        this.imageLocations = [
+            "./assets/questions/Netherlands1.png",
+            './assets/questions/Netherlands2.png',
+            './assets/questions/Netherlands3.png'
+        ];
+        this.qAndA = [
+            {
+                letter1: 'A',
+                a1: 'Arnhem',
+                b1: 'Amersfoort',
+                c1: 'Nijmegen',
+                letter2: 'b',
+                a2: 'Gelderland',
+                b2: 'Drenthe',
+                c2: 'Overijssel',
+                letter3: 'C',
+                a3: 'Amsterdam',
+                b3: 'Leiden',
+                c3: 'Haarlem'
+            },
+            {
+                letter1: 'A',
+                a1: 'Leeuwarden',
+                b1: 'Groningen',
+                c1: 'Assen',
+                letter2: 'B',
+                a2: 'Rotterdam',
+                b2: 'Den Haag',
+                c2: 'Middelburg',
+                letter3: 'c',
+                a3: 'Limburg',
+                b3: 'Gelderland',
+                c3: 'Noord-Brabant'
+            },
+            {
+                letter1: 'A',
+                a1: 'Lelystad',
+                b1: 'Amsterdam',
+                c1: 'Zwolle',
+                letter2: 'b',
+                a2: 'Noord-Holland',
+                b2: 'Zeeland',
+                c2: 'Zuid-Holland',
+                letter3: 'C',
+                a3: 'Eindhoven',
+                b3: 'Venlo',
+                c3: 'Maastricht'
+            }
+        ];
+    }
+    static Instance() {
+        if (this.instance == null) {
+            this.instance = new EuropeQuiz();
+        }
+        return this.instance;
+    }
+}
+EuropeQuiz.instance = null;
 class Entity {
     constructor(xCoor, yCoor) {
         this.canvas = CanvasHelper.Instance();
@@ -346,45 +869,9 @@ class TimeHelper {
     }
 }
 TimeHelper.instance = null;
-class ScreenBase {
-    constructor() {
-        this.canvasHelper = CanvasHelper.Instance();
-        this.timer = TimeHelper.Instance();
-    }
-}
-class ScreenEndResult extends ScreenBase {
-    constructor() {
-        super();
-        this.screenQuiz = ScreenQuiz.Instance();
-        this.drawNextLevelScreen = () => {
-            this.canvasHelper.Clear();
-            this.canvasHelper.UnregisterClickListener('continue');
-            this.canvasHelper.ChangeScreen(new ScreenLevel);
-        };
-        this.drawScreenHighScore = () => {
-            this.canvasHelper.Clear();
-            this.canvasHelper.UnregisterClickListener('continue');
-            this.canvasHelper.ChangeScreen(ScreenHighScore.Instance());
-        };
-    }
-    draw() {
-        let time = this.timer.getTime();
-        this.canvasHelper.writeTextToCanvas('Level voltooid!', 50, this.canvasHelper.GetCenter().X, 100);
-        this.canvasHelper.writeTextToCanvas('Tijd:', 30, this.canvasHelper.GetCenter().X, 250);
-        if (time.Seconds < 10)
-            this.canvasHelper.writeTextToCanvas(` ${time.Minutes}:0${time.Seconds}`, 30, this.canvasHelper.GetCenter().X, 350, 'black');
-        else
-            this.canvasHelper.writeTextToCanvas(` ${time.Minutes}:${time.Seconds}`, 30, this.canvasHelper.GetCenter().X, 350, 'black');
-        if (this.screenQuiz.getCurrentQuestion() > this.screenQuiz.getMaxQuestion())
-            this.canvasHelper.writeButtonToCanvas('Highscores', 'continue', this.drawScreenHighScore, undefined, undefined);
-        else
-            this.canvasHelper.writeButtonToCanvas('Volgend level', 'continue', this.drawNextLevelScreen, undefined, undefined);
-    }
-}
 class ScreenHighScore extends ScreenBase {
     constructor() {
         super();
-        this.screenQuiz = ScreenQuiz.Instance();
         this.highscores = [
             600,
             600,
@@ -398,7 +885,6 @@ class ScreenHighScore extends ScreenBase {
         this.drawScreenLevelSelect = () => {
             this.canvasHelper.Clear();
             this.timer.resetTimer();
-            this.screenQuiz.resetQuestion();
             this.canvasHelper.UnregisterClickListener('replay');
             this.canvasHelper.ChangeScreen(new ScreenLevelSelect);
         };
@@ -447,292 +933,31 @@ class ScreenHighScore extends ScreenBase {
     }
 }
 ScreenHighScore.instance = null;
-class ScreenLevel extends ScreenBase {
-    constructor() {
-        super();
-        this.spikes = new Array();
-        this.platforms = new Array();
-        this.screenQuiz = ScreenQuiz.Instance();
-        this.currentLevel = this.screenQuiz.getCurrentQuestion() + 1;
-        this.drawScreenLevel = () => {
-            let time = this.timer.getTime();
-            this.canvasHelper.BeginUpdate();
-            this.canvasHelper.Clear();
-            if (time.Seconds < 10)
-                this.canvasHelper.writeTextToCanvas(`Tijd ${time.Minutes}:0${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, 50, 'black');
-            else
-                this.canvasHelper.writeTextToCanvas(`Tijd ${time.Minutes}:${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, 50, 'black');
-            this.controlsInstructions();
-            this.canvasHelper.writeTextToCanvas(`Level ${this.currentLevel}`, 20, this.canvasHelper.GetWidth() - 20, 30, undefined, "right");
-            this.spikes.forEach((element) => {
-                element.draw();
-                if (this.player.entityCollision(element))
-                    this.player.resetPosition();
-            });
-            this.platforms.forEach((element) => {
-                element.draw();
-                if (this.player.platformCollision(element))
-                    this.player.stopFalling();
-            });
-            this.player.draw();
-            this.player.move();
-            this.countryFlag.draw();
-            this.canvasHelper.EndUpdate();
-            if (!this.player.entityCollision(this.countryFlag)) {
-                requestAnimationFrame(this.drawScreenLevel);
-            }
-            else {
-                this.drawScreenQuiz();
-            }
-        };
-    }
-    draw() {
-        console.log("This is ScreenLevel speaking.");
-        console.log(`This is level: ${this.currentLevel}`);
-        if (this.currentLevel == 1)
-            this.drawLevelOne();
-        if (this.currentLevel == 2)
-            this.drawLevelTwo();
-        if (this.currentLevel == 3)
-            this.drawLevelThree();
-        this.timer.startTimer();
-        this.drawScreenLevel();
-    }
-    drawLevelOne() {
-        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 180);
-        this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 200));
-        this.platforms.push(new Platform(250, this.canvasHelper.GetCenter().Y + 190));
-        this.platforms.push(new Platform(180, this.canvasHelper.GetCenter().Y + 240));
-        this.spikes.push(new Spike(180, this.canvasHelper.GetCenter().Y + 225));
-        this.platforms.push(new Platform(380, this.canvasHelper.GetCenter().Y + 260));
-        this.platforms.push(new Platform(470, this.canvasHelper.GetCenter().Y + 320));
-        this.spikes.push(new Spike(470, this.canvasHelper.GetCenter().Y + 305));
-        this.platforms.push(new Platform(600, this.canvasHelper.GetCenter().Y + 360));
-        this.platforms.push(new Platform(760, this.canvasHelper.GetCenter().Y + 380));
-        this.platforms.push(new Platform(860, this.canvasHelper.GetCenter().Y + 340));
-        this.platforms.push(new Platform(960, this.canvasHelper.GetCenter().Y + 300));
-        this.platforms.push(new Platform(1060, this.canvasHelper.GetCenter().Y + 260));
-        this.platforms.push(new Platform(1200, this.canvasHelper.GetCenter().Y + 400));
-        this.spikes.push(new Spike(1200, this.canvasHelper.GetCenter().Y + 385));
-        this.platforms.push(new Platform(1300, this.canvasHelper.GetCenter().Y + 340));
-        this.countryFlag = new Flag(1340, this.canvasHelper.GetCenter().Y + 265);
-    }
-    drawLevelTwo() {
-        this.player = new Player(100, this.canvasHelper.GetCenter().Y);
-        this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 20));
-        this.platforms.push(new Platform(200, this.canvasHelper.GetCenter().Y + 50));
-        this.platforms.push(new Platform(330, this.canvasHelper.GetCenter().Y + 120));
-        this.spikes.push(new Spike(330, this.canvasHelper.GetCenter().Y + 105));
-        this.platforms.push(new Platform(430, this.canvasHelper.GetCenter().Y + 200));
-        this.platforms.push(new Platform(550, this.canvasHelper.GetCenter().Y + 190));
-        this.platforms.push(new Platform(630, this.canvasHelper.GetCenter().Y + 225));
-        this.spikes.push(new Spike(630, this.canvasHelper.GetCenter().Y + 210));
-        this.platforms.push(new Platform(710, this.canvasHelper.GetCenter().Y + 250));
-        this.platforms.push(new Platform(820, this.canvasHelper.GetCenter().Y + 210));
-        this.platforms.push(new Platform(920, this.canvasHelper.GetCenter().Y + 175));
-        this.platforms.push(new Platform(990, this.canvasHelper.GetCenter().Y + 210));
-        this.spikes.push(new Spike(990, this.canvasHelper.GetCenter().Y + 195));
-        this.platforms.push(new Platform(1050, this.canvasHelper.GetCenter().Y + 250));
-        this.platforms.push(new Platform(1130, this.canvasHelper.GetCenter().Y + 275));
-        this.spikes.push(new Spike(1130, this.canvasHelper.GetCenter().Y + 260));
-        this.platforms.push(new Platform(1210, this.canvasHelper.GetCenter().Y + 250));
-        this.platforms.push(new Platform(1320, this.canvasHelper.GetCenter().Y + 220));
-        this.platforms.push(new Platform(1480, this.canvasHelper.GetCenter().Y + 210));
-        this.platforms.push(new Platform(1630, this.canvasHelper.GetCenter().Y + 200));
-        this.countryFlag = new Flag(1670, this.canvasHelper.GetCenter().Y + 125);
-    }
-    drawLevelThree() {
-        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 400);
-        this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 420));
-        this.platforms.push(new Platform(200, this.canvasHelper.GetCenter().Y + 380));
-        this.platforms.push(new Platform(310, this.canvasHelper.GetCenter().Y + 335));
-        this.platforms.push(new Platform(400, this.canvasHelper.GetCenter().Y + 290));
-        this.platforms.push(new Platform(500, this.canvasHelper.GetCenter().Y + 270));
-        this.spikes.push(new Spike(500, this.canvasHelper.GetCenter().Y + 255));
-        this.platforms.push(new Platform(510, this.canvasHelper.GetCenter().Y + 400));
-        this.platforms.push(new Platform(660, this.canvasHelper.GetCenter().Y + 400));
-        this.platforms.push(new Platform(740, this.canvasHelper.GetCenter().Y + 360));
-        this.platforms.push(new Platform(650, this.canvasHelper.GetCenter().Y + 320));
-        this.platforms.push(new Platform(750, this.canvasHelper.GetCenter().Y + 280));
-        this.platforms.push(new Platform(640, this.canvasHelper.GetCenter().Y + 240));
-        this.platforms.push(new Platform(770, this.canvasHelper.GetCenter().Y + 200));
-        this.platforms.push(new Platform(935, this.canvasHelper.GetCenter().Y + 170));
-        this.platforms.push(new Platform(875, this.canvasHelper.GetCenter().Y + 280));
-        this.spikes.push(new Spike(875, this.canvasHelper.GetCenter().Y + 265));
-        this.platforms.push(new Platform(955, this.canvasHelper.GetCenter().Y + 300));
-        this.spikes.push(new Spike(955, this.canvasHelper.GetCenter().Y + 285));
-        this.platforms.push(new Platform(620, this.canvasHelper.GetCenter().Y + 170));
-        this.platforms.push(new Platform(730, this.canvasHelper.GetCenter().Y + 130));
-        this.platforms.push(new Platform(1040, this.canvasHelper.GetCenter().Y + 220));
-        this.platforms.push(new Platform(1200, this.canvasHelper.GetCenter().Y + 270));
-        this.platforms.push(new Platform(1350, this.canvasHelper.GetCenter().Y + 340));
-        this.countryFlag = new Flag(1390, this.canvasHelper.GetCenter().Y + 265);
-    }
-    controlsInstructions() {
-        this.canvasHelper.writeTextToCanvas("Links: A", 20, 30, 25, undefined, "left");
-        this.canvasHelper.writeTextToCanvas("Rechts: D", 20, 30, 55, undefined, "left");
-        this.canvasHelper.writeTextToCanvas("Springen: Spatiebalk (ingedrukt houden)", 20, 30, 85, undefined, "left");
-        this.canvasHelper.drawBorder(0, 0, 400, 95);
-    }
-    drawScreenQuiz() {
-        this.canvasHelper.Clear();
-        this.canvasHelper.ChangeScreen(ScreenQuiz.Instance());
-    }
-}
 class ScreenLevelSelect extends ScreenBase {
     constructor() {
         super();
-        this.drawScreenLevel = () => {
-            console.log('click');
-            this.canvasHelper.UnregisterClickListener('StartGameCommand');
+        this.drawEuropeLevel = () => {
+            console.log('Europe');
+            this.removeButtons();
+            this.canvasHelper.ChangeScreen(new EuropeLevel);
+        };
+        this.drawAmericaLevel = () => {
+            console.log('America');
+            this.removeButtons();
+            this.canvasHelper.ChangeScreen(new AmericaLevel);
+        };
+        this.removeButtons = () => {
             this.canvasHelper.Clear();
-            this.canvasHelper.ChangeScreen(new ScreenLevel());
+            this.canvasHelper.UnregisterClickListener('StartEurope');
+            this.canvasHelper.UnregisterClickListener('StartAmerica');
         };
         this.canvasHelper.ChangeScreen();
     }
     draw() {
         this.canvasHelper.writeTextToCanvas('UNtRAVEL', 50, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y / 3);
-        this.canvasHelper.writeImageFromFileToCanvas('./assets/images/maps/Europa-kaart.png', this.canvasHelper.GetCenter().X - 65, this.canvasHelper.GetCenter().Y - 65, 130, 130);
-        this.canvasHelper.writeButtonToCanvas("Start", 'StartGameCommand', this.drawScreenLevel, undefined, this.canvasHelper.GetCenter().Y + 200);
+        this.canvasHelper.writeImageFromFileToCanvas('./assets/images/maps/Europa-kaart.png', this.canvasHelper.GetWidth() * 0.6 + 50, this.canvasHelper.GetCenter().Y - 65, 130, 130);
+        this.canvasHelper.writeButtonToCanvas("Europa", 'StartEurope', this.drawEuropeLevel, this.canvasHelper.GetWidth() * 0.6, this.canvasHelper.GetCenter().Y + 200);
+        this.canvasHelper.writeButtonToCanvas("America", 'StartAmerica', this.drawAmericaLevel, this.canvasHelper.GetWidth() * 0.3, this.canvasHelper.GetCenter().Y + 200);
     }
 }
-class ScreenQuiz extends ScreenBase {
-    constructor() {
-        super();
-        this.question = 0;
-        this.firstAnswer = 0;
-        this.secondAnswer = 0;
-        this.thirdAnswer = 0;
-        this.imageLocations = [
-            "./assets/questions/Netherlands1.png",
-            './assets/questions/Netherlands2.png',
-            './assets/questions/Netherlands3.png'
-        ];
-        this.totalquestion = this.imageLocations.length - 1;
-        this.qAndA = [
-            {
-                a1: 'Arnhem',
-                b1: 'Amersfoort',
-                c1: 'Nijmegen',
-                a2: 'Gelderland',
-                b2: 'Drenthe',
-                c2: 'Overijssel',
-                a3: 'Amsterdam',
-                b3: 'Leiden',
-                c3: 'Haarlem'
-            },
-            {
-                a1: 'Leeuwarden',
-                b1: 'Groningen',
-                c1: 'Assen',
-                a2: 'Rotterdam',
-                b2: 'Den Haag',
-                c2: 'Middelburg',
-                a3: 'Limburg',
-                b3: 'Gelderland',
-                c3: 'Noord-Brabant'
-            },
-            {
-                a1: 'Lelystad',
-                b1: 'Amsterdam',
-                c1: 'Zwolle',
-                a2: 'Noord-Holland',
-                b2: 'Zeeland',
-                c2: 'Zuid-Holland',
-                a3: 'Eindhoven',
-                b3: 'Venlo',
-                c3: 'Maastricht'
-            }
-        ];
-        this.checkAnswerOne = () => {
-            console.log('Correct!');
-            this.firstAnswer = 1;
-            this.removeButtons();
-            if (this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1)
-                this.drawScreenEndResult();
-            else
-                this.drawScreenQuiz();
-        };
-        this.checkAnswerTwo = () => {
-            console.log('Correct!');
-            this.secondAnswer = 1;
-            this.removeButtons();
-            if (this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1)
-                this.drawScreenEndResult();
-            else
-                this.drawScreenQuiz();
-        };
-        this.checkAnswerThree = () => {
-            console.log('Correct!');
-            this.thirdAnswer = 1;
-            this.removeButtons();
-            if (this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1)
-                this.drawScreenEndResult();
-            else
-                this.drawScreenQuiz();
-        };
-        this.drawScreenLevel = () => {
-            this.canvasHelper.Clear();
-            this.removeButtons();
-            this.canvasHelper.ChangeScreen(new ScreenLevel);
-        };
-        this.drawScreenEndResult = () => {
-            this.canvasHelper.Clear();
-            this.removeButtons();
-            this.question++;
-            this.firstAnswer = 0;
-            this.secondAnswer = 0;
-            this.thirdAnswer = 0;
-            this.canvasHelper.ChangeScreen(new ScreenEndResult);
-        };
-        this.removeButtons = () => {
-            this.canvasHelper.Clear();
-            this.canvasHelper.UnregisterClickListener('startGame1');
-            this.canvasHelper.UnregisterClickListener('startGame2');
-            this.canvasHelper.UnregisterClickListener('startGame3');
-            this.canvasHelper.UnregisterClickListener('startGame4');
-            this.canvasHelper.UnregisterClickListener('startGame5');
-            this.canvasHelper.UnregisterClickListener('startGame6');
-            this.canvasHelper.UnregisterClickListener('startGame7');
-            this.canvasHelper.UnregisterClickListener('startGame8');
-            this.canvasHelper.UnregisterClickListener('startGame9');
-        };
-    }
-    static Instance() {
-        if (this.instance == null) {
-            this.instance = new ScreenQuiz();
-        }
-        return this.instance;
-    }
-    draw() {
-        this.drawScreenQuiz();
-    }
-    drawScreenQuiz() {
-        this.timer.pauseTimer();
-        this.canvasHelper.writeTextToCanvas('Wat ligt hier?', 50, this.canvasHelper.GetCenter().X, 50);
-        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, 350, 100, 504, 597);
-        this.canvasHelper.writeTextToCanvas("A", 20, this.canvasHelper.GetWidth() * 0.59, 125, "red");
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].a1}`, 'startGame1', this.checkAnswerOne, this.canvasHelper.GetWidth() * 0.6, 100, this.firstAnswer);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].b1}`, 'startGame2', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 150);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].c1}`, 'startGame3', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 200);
-        this.canvasHelper.writeTextToCanvas("B", 20, this.canvasHelper.GetWidth() * 0.59, 325, "red");
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].a2}`, 'startGame4', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 300);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].b2}`, 'startGame5', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 350);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].c2}`, 'startGame6', this.checkAnswerTwo, this.canvasHelper.GetWidth() * 0.6, 400, this.secondAnswer);
-        this.canvasHelper.writeTextToCanvas("C", 20, this.canvasHelper.GetWidth() * 0.59, 525, "red");
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].a3}`, 'startGame7', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 500);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].b3}`, 'startGame8', this.drawScreenLevel, this.canvasHelper.GetWidth() * 0.6, 550);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].c3}`, 'startGame9', this.checkAnswerThree, this.canvasHelper.GetWidth() * 0.6, 600, this.thirdAnswer);
-    }
-    resetQuestion() {
-        this.question = 0;
-    }
-    getCurrentQuestion() {
-        return this.question;
-    }
-    getMaxQuestion() {
-        return this.totalquestion;
-    }
-}
-ScreenQuiz.instance = null;
 //# sourceMappingURL=app.js.map
