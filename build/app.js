@@ -489,7 +489,12 @@ class ScreenLevel extends ScreenBase {
     draw() {
         console.log("This is ScreenLevel speaking.");
         console.log(`This is level: ${this.currentLevel}`);
-        this.drawLevelTwo();
+        if (this.currentLevel == 1)
+            this.drawLevelOne();
+        if (this.currentLevel == 2)
+            this.drawLevelTwo();
+        if (this.currentLevel == 3)
+            this.drawLevelThree();
         this.timer.startTimer();
         this.drawScreenLevel();
     }
@@ -527,9 +532,14 @@ class ScreenLevel extends ScreenBase {
         this.platforms.push(new Platform(920, this.canvasHelper.GetCenter().Y + 175));
         this.platforms.push(new Platform(990, this.canvasHelper.GetCenter().Y + 210));
         this.spikes.push(new Spike(990, this.canvasHelper.GetCenter().Y + 195));
-        this.platforms.push(new Platform(1030, this.canvasHelper.GetCenter().Y + 250));
-        this.platforms.push(new Platform(1550, this.canvasHelper.GetCenter().Y + 340));
-        this.countryFlag = new Flag(1590, this.canvasHelper.GetCenter().Y + 265);
+        this.platforms.push(new Platform(1050, this.canvasHelper.GetCenter().Y + 250));
+        this.platforms.push(new Platform(1130, this.canvasHelper.GetCenter().Y + 275));
+        this.spikes.push(new Spike(1130, this.canvasHelper.GetCenter().Y + 260));
+        this.platforms.push(new Platform(1210, this.canvasHelper.GetCenter().Y + 250));
+        this.platforms.push(new Platform(1320, this.canvasHelper.GetCenter().Y + 220));
+        this.platforms.push(new Platform(1480, this.canvasHelper.GetCenter().Y + 210));
+        this.platforms.push(new Platform(1630, this.canvasHelper.GetCenter().Y + 200));
+        this.countryFlag = new Flag(1670, this.canvasHelper.GetCenter().Y + 125);
     }
     drawLevelThree() {
         this.player = new Player(100, this.canvasHelper.GetCenter().Y + 400);
