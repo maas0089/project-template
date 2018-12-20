@@ -1,14 +1,14 @@
 class ScreenLevel extends ScreenBase {
 
     // private screenQuiz: ScreenQuiz = new ScreenQuiz();
-    private spikes: Array<Spike> = new Array<Spike>();
-    private platforms: Array<Platform> = new Array<Platform>();
-    private player: Player;
-    private imageMap: string;
-    private countryFlag: Flag;
-    private background: string;
-    private screenQuiz: ScreenQuiz = ScreenQuiz.Instance();
-    private currentLevel = this.screenQuiz.getCurrentQuestion() + 1;
+    protected spikes: Array<Spike> = new Array<Spike>();
+    protected platforms: Array<Platform> = new Array<Platform>();
+    protected player: Player;
+    protected imageMap: string;
+    protected countryFlag: Flag;
+    protected background: string;
+    protected screenQuiz: ScreenQuiz = ScreenQuiz.Instance();
+    protected currentLevel = this.screenQuiz.getCurrentQuestion() + 1;
 
 
     //TODO: change spike width and height to match the platform
