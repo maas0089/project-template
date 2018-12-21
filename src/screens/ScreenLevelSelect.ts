@@ -1,7 +1,9 @@
 class ScreenLevelSelect extends ScreenBase {
 
-    private continents: Array<string>;
-    // private screenLevel: ScreenLevel = new ScreenLevel;
+    private continents: Array<any> = [{
+        europe: './assets/images/maps/Europa-kaart.png',
+        northAmerica: './assets/images/maps/Noord-Amerika-kaart.png'
+    }] ;
 
     public constructor(){
         super();
@@ -9,21 +11,29 @@ class ScreenLevelSelect extends ScreenBase {
     }
 
     public draw(): void {
+
+        //draw main text
         this.canvasHelper.writeTextToCanvas('UNtRAVEL', 50, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y / 3);
-        this.canvasHelper.writeImageFromFileToCanvas('./assets/images/maps/Europa-kaart.png', this.canvasHelper.GetWidth() * 0.6 + 50, this.canvasHelper.GetCenter().Y - 65, 130, 130)
+        this.canvasHelper.writeTextToCanvas('Selecteer een werelddeel', 25, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y / 3 + 60);
+
+        //draw Europe
+        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].europe, this.canvasHelper.GetWidth() * 0.6 - 40, this.canvasHelper.GetCenter().Y - 150, 300, 300);
         this.canvasHelper.writeButtonToCanvas("Europa", 'StartEurope', this.drawEuropeLevel, this.canvasHelper.GetWidth() * 0.6, this.canvasHelper.GetCenter().Y + 200);
-        this.canvasHelper.writeButtonToCanvas("America", 'StartAmerica', this.drawAmericaLevel, this.canvasHelper.GetWidth() * 0.3, this.canvasHelper.GetCenter().Y + 200)
+
+        //draw North America
+        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].northAmerica, this.canvasHelper.GetWidth() * 0.3 - 40, this.canvasHelper.GetCenter().Y - 150, 300, 300);
+        this.canvasHelper.writeButtonToCanvas("Noord-Amerika", 'StartAmerica', this.drawAmericaLevel, this.canvasHelper.GetWidth() * 0.3, this.canvasHelper.GetCenter().Y + 200)
 
     }
 
     public drawEuropeLevel = (): void => {
-        console.log('Europe');
+        console.log('Europe selected.');
         this.removeButtons();
         this.canvasHelper.ChangeScreen(new EuropeLevel);
     }
 
     public drawAmericaLevel = (): void => {
-        console.log('America');
+        console.log('North America selected');
         this.removeButtons();
         this.canvasHelper.ChangeScreen(new AmericaLevel);
 
