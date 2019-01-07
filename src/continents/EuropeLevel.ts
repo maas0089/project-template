@@ -22,6 +22,10 @@ class EuropeLevel extends ScreenLevel {
         this.spikes.push(new Spike(470, this.canvasHelper.GetCenter().Y + 305));
         this.platforms.push(new Platform(600, this.canvasHelper.GetCenter().Y + 360)); // platform 4
         this.platforms.push(new Platform(760, this.canvasHelper.GetCenter().Y + 380)); // platform 5
+
+        //test checkpoint
+        this.checkpoint = new Checkpoint(800, this.canvasHelper.GetCenter().Y + 305); // checkpoint on platform 5
+
         this.platforms.push(new Platform(860, this.canvasHelper.GetCenter().Y + 340)); // platform 6
         this.platforms.push(new Platform(960, this.canvasHelper.GetCenter().Y + 300)); // platform 7
         this.platforms.push(new Platform(1060, this.canvasHelper.GetCenter().Y + 260)); // platform 8

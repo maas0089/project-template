@@ -33,9 +33,18 @@ class Player extends Entity {
         this.keyboardListener = new KeyboardHelper();
     }
 
-    public resetPosition(): void {
+    public resetPosition(xPos: number = -1, yPos: number = -1): void {
+        // if(xPos > 0 ) this.startX = xPos;
+        // if(yPos > 0 ) this.startY = yPos;
+        // if(xPos < 0 ) this.xPos = this.startX;
+        // if(yPos < 0 ) this.yPos = this.startY;
         this.xPos = this.startX;
         this.yPos = this.startY;
+    }
+
+    public updateStartPosition(xPos: number, yPos: number): void {
+        this.startX = xPos;
+        this.startY = yPos;
     }
 
     public move(): void {

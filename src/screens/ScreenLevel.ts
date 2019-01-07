@@ -5,8 +5,8 @@ abstract class ScreenLevel extends ScreenBase {
     protected platforms: Array<Platform> = new Array<Platform>();
     protected player: Player// = new Player(100, this.canvasHelper.GetCenter().Y + 180);
     protected imageMap: string;
-    protected countryFlag: Flag// = new Flag(1340, this.canvasHelper.GetCenter().Y + 265); // Y -75
-    ;
+    protected countryFlag: Flag;// = new Flag(1340, this.canvasHelper.GetCenter().Y + 265); // Y -75
+    protected checkpoint: Checkpoint = null;
     protected background: string;
     protected screenQuiz: ScreenQuiz //= EuropeQuiz.Instance();
     protected currentLevel: number //= this.screenQuiz.getCurrentQuestion() + 1;
@@ -61,6 +61,11 @@ abstract class ScreenLevel extends ScreenBase {
             element.draw();
             if(this.player.platformCollision(element)) this.player.stopFalling();
         })
+
+        if(this.checkpoint != null){
+            this.checkpoint.draw();
+            if (this.player.entityCollision(this.checkpoint)) this.player.updateStartPosition(this.checkpoint.getX(), this.checkpoint.getY());
+        }
 
         this.player.draw();
         this.player.move();
