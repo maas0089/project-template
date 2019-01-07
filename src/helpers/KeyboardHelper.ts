@@ -15,13 +15,13 @@ class KeyboardHelper {
     }
 
     private keyDownHandler = (event: KeyboardEvent) => {
-        if (event.keyCode == 65) {
+        if (event.keyCode == 65 || event.keyCode == 37) {
             this.leftPressed = true;
         }
         if (event.keyCode == 32) {
             this.upPressed = true;
         }
-        if (event.keyCode == 68) {
+        if (event.keyCode == 68 || event.keyCode == 39) {
             this.rightPressed = true;
         }
         if (event.keyCode == 83) {
@@ -30,13 +30,13 @@ class KeyboardHelper {
     }
 
     private keyUpHandler = (event: KeyboardEvent) => {
-        if (event.keyCode == 65) {
+        if (event.keyCode == 65 || event.keyCode == 37) {
             this.leftPressed = false;
         }
         if (event.keyCode == 32) {
             this.upPressed = false;
         }
-        if (event.keyCode == 68) {
+        if (event.keyCode == 68 || event.keyCode == 39) {
             this.rightPressed = false;
         }
         if (event.keyCode == 83) {
