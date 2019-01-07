@@ -192,31 +192,24 @@ class AmericaLevel extends ScreenLevel {
         this.countryFlag = new Flag(1650, this.canvasHelper.GetCenter().Y + 200);
     }
     drawLevelThree() {
-        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 400);
-        this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 420));
-        this.platforms.push(new Platform(200, this.canvasHelper.GetCenter().Y + 380));
-        this.platforms.push(new Platform(310, this.canvasHelper.GetCenter().Y + 335));
-        this.platforms.push(new Platform(400, this.canvasHelper.GetCenter().Y + 290));
-        this.platforms.push(new Platform(500, this.canvasHelper.GetCenter().Y + 270));
-        this.spikes.push(new Spike(500, this.canvasHelper.GetCenter().Y + 255));
-        this.platforms.push(new Platform(510, this.canvasHelper.GetCenter().Y + 400));
-        this.platforms.push(new Platform(660, this.canvasHelper.GetCenter().Y + 400));
-        this.platforms.push(new Platform(740, this.canvasHelper.GetCenter().Y + 360));
-        this.platforms.push(new Platform(650, this.canvasHelper.GetCenter().Y + 320));
-        this.platforms.push(new Platform(750, this.canvasHelper.GetCenter().Y + 280));
-        this.platforms.push(new Platform(640, this.canvasHelper.GetCenter().Y + 240));
-        this.platforms.push(new Platform(770, this.canvasHelper.GetCenter().Y + 200));
-        this.platforms.push(new Platform(935, this.canvasHelper.GetCenter().Y + 170));
-        this.platforms.push(new Platform(875, this.canvasHelper.GetCenter().Y + 280));
-        this.spikes.push(new Spike(875, this.canvasHelper.GetCenter().Y + 265));
-        this.platforms.push(new Platform(955, this.canvasHelper.GetCenter().Y + 300));
-        this.spikes.push(new Spike(955, this.canvasHelper.GetCenter().Y + 285));
-        this.platforms.push(new Platform(620, this.canvasHelper.GetCenter().Y + 170));
-        this.platforms.push(new Platform(730, this.canvasHelper.GetCenter().Y + 130));
-        this.platforms.push(new Platform(1040, this.canvasHelper.GetCenter().Y + 220));
-        this.platforms.push(new Platform(1200, this.canvasHelper.GetCenter().Y + 270));
-        this.platforms.push(new Platform(1350, this.canvasHelper.GetCenter().Y + 340));
-        this.countryFlag = new Flag(1390, this.canvasHelper.GetCenter().Y + 265);
+        this.player = new Player(0, this.canvasHelper.GetCenter().Y + 166);
+        this.platforms.push(new Platform(0, this.canvasHelper.GetCenter().Y + 200));
+        this.platforms.push(new Platform(150, this.canvasHelper.GetCenter().Y + 230));
+        this.platforms.push(new Platform(250, this.canvasHelper.GetCenter().Y + 270));
+        this.platforms.push(new Platform(360, this.canvasHelper.GetCenter().Y + 300));
+        this.platforms.push(new Platform(440, this.canvasHelper.GetCenter().Y + 335));
+        this.spikes.push(new Spike(440, this.canvasHelper.GetCenter().Y + 320));
+        this.platforms.push(new Platform(520, this.canvasHelper.GetCenter().Y + 300));
+        this.platforms.push(new Platform(590, this.canvasHelper.GetCenter().Y + 335));
+        this.checkpoint = new Checkpoint(620, this.canvasHelper.GetCenter().Y + 260);
+        this.platforms.push(new Platform(660, this.canvasHelper.GetCenter().Y + 300));
+        this.platforms.push(new Platform(760, this.canvasHelper.GetCenter().Y + 260));
+        this.platforms.push(new Platform(660, this.canvasHelper.GetCenter().Y + 220));
+        this.platforms.push(new Platform(770, this.canvasHelper.GetCenter().Y + 180));
+        this.platforms.push(new Platform(880, this.canvasHelper.GetCenter().Y + 140));
+        this.platforms.push(new Platform(1050, this.canvasHelper.GetCenter().Y + 220));
+        this.platforms.push(new Platform(1270, this.canvasHelper.GetCenter().Y + 300));
+        this.countryFlag = new Flag(1300, this.canvasHelper.GetCenter().Y + 225);
     }
     drawScreenQuiz() {
         this.canvasHelper.Clear();
