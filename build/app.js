@@ -100,8 +100,8 @@ class ScreenLevel extends ScreenBase {
         this.drawScreenLevel();
     }
     controlsInstructions() {
-        this.canvasHelper.writeTextToCanvas("Links: A", 20, 30, 25, undefined, "left");
-        this.canvasHelper.writeTextToCanvas("Rechts: D", 20, 30, 55, undefined, "left");
+        this.canvasHelper.writeTextToCanvas("Links: A / pijltjestoets links", 20, 30, 25, undefined, "left");
+        this.canvasHelper.writeTextToCanvas("Rechts: D / pijltjestoets rechts", 20, 30, 55, undefined, "left");
         this.canvasHelper.writeTextToCanvas("Springen: Spatiebalk (ingedrukt houden)", 20, 30, 85, undefined, "left");
         this.canvasHelper.drawBorder(0, 0, 400, 95);
     }
