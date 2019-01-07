@@ -429,6 +429,7 @@ class EuropeLevel extends ScreenLevel {
         this.platforms.push(new Platform(710, this.canvasHelper.GetCenter().Y + 250));
         this.platforms.push(new Platform(820, this.canvasHelper.GetCenter().Y + 210));
         this.platforms.push(new Platform(920, this.canvasHelper.GetCenter().Y + 175));
+        this.checkpoint = new Checkpoint(950, this.canvasHelper.GetCenter().Y + 100);
         this.platforms.push(new Platform(990, this.canvasHelper.GetCenter().Y + 210));
         this.spikes.push(new Spike(990, this.canvasHelper.GetCenter().Y + 195));
         this.platforms.push(new Platform(1050, this.canvasHelper.GetCenter().Y + 250));
@@ -449,6 +450,7 @@ class EuropeLevel extends ScreenLevel {
         this.platforms.push(new Platform(530, this.canvasHelper.GetCenter().Y + 270));
         this.spikes.push(new Spike(530, this.canvasHelper.GetCenter().Y + 255));
         this.platforms.push(new Platform(530, this.canvasHelper.GetCenter().Y + 420));
+        this.checkpoint = new Checkpoint(560, this.canvasHelper.GetCenter().Y + 345);
         this.platforms.push(new Platform(660, this.canvasHelper.GetCenter().Y + 400));
         this.platforms.push(new Platform(740, this.canvasHelper.GetCenter().Y + 360));
         this.platforms.push(new Platform(650, this.canvasHelper.GetCenter().Y + 320));

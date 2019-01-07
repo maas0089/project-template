@@ -1,7 +1,6 @@
 /// <reference path="../screens/ScreenBase.ts"/>
 /// <reference path="../screens/ScreenLevel.ts"/>
 
-
 class EuropeLevel extends ScreenLevel {
 
     constructor() {
@@ -47,7 +46,8 @@ class EuropeLevel extends ScreenLevel {
         this.spikes.push(new Spike(630, this.canvasHelper.GetCenter().Y + 210));
         this.platforms.push(new Platform(710, this.canvasHelper.GetCenter().Y + 250)); // platform 5
         this.platforms.push(new Platform(820, this.canvasHelper.GetCenter().Y + 210)); // platform 6
-        this.platforms.push(new Platform(920, this.canvasHelper.GetCenter().Y + 175)); // platform 7
+        this.platforms.push(new Platform(920, this.canvasHelper.GetCenter().Y + 175)); // platform 7 with checkpoint
+        this.checkpoint = new Checkpoint(950, this.canvasHelper.GetCenter().Y + 100);
         this.platforms.push(new Platform(990, this.canvasHelper.GetCenter().Y + 210)); // platform with spike 3
         this.spikes.push(new Spike(990, this.canvasHelper.GetCenter().Y + 195));
         this.platforms.push(new Platform(1050, this.canvasHelper.GetCenter().Y + 250)); // platform 8
@@ -68,7 +68,8 @@ class EuropeLevel extends ScreenLevel {
         this.platforms.push(new Platform(400, this.canvasHelper.GetCenter().Y + 290)); // platform 4
         this.platforms.push(new Platform(530, this.canvasHelper.GetCenter().Y + 270)); // platform with spike 1
         this.spikes.push(new Spike(530, this.canvasHelper.GetCenter().Y + 255));
-        this.platforms.push(new Platform(530, this.canvasHelper.GetCenter().Y + 420)); // platform 5
+        this.platforms.push(new Platform(530, this.canvasHelper.GetCenter().Y + 420)); // platform 5 with checkpoint
+        this.checkpoint = new Checkpoint(560, this.canvasHelper.GetCenter().Y + 345);
         this.platforms.push(new Platform(660, this.canvasHelper.GetCenter().Y + 400)); // platform 6 - start of stairway to heaven
         this.platforms.push(new Platform(740, this.canvasHelper.GetCenter().Y + 360)); // platform 7
         this.platforms.push(new Platform(650, this.canvasHelper.GetCenter().Y + 320)); // platform 8
