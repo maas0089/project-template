@@ -6,32 +6,43 @@ class AmericaLevel extends ScreenLevel {
 
     constructor() {
         super();
-        console.log('this is AmericaLevel');
+        console.log("Make AmericaLevel great again!");
         this.screenQuiz = AmericaQuiz.Instance();
         this.currentLevel = this.screenQuiz.getCurrentQuestion() + 1;
     }
 
     public drawLevelOne(): void {
-        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 180);
-        this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 200)); // starting position for player
-        this.platforms.push(new Platform(250, this.canvasHelper.GetCenter().Y + 190)); // platform 2
-        this.platforms.push(new Platform(180, this.canvasHelper.GetCenter().Y + 240)); // platform with spike 1
-        this.spikes.push(new Spike(180, this.canvasHelper.GetCenter().Y + 225));
-        this.platforms.push(new Platform(380, this.canvasHelper.GetCenter().Y + 260)); // platform 3
-        this.platforms.push(new Platform(470, this.canvasHelper.GetCenter().Y + 320)); // platform with spike 2
-        this.spikes.push(new Spike(470, this.canvasHelper.GetCenter().Y + 305));
-        this.platforms.push(new Platform(600, this.canvasHelper.GetCenter().Y + 360)); // platform 4
-        this.platforms.push(new Platform(760, this.canvasHelper.GetCenter().Y + 380)); // platform 5
-        this.platforms.push(new Platform(860, this.canvasHelper.GetCenter().Y + 340)); // platform 6
-        this.platforms.push(new Platform(960, this.canvasHelper.GetCenter().Y + 300)); // platform 7
-        this.platforms.push(new Platform(1060, this.canvasHelper.GetCenter().Y + 260)); // platform 8
-        this.platforms.push(new Platform(1200, this.canvasHelper.GetCenter().Y + 400)); // platform with spike 3
-        this.spikes.push(new Spike(1200, this.canvasHelper.GetCenter().Y + 385));
-        this.platforms.push(new Platform(1300, this.canvasHelper.GetCenter().Y + 340)); // platform with flag
-        this.countryFlag = new Flag(1340, this.canvasHelper.GetCenter().Y + 265); // Y -75
+        this.player = new Player(0, this.canvasHelper.GetCenter().Y + 66);
+        this.platforms.push(new Platform(0, this.canvasHelper.GetCenter().Y + 100)); // starting position for player
+        this.platforms.push(new Platform(160, this.canvasHelper.GetCenter().Y + 130)); // platform 2
+        this.platforms.push(new Platform(260, this.canvasHelper.GetCenter().Y + 350)); // platform 3
+        this.platforms.push(new Platform(300, this.canvasHelper.GetCenter().Y + 240)); // platform with spike 1
+        this.spikes.push(new Spike(300, this.canvasHelper.GetCenter().Y + 225));
+        this.platforms.push(new Platform(380, this.canvasHelper.GetCenter().Y + 220)); // platform with spike 2
+        this.spikes.push(new Spike(380, this.canvasHelper.GetCenter().Y + 205));
+        this.platforms.push(new Platform(150, this.canvasHelper.GetCenter().Y + 240)); // platform with spike 3
+        this.spikes.push(new Spike(150, this.canvasHelper.GetCenter().Y + 225));
+        this.platforms.push(new Platform(400, this.canvasHelper.GetCenter().Y + 370)); // platform 4
+        this.platforms.push(new Platform(490, this.canvasHelper.GetCenter().Y + 330)); // platform 5
+        this.checkpoint = new Checkpoint(520, this.canvasHelper.GetCenter().Y + 255); // checkpoint on 5
+        this.platforms.push(new Platform(610, this.canvasHelper.GetCenter().Y + 290)); // platform 6
+        this.platforms.push(new Platform(710, this.canvasHelper.GetCenter().Y + 250)); // platform 7
+        this.platforms.push(new Platform(720, this.canvasHelper.GetCenter().Y + 210)); // platform 8
+        this.platforms.push(new Platform(730, this.canvasHelper.GetCenter().Y + 170)); // platform 9
+        this.platforms.push(new Platform(740, this.canvasHelper.GetCenter().Y + 130)); // platform 10
+        this.platforms.push(new Platform(750, this.canvasHelper.GetCenter().Y + 90)); // platform 11
+        this.platforms.push(new Platform(760, this.canvasHelper.GetCenter().Y + 50)); // platform 12
+        this.platforms.push(new Platform(880, this.canvasHelper.GetCenter().Y + 40)); // platform 13
+        this.platforms.push(new Platform(1000, this.canvasHelper.GetCenter().Y + 70)); // platform 14
+        this.platforms.push(new Platform(1100, this.canvasHelper.GetCenter().Y + 120)); // platform 15
+        this.platforms.push(new Platform(1250, this.canvasHelper.GetCenter().Y + 220)); // platform 16
+        this.platforms.push(new Platform(1340, this.canvasHelper.GetCenter().Y + 241)); // platform with spike 4
+        this.spikes.push(new Spike(1340, this.canvasHelper.GetCenter().Y + 226));
+        this.platforms.push(new Platform(1430, this.canvasHelper.GetCenter().Y + 250)); // platform with flag
+        this.countryFlag = new Flag(1470, this.canvasHelper.GetCenter().Y + 175);
     }
 
-    public drawLevelTwo(): void {
+    public drawLevelTwo(): void { // a bending travel course, with lots of spikey stuff in the centre
         this.player = new Player(100, this.canvasHelper.GetCenter().Y);
         this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 20)); // starting position for player
         this.platforms.push(new Platform(200, this.canvasHelper.GetCenter().Y + 50)); // platform 2

@@ -55,6 +55,7 @@ class ScreenLevel extends ScreenBase {
         super();
         this.spikes = new Array();
         this.platforms = new Array();
+        this.checkpoint = null;
         this.drawScreenLevel = () => {
             let time = this.timer.getTime();
             this.canvasHelper.BeginUpdate();
@@ -75,6 +76,11 @@ class ScreenLevel extends ScreenBase {
                 if (this.player.platformCollision(element))
                     this.player.stopFalling();
             });
+            if (this.checkpoint != null) {
+                this.checkpoint.draw();
+                if (this.player.entityCollision(this.checkpoint))
+                    this.player.updateStartPosition(this.checkpoint.getX(), this.checkpoint.getY());
+            }
             this.player.draw();
             this.player.move();
             this.countryFlag.draw();
@@ -109,28 +115,39 @@ class ScreenLevel extends ScreenBase {
 class AmericaLevel extends ScreenLevel {
     constructor() {
         super();
-        console.log('this is AmericaLevel');
+        console.log("Make AmericaLevel great again!");
         this.screenQuiz = AmericaQuiz.Instance();
         this.currentLevel = this.screenQuiz.getCurrentQuestion() + 1;
     }
     drawLevelOne() {
-        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 180);
-        this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 200));
-        this.platforms.push(new Platform(250, this.canvasHelper.GetCenter().Y + 190));
-        this.platforms.push(new Platform(180, this.canvasHelper.GetCenter().Y + 240));
-        this.spikes.push(new Spike(180, this.canvasHelper.GetCenter().Y + 225));
-        this.platforms.push(new Platform(380, this.canvasHelper.GetCenter().Y + 260));
-        this.platforms.push(new Platform(470, this.canvasHelper.GetCenter().Y + 320));
-        this.spikes.push(new Spike(470, this.canvasHelper.GetCenter().Y + 305));
-        this.platforms.push(new Platform(600, this.canvasHelper.GetCenter().Y + 360));
-        this.platforms.push(new Platform(760, this.canvasHelper.GetCenter().Y + 380));
-        this.platforms.push(new Platform(860, this.canvasHelper.GetCenter().Y + 340));
-        this.platforms.push(new Platform(960, this.canvasHelper.GetCenter().Y + 300));
-        this.platforms.push(new Platform(1060, this.canvasHelper.GetCenter().Y + 260));
-        this.platforms.push(new Platform(1200, this.canvasHelper.GetCenter().Y + 400));
-        this.spikes.push(new Spike(1200, this.canvasHelper.GetCenter().Y + 385));
-        this.platforms.push(new Platform(1300, this.canvasHelper.GetCenter().Y + 340));
-        this.countryFlag = new Flag(1340, this.canvasHelper.GetCenter().Y + 265);
+        this.player = new Player(0, this.canvasHelper.GetCenter().Y + 66);
+        this.platforms.push(new Platform(0, this.canvasHelper.GetCenter().Y + 100));
+        this.platforms.push(new Platform(160, this.canvasHelper.GetCenter().Y + 130));
+        this.platforms.push(new Platform(260, this.canvasHelper.GetCenter().Y + 350));
+        this.platforms.push(new Platform(300, this.canvasHelper.GetCenter().Y + 240));
+        this.spikes.push(new Spike(300, this.canvasHelper.GetCenter().Y + 225));
+        this.platforms.push(new Platform(380, this.canvasHelper.GetCenter().Y + 220));
+        this.spikes.push(new Spike(380, this.canvasHelper.GetCenter().Y + 205));
+        this.platforms.push(new Platform(150, this.canvasHelper.GetCenter().Y + 240));
+        this.spikes.push(new Spike(150, this.canvasHelper.GetCenter().Y + 225));
+        this.platforms.push(new Platform(400, this.canvasHelper.GetCenter().Y + 370));
+        this.platforms.push(new Platform(490, this.canvasHelper.GetCenter().Y + 330));
+        this.checkpoint = new Checkpoint(520, this.canvasHelper.GetCenter().Y + 255);
+        this.platforms.push(new Platform(610, this.canvasHelper.GetCenter().Y + 290));
+        this.platforms.push(new Platform(710, this.canvasHelper.GetCenter().Y + 250));
+        this.platforms.push(new Platform(720, this.canvasHelper.GetCenter().Y + 210));
+        this.platforms.push(new Platform(730, this.canvasHelper.GetCenter().Y + 170));
+        this.platforms.push(new Platform(740, this.canvasHelper.GetCenter().Y + 130));
+        this.platforms.push(new Platform(750, this.canvasHelper.GetCenter().Y + 90));
+        this.platforms.push(new Platform(760, this.canvasHelper.GetCenter().Y + 50));
+        this.platforms.push(new Platform(880, this.canvasHelper.GetCenter().Y + 40));
+        this.platforms.push(new Platform(1000, this.canvasHelper.GetCenter().Y + 70));
+        this.platforms.push(new Platform(1100, this.canvasHelper.GetCenter().Y + 120));
+        this.platforms.push(new Platform(1250, this.canvasHelper.GetCenter().Y + 220));
+        this.platforms.push(new Platform(1340, this.canvasHelper.GetCenter().Y + 241));
+        this.spikes.push(new Spike(1340, this.canvasHelper.GetCenter().Y + 226));
+        this.platforms.push(new Platform(1430, this.canvasHelper.GetCenter().Y + 250));
+        this.countryFlag = new Flag(1470, this.canvasHelper.GetCenter().Y + 175);
     }
     drawLevelTwo() {
         this.player = new Player(100, this.canvasHelper.GetCenter().Y);
@@ -390,6 +407,7 @@ class EuropeLevel extends ScreenLevel {
         this.spikes.push(new Spike(470, this.canvasHelper.GetCenter().Y + 305));
         this.platforms.push(new Platform(600, this.canvasHelper.GetCenter().Y + 360));
         this.platforms.push(new Platform(760, this.canvasHelper.GetCenter().Y + 380));
+        this.checkpoint = new Checkpoint(800, this.canvasHelper.GetCenter().Y + 305);
         this.platforms.push(new Platform(860, this.canvasHelper.GetCenter().Y + 340));
         this.platforms.push(new Platform(960, this.canvasHelper.GetCenter().Y + 300));
         this.platforms.push(new Platform(1060, this.canvasHelper.GetCenter().Y + 260));
@@ -554,6 +572,18 @@ class Entity {
         return this.height;
     }
 }
+class Checkpoint extends Entity {
+    constructor(xCoor, yCoor) {
+        super(xCoor, yCoor);
+        this.width = 55;
+        this.height = 80;
+        let img = new Image();
+        img.addEventListener('load', () => {
+            this.image = img;
+        });
+        img.src = './assets/images/flags/Nederland.png';
+    }
+}
 class Flag extends Entity {
     constructor(xCoor, yCoor) {
         super(xCoor, yCoor);
@@ -596,9 +626,13 @@ class Player extends Entity {
         img.src = './assets/images/character/stand.png';
         this.keyboardListener = new KeyboardHelper();
     }
-    resetPosition() {
+    resetPosition(xPos = -1, yPos = -1) {
         this.xPos = this.startX;
         this.yPos = this.startY;
+    }
+    updateStartPosition(xPos, yPos) {
+        this.startX = xPos;
+        this.startY = yPos;
     }
     move() {
         if (this.keyboardListener.getLeftPressed()) {
