@@ -12,7 +12,7 @@ class EuropeLevel extends ScreenLevel {
     }
 
     public drawLevelOne(): void {
-        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 180);
+        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 166);
         this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 200)); // starting position for player
         this.platforms.push(new Platform(250, this.canvasHelper.GetCenter().Y + 190)); // platform 2
         this.platforms.push(new Platform(180, this.canvasHelper.GetCenter().Y + 240)); // platform with spike 1
@@ -32,7 +32,7 @@ class EuropeLevel extends ScreenLevel {
     }
 
     public drawLevelTwo(): void {
-        this.player = new Player(100, this.canvasHelper.GetCenter().Y);
+        this.player = new Player(100, this.canvasHelper.GetCenter().Y - 14);
         this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 20)); // starting position for player
         this.platforms.push(new Platform(200, this.canvasHelper.GetCenter().Y + 50)); // platform 2
         this.platforms.push(new Platform(330, this.canvasHelper.GetCenter().Y + 120)); // platform with spike 1
@@ -55,16 +55,16 @@ class EuropeLevel extends ScreenLevel {
         this.platforms.push(new Platform(1630, this.canvasHelper.GetCenter().Y + 200)); // platform with flag
         this.countryFlag = new Flag(1670, this.canvasHelper.GetCenter().Y + 125); // X + 40, Y -75
     }
-
+    
     public drawLevelThree(): void {
-        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 400); // x = 100, y = C + 400
+        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 388); // x = 100, y = C + 400
         this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 420)); // starting position for player
         this.platforms.push(new Platform(200, this.canvasHelper.GetCenter().Y + 380)); // platform 2
         this.platforms.push(new Platform(310, this.canvasHelper.GetCenter().Y + 335)); // platform 3
         this.platforms.push(new Platform(400, this.canvasHelper.GetCenter().Y + 290)); // platform 4
-        this.platforms.push(new Platform(500, this.canvasHelper.GetCenter().Y + 270)); // platform with spike 1
-        this.spikes.push(new Spike(500, this.canvasHelper.GetCenter().Y + 255));
-        this.platforms.push(new Platform(510, this.canvasHelper.GetCenter().Y + 400)); // platform 5
+        this.platforms.push(new Platform(530, this.canvasHelper.GetCenter().Y + 270)); // platform with spike 1
+        this.spikes.push(new Spike(530, this.canvasHelper.GetCenter().Y + 255));
+        this.platforms.push(new Platform(530, this.canvasHelper.GetCenter().Y + 420)); // platform 5
         this.platforms.push(new Platform(660, this.canvasHelper.GetCenter().Y + 400)); // platform 6 - start of stairway to heaven
         this.platforms.push(new Platform(740, this.canvasHelper.GetCenter().Y + 360)); // platform 7
         this.platforms.push(new Platform(650, this.canvasHelper.GetCenter().Y + 320)); // platform 8

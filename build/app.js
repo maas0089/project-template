@@ -380,7 +380,7 @@ class EuropeLevel extends ScreenLevel {
         this.currentLevel = this.screenQuiz.getCurrentQuestion() + 1;
     }
     drawLevelOne() {
-        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 180);
+        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 166);
         this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 200));
         this.platforms.push(new Platform(250, this.canvasHelper.GetCenter().Y + 190));
         this.platforms.push(new Platform(180, this.canvasHelper.GetCenter().Y + 240));
@@ -399,7 +399,7 @@ class EuropeLevel extends ScreenLevel {
         this.countryFlag = new Flag(1340, this.canvasHelper.GetCenter().Y + 265);
     }
     drawLevelTwo() {
-        this.player = new Player(100, this.canvasHelper.GetCenter().Y);
+        this.player = new Player(100, this.canvasHelper.GetCenter().Y - 14);
         this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 20));
         this.platforms.push(new Platform(200, this.canvasHelper.GetCenter().Y + 50));
         this.platforms.push(new Platform(330, this.canvasHelper.GetCenter().Y + 120));
@@ -423,14 +423,14 @@ class EuropeLevel extends ScreenLevel {
         this.countryFlag = new Flag(1670, this.canvasHelper.GetCenter().Y + 125);
     }
     drawLevelThree() {
-        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 400);
+        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 388);
         this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 420));
         this.platforms.push(new Platform(200, this.canvasHelper.GetCenter().Y + 380));
         this.platforms.push(new Platform(310, this.canvasHelper.GetCenter().Y + 335));
         this.platforms.push(new Platform(400, this.canvasHelper.GetCenter().Y + 290));
-        this.platforms.push(new Platform(500, this.canvasHelper.GetCenter().Y + 270));
-        this.spikes.push(new Spike(500, this.canvasHelper.GetCenter().Y + 255));
-        this.platforms.push(new Platform(510, this.canvasHelper.GetCenter().Y + 400));
+        this.platforms.push(new Platform(530, this.canvasHelper.GetCenter().Y + 270));
+        this.spikes.push(new Spike(530, this.canvasHelper.GetCenter().Y + 255));
+        this.platforms.push(new Platform(530, this.canvasHelper.GetCenter().Y + 420));
         this.platforms.push(new Platform(660, this.canvasHelper.GetCenter().Y + 400));
         this.platforms.push(new Platform(740, this.canvasHelper.GetCenter().Y + 360));
         this.platforms.push(new Platform(650, this.canvasHelper.GetCenter().Y + 320));
@@ -584,8 +584,8 @@ class Player extends Entity {
         this.jumpStart = 0;
         this.currentJump = 0;
         this.jumpEnd = 22;
-        this.width = 12;
-        this.height = 20;
+        this.width = 20;
+        this.height = 34;
         this.gravity = 3;
         this.startX = xCoor;
         this.startY = yCoor;
@@ -778,13 +778,13 @@ CanvasHelper.instance = null;
 class KeyboardHelper {
     constructor() {
         this.keyDownHandler = (event) => {
-            if (event.keyCode == 65) {
+            if (event.keyCode == 65 || event.keyCode == 37) {
                 this.leftPressed = true;
             }
             if (event.keyCode == 32) {
                 this.upPressed = true;
             }
-            if (event.keyCode == 68) {
+            if (event.keyCode == 68 || event.keyCode == 39) {
                 this.rightPressed = true;
             }
             if (event.keyCode == 83) {
@@ -792,13 +792,13 @@ class KeyboardHelper {
             }
         };
         this.keyUpHandler = (event) => {
-            if (event.keyCode == 65) {
+            if (event.keyCode == 65 || event.keyCode == 37) {
                 this.leftPressed = false;
             }
             if (event.keyCode == 32) {
                 this.upPressed = false;
             }
-            if (event.keyCode == 68) {
+            if (event.keyCode == 68 || event.keyCode == 39) {
                 this.rightPressed = false;
             }
             if (event.keyCode == 83) {

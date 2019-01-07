@@ -16,8 +16,8 @@ class Player extends Entity {
     ) {
         super(xCoor, yCoor);
         // this.imageSrc = './assets/images/character/stand.png';
-        this.width = 12;
-        this.height = 20;
+        this.width = 20;
+        this.height = 34;
         this.gravity = 3;
         this.startX = xCoor;
         this.startY = yCoor;
