@@ -96,7 +96,12 @@ class ScreenLevel extends ScreenBase {
     draw() {
         console.log("This is ScreenLevel speaking.");
         console.log(`This is level: ${this.currentLevel}`);
-        this.drawLevelTwo();
+        if (this.currentLevel == 1)
+            this.drawLevelOne();
+        if (this.currentLevel == 2)
+            this.drawLevelTwo();
+        if (this.currentLevel == 3)
+            this.drawLevelThree();
         this.timer.startTimer();
         this.drawScreenLevel();
     }
