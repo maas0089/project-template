@@ -8,10 +8,15 @@ abstract class ScreenQuiz extends ScreenBase{
     protected secondAnswer: number = 0;
     protected thirdAnswer: number = 0;
 
+    protected positionOne: Array<number>;
+    protected positionTwo: Array<number>;
+    protected positionThree: Array<number>;
+
     protected imageLocations: Array<string>;
     protected totalquestion: number;
 
     protected qAndA: Array<any>;
+    // protected qLetters: Array<string>;
 
     public constructor(){
         super();
@@ -21,29 +26,73 @@ abstract class ScreenQuiz extends ScreenBase{
         this.drawScreenQuiz()
     }
 
+    public shuffle(array: any) {
+        let currentIndex = array.length, temporaryValue, randomIndex;
+      
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+      
+          // Pick a remaining element...
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
+      
+          // And swap it with the current element.
+          temporaryValue = array[currentIndex];
+          array[currentIndex] = array[randomIndex];
+          array[randomIndex] = temporaryValue;
+        }
+      
+        return array;
+      }
+      
     public drawScreenQuiz(): void {
+        if (this.firstAnswer == 0 && this.secondAnswer == 0 && this.thirdAnswer == 0){
+            this.positionOne = this.shuffle([100, 150, 200]);
+            this.positionTwo = this.shuffle([300, 350, 400]);
+            this.positionThree = this.shuffle([500, 550, 600]);    
+        }
+        let questionArray = this.qAndA[this.question];
         this.timer.pauseTimer();
         this.canvasHelper.writeTextToCanvas('Wat ligt hier?', 50, this.canvasHelper.GetCenter().X, 50);
 
         this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, 350, 100, 504, 597);
 
         //question 2 (answer A)
-        this.canvasHelper.writeTextToCanvas(this.qAndA[this.question].letter1, 20, this.canvasHelper.GetWidth() * 0.59, 125, "red");
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].a1}`, 'startGame1', this.checkAnswerOne, this.canvasHelper.GetWidth() * 0.6, 100, this.firstAnswer);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].b1}`, 'startGame2', this.wrongAnswerOne, this.canvasHelper.GetWidth() * 0.6, 150);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].c1}`, 'startGame3', this.wrongAnswerOne, this.canvasHelper.GetWidth() * 0.6, 200);
+
+        this.canvasHelper.writeTextToCanvas(questionArray.letter1, 20, this.canvasHelper.GetWidth() * 0.59, 125, "red");
+
+        if (questionArray.a1[1]) this.canvasHelper.writeButtonToCanvas(`${questionArray.a1[0]}`, 'startGame1', this.checkAnswerOne, this.canvasHelper.GetWidth() * 0.6, this.positionOne[0], this.firstAnswer);
+        else this.canvasHelper.writeButtonToCanvas(`${questionArray.a1[0]}`, 'startGame1', this.wrongAnswerOne, this.canvasHelper.GetWidth() * 0.6, this.positionOne[0]);
+
+        if (questionArray.b1[1]) this.canvasHelper.writeButtonToCanvas(`${questionArray.b1[0]}`, 'startGame2', this.checkAnswerOne, this.canvasHelper.GetWidth() * 0.6, this.positionOne[1], this.firstAnswer);
+        else this.canvasHelper.writeButtonToCanvas(`${questionArray.b1[0]}`, 'startGame2', this.wrongAnswerOne, this.canvasHelper.GetWidth() * 0.6, this.positionOne[1]); 
+
+        if (questionArray.c1[1]) this.canvasHelper.writeButtonToCanvas(`${questionArray.c1[0]}`, 'startGame3', this.checkAnswerOne, this.canvasHelper.GetWidth() * 0.6, this.positionOne[2], this.firstAnswer);
+        else this.canvasHelper.writeButtonToCanvas(`${questionArray.c1[0]}`, 'startGame3', this.wrongAnswerOne, this.canvasHelper.GetWidth() * 0.6, this.positionOne[2]); 
 
         //question 1 (answer C)
-        this.canvasHelper.writeTextToCanvas(this.qAndA[this.question].letter2, 20, this.canvasHelper.GetWidth() * 0.59, 325, "red");
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].a2}`, 'startGame4', this.wrongAnswerTwo, this.canvasHelper.GetWidth() * 0.6, 300);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].b2}`, 'startGame5', this.wrongAnswerTwo, this.canvasHelper.GetWidth() * 0.6, 350);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].c2}`, 'startGame6', this.checkAnswerTwo, this.canvasHelper.GetWidth() * 0.6, 400, this.secondAnswer);
+        this.canvasHelper.writeTextToCanvas(questionArray.letter2, 20, this.canvasHelper.GetWidth() * 0.59, 325, "red");
+
+        if (questionArray.a2[1]) this.canvasHelper.writeButtonToCanvas(`${questionArray.a2[0]}`, 'startGame4', this.checkAnswerTwo, this.canvasHelper.GetWidth() * 0.6, this.positionTwo[0], this.secondAnswer);
+        else this.canvasHelper.writeButtonToCanvas(`${questionArray.a2[0]}`, 'startGame4', this.wrongAnswerTwo, this.canvasHelper.GetWidth() * 0.6, this.positionTwo[0]); 
+
+        if (questionArray.b2[1]) this.canvasHelper.writeButtonToCanvas(`${questionArray.b2[0]}`, 'startGame5', this.checkAnswerTwo, this.canvasHelper.GetWidth() * 0.6, this.positionTwo[1], this.secondAnswer);
+        else this.canvasHelper.writeButtonToCanvas(`${questionArray.b2[0]}`, 'startGame5', this.wrongAnswerTwo, this.canvasHelper.GetWidth() * 0.6, this.positionTwo[1]); 
+
+        if (questionArray.c2[1]) this.canvasHelper.writeButtonToCanvas(`${questionArray.c2[0]}`, 'startGame6', this.checkAnswerTwo, this.canvasHelper.GetWidth() * 0.6, this.positionTwo[2], this.secondAnswer);
+        else this.canvasHelper.writeButtonToCanvas(`${questionArray.c2[0]}`, 'startGame6', this.wrongAnswerTwo, this.canvasHelper.GetWidth() * 0.6, this.positionTwo[2]); 
 
         //question 3(answer C)
-        this.canvasHelper.writeTextToCanvas(this.qAndA[this.question].letter3, 20, this.canvasHelper.GetWidth() * 0.59, 525, "red");
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].a3}`, 'startGame7', this.wrongAnswerThree, this.canvasHelper.GetWidth() * 0.6, 500);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].b3}`, 'startGame8', this.wrongAnswerThree, this.canvasHelper.GetWidth() * 0.6, 550);
-        this.canvasHelper.writeButtonToCanvas(`${this.qAndA[this.question].c3}`, 'startGame9', this.checkAnswerThree, this.canvasHelper.GetWidth() * 0.6, 600, this.thirdAnswer);
+        this.canvasHelper.writeTextToCanvas(questionArray.letter3, 20, this.canvasHelper.GetWidth() * 0.59, 525, "red");
+
+        if (questionArray.a3[1]) this.canvasHelper.writeButtonToCanvas(`${questionArray.a3[0]}`, 'startGame7', this.checkAnswerThree, this.canvasHelper.GetWidth() * 0.6, this.positionThree[0], this.thirdAnswer);
+        else this.canvasHelper.writeButtonToCanvas(`${questionArray.a3[0]}`, 'startGame7', this.wrongAnswerThree, this.canvasHelper.GetWidth() * 0.6, this.positionThree[0]); 
+
+        if (questionArray.b3[1]) this.canvasHelper.writeButtonToCanvas(`${questionArray.b3[0]}`, 'startGame8', this.checkAnswerThree, this.canvasHelper.GetWidth() * 0.6, this.positionThree[1], this.thirdAnswer);
+        else this.canvasHelper.writeButtonToCanvas(`${questionArray.b3[0]}`, 'startGame8', this.wrongAnswerThree, this.canvasHelper.GetWidth() * 0.6, this.positionThree[1]); 
+
+        if (questionArray.c3[1]) this.canvasHelper.writeButtonToCanvas(`${questionArray.c3[0]}`, 'startGame9', this.checkAnswerThree, this.canvasHelper.GetWidth() * 0.6, this.positionThree[2], this.thirdAnswer);
+        else this.canvasHelper.writeButtonToCanvas(`${questionArray.c3[0]}`, 'startGame9', this.wrongAnswerThree, this.canvasHelper.GetWidth() * 0.6, this.positionThree[2]); 
     }
 
     public wrongAnswerOne = (): void => {

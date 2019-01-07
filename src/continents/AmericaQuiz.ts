@@ -20,57 +20,57 @@ class AmericaQuiz extends ScreenQuiz{
 
         this.qAndA = [
             {
+                
                 letter1: 'A',
-                a1: 'Arnhem', // correct
-                b1: 'Amersfoort',
-                c1: 'Nijmegen',
-    
-                letter2: 'b',
-                a2: 'Gelderland',
-                b2: 'Drenthe',
-                c2: 'Overijssel', // correct
-    
-                letter3: 'C',
-                a3: 'Amsterdam',
-                b3: 'Leiden',
-                c3: 'Haarlem' // correct 
-            },
-    
-            {
-                letter1: 'A',
-                a1: 'Leeuwarden', // correct
-                b1: 'Groningen',
-                c1: 'Assen',
-    
-                letter2: 'B',
-                a2: 'Rotterdam',
-                b2: 'Den Haag',
-                c2: 'Middelburg', // correct
-    
-                letter3: 'c',
-                a3: 'Limburg',
-                b3: 'Gelderland',
-                c3: 'Noord-Brabant' // correct 
-            },
-    
-            {
-                letter1: 'A',
-                a1: 'Lelystad', // correct
-                b1: 'Amsterdam',
-                c1: 'Zwolle',
-    
-                letter2: 'b',
-                a2: 'Noord-Holland',
-                b2: 'Zeeland',
-                c2: 'Zuid-Holland', // correct
-    
-                letter3: 'C',
-                a3: 'Eindhoven',
-                b3: 'Venlo',
-                c3: 'Maastricht' // correct 
-            }]    
-    }
+                a1: ['Arnhem', true],// correct
+                b1: ['Amersfoort', false],
+                c1: ['Nijmegen', false],
 
+                letter2: 'b',
+                a2: ['Gelderland', false],
+                b2: ['Drenthe', false],
+                c2: ['Overijssel', true], // correct
+
+                letter3: 'C',
+                a3: ['Amsterdam', false],
+                b3: ['Leiden', false],
+                c3: ['Haarlem', true] // correct 
+            },
+
+            {
+                letter1: 'A',
+                a1: ['Leeuwarden', true], // correct
+                b1: ['Groningen', false],
+                c1: ['Assen', false],
+
+                letter2: 'B',
+                a2: ['Rotterdam', false],
+                b2: ['Den Haag', false],
+                c2: ['Middelburg', true], // correct
+
+                letter3: 'c',
+                a3: ['Limburg', false],
+                b3: ['Gelderland', false],
+                c3: ['Noord-Brabant', true] // correct 
+            },
+
+            {
+                letter1: 'A',
+                a1: ['Lelystad', true], // correct
+                b1: ['Amsterdam', false],
+                c1: ['Zwolle', false],
+
+                letter2: 'b',
+                a2: ['Noord-Holland', false],
+                b2: ['Zeeland', false],
+                c2: ['Zuid-Holland', true], // correct
+
+                letter3: 'C',
+                a3: ['Eindhoven', false],
+                b3: ['Venlo', false],
+                c3: ['Maastricht', true] // correct 
+            }]
+    }
     public static Instance(): ScreenQuiz {
         if (this.instance == null) {
             this.instance = new AmericaQuiz();
