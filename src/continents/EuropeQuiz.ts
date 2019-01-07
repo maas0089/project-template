@@ -20,8 +20,18 @@ class EuropeQuiz extends ScreenQuiz {
 
         this.qAndA = [
             {
+                /*
+                 * Als a1 een object wordt met een antwoord en een boolean, kunnen de antwoorden op andere plaatsen staan dan alleen ACC
+                 * a1: ['Arnhem', true]
+                 */
+                // 'A': {
+                //     a1: ['Arnhem', true],// correct
+                //     b1: ['Amersfoort', false],
+                //     c1: ['Nijmegen', false],
+                // },
+                
                 letter1: 'A',
-                a1: 'Arnhem', // correct
+                a1: 'Arnhem',// correct
                 b1: 'Amersfoort',
                 c1: 'Nijmegen',
 
