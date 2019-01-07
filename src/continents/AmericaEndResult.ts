@@ -21,6 +21,7 @@ class AmericaEndResult extends ScreenEndResult {
         this.canvasHelper.Clear();
         this.screenQuiz.resetQuestion();
         this.canvasHelper.UnregisterClickListener('continue');
+        this.screenHighScore.setCategory(1);
         this.canvasHelper.ChangeScreen(ScreenHighScore.Instance());
     }
 

@@ -1,6 +1,7 @@
 abstract class ScreenEndResult extends ScreenBase {
 
     protected screenQuiz: ScreenQuiz;
+    protected screenHighScore: ScreenHighScore = ScreenHighScore.Instance();
 
     constructor() {
         super();
@@ -8,7 +9,7 @@ abstract class ScreenEndResult extends ScreenBase {
 
     public draw(): void {
         let time = this.timer.getTime();
-        this.canvasHelper.writeTextToCanvas('Level voltooid!', 50, this.canvasHelper.GetCenter().X, 100);
+        this.canvasHelper.writeTextToCanvas(`Level ${this.screenQuiz.getCurrentQuestion()} voltooid!` , 50, this.canvasHelper.GetCenter().X, 100);
 
 
         this.canvasHelper.writeTextToCanvas('Tijd:', 30, this.canvasHelper.GetCenter().X, 250);

@@ -1,20 +1,33 @@
 class ScreenHighScore extends ScreenBase {
 
-    // private screenQuiz: ScreenQuiz = EuropeQuiz.Instance();
-    private highscores: Array<number> = [
+    private europeHighscores: Array<number> = [
         600,
         600,
         600
     ]; // this array will contain objects
 
-    private highscoreText: Array<string> = [
+    private europeHighscoreText: Array<string> = [
         '10:00',
         '10:00',
         '10:00'
     ]
 
+    private americaHighscores: Array<number> = [
+        600,
+        600,
+        600
+    ]; // this array will contain objects
+
+    private americaHighscoreText: Array<string> = [
+        '10:00',
+        '10:00',
+        '10:00'
+    ]
+
+
     private minutes: number;
     private seconds: string;
+    private category: number = 0;
 
     private static instance: ScreenHighScore = null;
 
@@ -29,57 +42,100 @@ class ScreenHighScore extends ScreenBase {
         return this.instance;
     }
 
+    public setCategory(category: number){
+        this.category = category;
+    }
+
 
     public draw(): void {
         this.minutes = this.timer.getTime().Minutes;
+        let score = this.timer.getScore();
+
         if(this.timer.getTime().Seconds < 10) this.seconds = `0${this.timer.getTime().Seconds}`;
         else this.seconds = `${this.timer.getTime().Seconds}`;
 
-        if(this.timer.getTime().Seconds < 10) {let seconds = `0${this.timer.getTime().Seconds}`;}
-        let score = this.timer.getScore();
-        let center = this.canvasHelper.GetCenter();
         this.canvasHelper.writeTextToCanvas('Highscores', 50, this.canvasHelper.GetCenter().X, 100);
+        
+        if(this.category == 0){
+            var continent = 'Europa';
+            var highscores = this.europeHighscores;
+            var highscoreText = this.europeHighscoreText;
+        } 
+        else if(this.category == 1){
+            var continent = 'Noord-Amerika';
+            var highscores = this.americaHighscores;
+            var highscoreText = this.americaHighscoreText;
+        }
 
-        if(this.highscores[0] > score){
-            this.highscores[2] = this.highscores[1];
-            this.highscoreText[2] = this.highscoreText[1]
+        this.canvasHelper.writeTextToCanvas(`Jij hebt ${continent} voltooid in:`, 35, this.canvasHelper.GetCenter().X, 200);
+        this.canvasHelper.writeTextToCanvas(`${this.minutes}:${this.seconds}`, 30, this.canvasHelper.GetCenter().X, 250);
+        this.canvasHelper.writeTextToCanvas('De best behaalde tijden zijn:', 35, this.canvasHelper.GetCenter().X, 350);
 
-            this.highscores[1] = this.highscores[0];
-            this.highscoreText[1] = this.highscoreText[0]
+        console.log(this.category, highscores);
+
+        if(highscores[0] > score){
+            highscores[2] = highscores[1];
+            highscoreText[2] = highscoreText[1]
+
+            highscores[1] = highscores[0];
+            highscoreText[1] = highscoreText[0]
 
 
-            this.highscores[0] = score;
-            this.highscoreText[0] = `${this.minutes}:${this.seconds}`
+            highscores[0] = score;
+            highscoreText[0] = `${this.minutes}:${this.seconds}`
 
-        } else if(this.highscores[1] > score){
-            this.highscores[2] = this.highscores[1];
-            this.highscoreText[2] = this.highscoreText[1]
+        } else if(highscores[1] > score){
+            highscores[2] = highscores[1];
+            highscoreText[2] = highscoreText[1]
 
-            this.highscores[1] = score;
-            this.highscoreText[1] = `${this.minutes}:${this.seconds}`
+            highscores[1] = score;
+            highscoreText[1] = `${this.minutes}:${this.seconds}`
 
-        } else if(this.highscores[2] > score){
-            this.highscores[2] = score;
-            this.highscoreText[2] = `${this.minutes}:${this.seconds}`
+        } else if(highscores[2] > score){
+            highscores[2] = score;
+            highscoreText[2] = `${this.minutes}:${this.seconds}`
 
         }
 
+        this.drawEuropeHighscores();
+        this.drawAmericaHighscores();
 
-        this.highscoreText.forEach((element, index) => {
+        this.canvasHelper.writeButtonToCanvas('Speel opnieuw', 'replay', this.drawScreenLevelSelect, undefined, this.canvasHelper.GetHeight() * 0.9);
+
+    }
+
+    public drawEuropeHighscores(){
+        let center = this.canvasHelper.GetCenter();
+
+        this.canvasHelper.writeTextToCanvas('Europa', 40, this.canvasHelper.GetWidth() * 0.66, center.Y);
+
+        this.europeHighscoreText.forEach((element, index) => {
 
             center.Y += 80;
             this.canvasHelper.writeTextToCanvas(
                 `${index + 1}: ${element}`,
-                40,
-                center.X,
-                center.Y - 100
+                30,
+                this.canvasHelper.GetWidth() * 0.66,
+                center.Y
             );
         });
+    }
 
+    public drawAmericaHighscores(){
+        let center = this.canvasHelper.GetCenter();
 
-        this.canvasHelper.writeButtonToCanvas('Speel opnieuw', 'replay', this.drawScreenLevelSelect, undefined, this.canvasHelper.GetHeight() * 0.9);
+        this.canvasHelper.writeTextToCanvas('Noord-Amerika', 40, this.canvasHelper.GetWidth() * 0.33, center.Y);
 
+        this.americaHighscoreText.forEach((element, index) => {
 
+            center.Y += 80;
+            this.canvasHelper.writeTextToCanvas(
+                `${index + 1}: ${element}`,
+                30,
+                this.canvasHelper.GetWidth() * 0.33,
+                center.Y
+            );
+        });
     }
 
     public drawScreenLevelSelect = (): void => {

@@ -21,6 +21,7 @@ class EuropeEndResult extends ScreenEndResult {
         this.canvasHelper.Clear();
         this.screenQuiz.resetQuestion();
         this.canvasHelper.UnregisterClickListener('continue');
+        this.screenHighScore.setCategory(0);
         this.canvasHelper.ChangeScreen(ScreenHighScore.Instance());
     }
 }
