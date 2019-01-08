@@ -17,10 +17,11 @@ class ScreenBase {
 class ScreenEndResult extends ScreenBase {
     constructor() {
         super();
+        this.screenHighScore = ScreenHighScore.Instance();
     }
     draw() {
         let time = this.timer.getTime();
-        this.canvasHelper.writeTextToCanvas('Level voltooid!', 50, this.canvasHelper.GetCenter().X, 100);
+        this.canvasHelper.writeTextToCanvas(`Level ${this.screenQuiz.getCurrentQuestion()} voltooid!`, 50, this.canvasHelper.GetCenter().X, 100);
         this.canvasHelper.writeTextToCanvas('Tijd:', 30, this.canvasHelper.GetCenter().X, 250);
         if (time.Seconds < 10)
             this.canvasHelper.writeTextToCanvas(` ${time.Minutes}:0${time.Seconds}`, 30, this.canvasHelper.GetCenter().X, 350, 'black');
@@ -44,6 +45,7 @@ class AmericaEndResult extends ScreenEndResult {
             this.canvasHelper.Clear();
             this.screenQuiz.resetQuestion();
             this.canvasHelper.UnregisterClickListener('continue');
+            this.screenHighScore.setCategory(1);
             this.canvasHelper.ChangeScreen(ScreenHighScore.Instance());
         };
         console.log('this is AmericaEndResult');
@@ -438,6 +440,7 @@ class EuropeEndResult extends ScreenEndResult {
             this.canvasHelper.Clear();
             this.screenQuiz.resetQuestion();
             this.canvasHelper.UnregisterClickListener('continue');
+            this.screenHighScore.setCategory(0);
             this.canvasHelper.ChangeScreen(ScreenHighScore.Instance());
         };
         console.log('this is EuropeEndResult');
@@ -963,16 +966,27 @@ TimeHelper.instance = null;
 class ScreenHighScore extends ScreenBase {
     constructor() {
         super();
-        this.highscores = [
+        this.europeHighscores = [
             600,
             600,
             600
         ];
-        this.highscoreText = [
+        this.europeHighscoreText = [
             '10:00',
             '10:00',
             '10:00'
         ];
+        this.americaHighscores = [
+            600,
+            600,
+            600
+        ];
+        this.americaHighscoreText = [
+            '10:00',
+            '10:00',
+            '10:00'
+        ];
+        this.category = 0;
         this.drawScreenLevelSelect = () => {
             this.canvasHelper.Clear();
             this.timer.resetTimer();
@@ -986,41 +1000,68 @@ class ScreenHighScore extends ScreenBase {
         }
         return this.instance;
     }
+    setCategory(category) {
+        this.category = category;
+    }
     draw() {
         this.minutes = this.timer.getTime().Minutes;
+        let score = this.timer.getScore();
         if (this.timer.getTime().Seconds < 10)
             this.seconds = `0${this.timer.getTime().Seconds}`;
         else
             this.seconds = `${this.timer.getTime().Seconds}`;
-        if (this.timer.getTime().Seconds < 10) {
-            let seconds = `0${this.timer.getTime().Seconds}`;
-        }
-        let score = this.timer.getScore();
-        let center = this.canvasHelper.GetCenter();
         this.canvasHelper.writeTextToCanvas('Highscores', 50, this.canvasHelper.GetCenter().X, 100);
-        if (this.highscores[0] > score) {
-            this.highscores[2] = this.highscores[1];
-            this.highscoreText[2] = this.highscoreText[1];
-            this.highscores[1] = this.highscores[0];
-            this.highscoreText[1] = this.highscoreText[0];
-            this.highscores[0] = score;
-            this.highscoreText[0] = `${this.minutes}:${this.seconds}`;
+        if (this.category == 0) {
+            var continent = 'Europa';
+            var highscores = this.europeHighscores;
+            var highscoreText = this.europeHighscoreText;
         }
-        else if (this.highscores[1] > score) {
-            this.highscores[2] = this.highscores[1];
-            this.highscoreText[2] = this.highscoreText[1];
-            this.highscores[1] = score;
-            this.highscoreText[1] = `${this.minutes}:${this.seconds}`;
+        else if (this.category == 1) {
+            var continent = 'Noord-Amerika';
+            var highscores = this.americaHighscores;
+            var highscoreText = this.americaHighscoreText;
         }
-        else if (this.highscores[2] > score) {
-            this.highscores[2] = score;
-            this.highscoreText[2] = `${this.minutes}:${this.seconds}`;
+        this.canvasHelper.writeTextToCanvas(`Jij hebt ${continent} voltooid in:`, 35, this.canvasHelper.GetCenter().X, 200);
+        this.canvasHelper.writeTextToCanvas(`${this.minutes}:${this.seconds}`, 30, this.canvasHelper.GetCenter().X, 250);
+        this.canvasHelper.writeTextToCanvas('De best behaalde tijden zijn:', 35, this.canvasHelper.GetCenter().X, 350);
+        console.log(this.category, highscores);
+        if (highscores[0] > score) {
+            highscores[2] = highscores[1];
+            highscoreText[2] = highscoreText[1];
+            highscores[1] = highscores[0];
+            highscoreText[1] = highscoreText[0];
+            highscores[0] = score;
+            highscoreText[0] = `${this.minutes}:${this.seconds}`;
         }
-        this.highscoreText.forEach((element, index) => {
-            center.Y += 80;
-            this.canvasHelper.writeTextToCanvas(`${index + 1}: ${element}`, 40, center.X, center.Y - 100);
-        });
+        else if (highscores[1] > score) {
+            highscores[2] = highscores[1];
+            highscoreText[2] = highscoreText[1];
+            highscores[1] = score;
+            highscoreText[1] = `${this.minutes}:${this.seconds}`;
+        }
+        else if (highscores[2] > score) {
+            highscores[2] = score;
+            highscoreText[2] = `${this.minutes}:${this.seconds}`;
+        }
+        this.drawEuropeHighscores();
+        this.drawAmericaHighscores();
         this.canvasHelper.writeButtonToCanvas('Speel opnieuw', 'replay', this.drawScreenLevelSelect, undefined, this.canvasHelper.GetHeight() * 0.9);
+    }
+    drawEuropeHighscores() {
+        let center = this.canvasHelper.GetCenter();
+        this.canvasHelper.writeTextToCanvas('Europa', 40, this.canvasHelper.GetWidth() * 0.66, center.Y);
+        this.europeHighscoreText.forEach((element, index) => {
+            center.Y += 80;
+            this.canvasHelper.writeTextToCanvas(`${index + 1}: ${element}`, 30, this.canvasHelper.GetWidth() * 0.66, center.Y);
+        });
+    }
+    drawAmericaHighscores() {
+        let center = this.canvasHelper.GetCenter();
+        this.canvasHelper.writeTextToCanvas('Noord-Amerika', 40, this.canvasHelper.GetWidth() * 0.33, center.Y);
+        this.americaHighscoreText.forEach((element, index) => {
+            center.Y += 80;
+            this.canvasHelper.writeTextToCanvas(`${index + 1}: ${element}`, 30, this.canvasHelper.GetWidth() * 0.33, center.Y);
+        });
     }
 }
 ScreenHighScore.instance = null;
@@ -1055,6 +1096,11 @@ class ScreenLevelSelect extends ScreenBase {
         this.canvasHelper.writeButtonToCanvas("Europa", 'StartEurope', this.drawEuropeLevel, this.canvasHelper.GetWidth() * 0.6, this.canvasHelper.GetCenter().Y + 200);
         this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].northAmerica, this.canvasHelper.GetWidth() * 0.3 - 40, this.canvasHelper.GetCenter().Y - 150, 300, 300);
         this.canvasHelper.writeButtonToCanvas("Noord-Amerika", 'StartAmerica', this.drawAmericaLevel, this.canvasHelper.GetWidth() * 0.3, this.canvasHelper.GetCenter().Y + 200);
+        this.canvasHelper.writeTextToCanvas("Besturing", 30, 30, this.canvasHelper.GetCenter().Y + 30, undefined, "left");
+        this.canvasHelper.writeTextToCanvas("Links: A / pijltjestoets links", 20, 30, this.canvasHelper.GetCenter().Y + 60, undefined, "left");
+        this.canvasHelper.writeTextToCanvas("Rechts: D / pijltjestoets rechts", 20, 30, this.canvasHelper.GetCenter().Y + 90, undefined, "left");
+        this.canvasHelper.writeTextToCanvas("Springen: Spatiebalk (ingedrukt houden)", 20, 30, this.canvasHelper.GetCenter().Y + 120, undefined, "left");
+        this.canvasHelper.drawBorder(0, this.canvasHelper.GetCenter().Y, 400, 130);
     }
 }
 //# sourceMappingURL=app.js.map
