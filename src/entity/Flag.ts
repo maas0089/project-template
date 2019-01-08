@@ -21,12 +21,12 @@ class Flag extends Entity {
             "Zwitserland"
     ];
 
-    private MathHelper: number = this.CanvasHelper.randomNumber(0, 13);
+    private MathHelper: number = this.CanvasHelper.randomNumber(0, this.FlagEuropeArray.length - 1);
 
     public constructor(
         xCoor: number,
         yCoor: number,
-        
+        continent: number = 0 //to determine which flags should be used; 0 is Europe, 1 is America. Default is Europe.
     ) {
         super(xCoor, yCoor);
         this.width = 55;
@@ -37,7 +37,8 @@ class Flag extends Entity {
             this.image = img;
         });
 
-        img.src = `./assets/images/flags/${this.FlagEuropeArray[this.MathHelper]}.png`;
+        if (continent == 0) img.src = `./assets/images/flags/${this.FlagEuropeArray[this.MathHelper]}.png`;
+        if (continent == 1) img.src = './assets/images/flags/Noorwegen.png';
         console.log(this.MathHelper);
     }
 }
