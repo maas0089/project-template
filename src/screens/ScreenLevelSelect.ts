@@ -3,7 +3,7 @@ class ScreenLevelSelect extends ScreenBase {
     private continents: Array<any> = [{
         netherlands: './assets/images/maps/Nederland-kaart-transparant.png',
         europe: './assets/images/maps/Europa-transparant.png',
-        northAmerica: './assets/images/maps/Noord-Amerika-transparant.png'
+        northAmerica: './assets/images/maps/Noord-Amerika-Transparant.png'
     }] ;
 
     private unTravelLogo: string = "./assets/images/logo.png";

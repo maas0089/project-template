@@ -1323,7 +1323,7 @@ class ScreenLevelSelect extends ScreenBase {
         this.continents = [{
                 netherlands: './assets/images/maps/Nederland-kaart-transparant.png',
                 europe: './assets/images/maps/Europa-transparant.png',
-                northAmerica: './assets/images/maps/Noord-Amerika-transparant.png'
+                northAmerica: './assets/images/maps/Noord-Amerika-Transparant.png'
             }];
         this.unTravelLogo = "./assets/images/logo.png";
         this.drawNetherlandsLevel = () => {
