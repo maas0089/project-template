@@ -39,7 +39,7 @@ class Flag extends Entity {
 
         if (continent == 0) img.src = './assets/images/flags/Nederland.png';
         if (continent == 1) img.src = `./assets/images/flags/${this.FlagEuropeArray[this.MathHelper]}.png`;
-        if (continent == 2) img.src = './assets/images/flags/USA.png';
+        if (continent == 2) img.src = './assets/images/flags/VerenigdeStaten.png';
         console.log(this.MathHelper);
     }
 }
