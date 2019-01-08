@@ -320,8 +320,8 @@ class ScreenQuiz extends ScreenBase {
         }
         let questionArray = this.qAndA[this.question];
         this.timer.pauseTimer();
+        this.drawMap();
         this.canvasHelper.writeTextToCanvas('Wat ligt hier?', 50, this.canvasHelper.GetCenter().X, 50);
-        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, 350, 100, 504, 597);
         this.canvasHelper.writeTextToCanvas(questionArray.letter1, 20, this.canvasHelper.GetWidth() * 0.59, 125, "red");
         if (questionArray.a1[1])
             this.canvasHelper.writeButtonToCanvas(`${questionArray.a1[0]}`, 'startGame1', this.checkAnswerOne, this.canvasHelper.GetWidth() * 0.6, this.positionOne[0], this.firstAnswer);
@@ -386,52 +386,52 @@ class AmericaQuiz extends ScreenQuiz {
         console.log('this is AmericaQuiz');
         this.totalquestion = 3;
         this.imageLocations = [
-            "./assets/questions/Netherlands1.png",
-            './assets/questions/Netherlands2.png',
-            './assets/questions/Netherlands3.png'
+            "./assets/questions/NorthAmerica1.png",
+            './assets/questions/NorthAmerica2.png',
+            './assets/questions/NorthAmerica3.png'
         ];
         this.qAndA = [
             {
-                letter1: 'A',
-                a1: ['Arnhem', true],
-                b1: ['Amersfoort', false],
-                c1: ['Nijmegen', false],
-                letter2: 'b',
-                a2: ['Gelderland', false],
-                b2: ['Drenthe', false],
-                c2: ['Overijssel', true],
-                letter3: 'C',
-                a3: ['Amsterdam', false],
-                b3: ['Leiden', false],
-                c3: ['Haarlem', true]
-            },
-            {
-                letter1: 'A',
-                a1: ['Leeuwarden', true],
-                b1: ['Groningen', false],
-                c1: ['Assen', false],
+                letter1: 'a',
+                a1: ['Californië ', true],
+                b1: ['Los Angeles', false],
+                c1: ['Alaska', false],
                 letter2: 'B',
-                a2: ['Rotterdam', false],
-                b2: ['Den Haag', false],
-                c2: ['Middelburg', true],
-                letter3: 'c',
-                a3: ['Limburg', false],
-                b3: ['Gelderland', false],
-                c3: ['Noord-Brabant', true]
+                a2: ['Chicago', true],
+                b2: ['Washington', false],
+                c2: ['Mississipi', false],
+                letter3: 'C',
+                a3: ['New York', true],
+                b3: ['Washington', false],
+                c3: ['Montreal ', false]
             },
             {
                 letter1: 'A',
-                a1: ['Lelystad', true],
-                b1: ['Amsterdam', false],
-                c1: ['Zwolle', false],
-                letter2: 'b',
-                a2: ['Noord-Holland', false],
-                b2: ['Zeeland', false],
-                c2: ['Zuid-Holland', true],
+                a1: ['Montreal ', true],
+                b1: ['Los Angeles', false],
+                c1: ['New York', false],
+                letter2: 'II',
+                a2: ['Groenland ', true],
+                b2: ['Alaska', false],
+                c2: ['Canada', false],
                 letter3: 'C',
-                a3: ['Eindhoven', false],
-                b3: ['Venlo', false],
-                c3: ['Maastricht', true]
+                a3: ['Atlantische Oceaan ', true],
+                b3: ['Caribische Zee', false],
+                c3: ['Noordelijke IJszee', false]
+            },
+            {
+                letter1: 'A',
+                a1: ['Mexico-Stad', true],
+                b1: ['Los Angeles', false],
+                c1: ['Rocky Mountains', false],
+                letter2: 'b',
+                a2: ['Mississipi', true],
+                b2: ['Rocky Mountains', false],
+                c2: ['Chicago', false],
+                letter3: 'III',
+                a3: ['Verenigde Staten', true],
+                b3: ['Hawaii', false],
+                c3: ['Canada', false]
             }
         ];
     }
@@ -440,6 +440,9 @@ class AmericaQuiz extends ScreenQuiz {
             this.instance = new AmericaQuiz();
         }
         return this.instance;
+    }
+    drawMap() {
+        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, 100, 100, 711, 700);
     }
 }
 AmericaQuiz.instance = null;
@@ -561,52 +564,52 @@ class EuropeQuiz extends ScreenQuiz {
         console.log('this is EuropeQuiz');
         this.totalquestion = 3;
         this.imageLocations = [
-            "./assets/questions/Netherlands1.png",
-            './assets/questions/Netherlands2.png',
-            './assets/questions/Netherlands3.png'
+            "./assets/questions/Europe1.png",
+            './assets/questions/Europe2.png',
+            './assets/questions/Europe3.png'
         ];
         this.qAndA = [
             {
                 letter1: 'A',
-                a1: ['Arnhem', true],
-                b1: ['Amersfoort', false],
-                c1: ['Nijmegen', false],
-                letter2: 'b',
-                a2: ['Gelderland', false],
-                b2: ['Drenthe', false],
-                c2: ['Overijssel', true],
-                letter3: 'C',
-                a3: ['Amsterdam', false],
-                b3: ['Leiden', false],
-                c3: ['Haarlem', true]
-            },
-            {
-                letter1: 'A',
-                a1: ['Leeuwarden', true],
-                b1: ['Groningen', false],
-                c1: ['Assen', false],
+                a1: ['Helsinki ', true],
+                b1: ['Warschau', false],
+                c1: ['Kopenhagen', false],
                 letter2: 'B',
-                a2: ['Rotterdam', false],
-                b2: ['Den Haag', false],
-                c2: ['Middelburg', true],
-                letter3: 'c',
-                a3: ['Limburg', false],
-                b3: ['Gelderland', false],
-                c3: ['Noord-Brabant', true]
+                a2: ['Londen ', true],
+                b2: ['Berlijn', false],
+                c2: ['Parijs', false],
+                letter3: 'III',
+                a3: ['Tsjechië ', true],
+                b3: ['Slowakije', false],
+                c3: ['Polen', false]
             },
             {
                 letter1: 'A',
-                a1: ['Lelystad', true],
-                b1: ['Amsterdam', false],
-                c1: ['Zwolle', false],
-                letter2: 'b',
-                a2: ['Noord-Holland', false],
-                b2: ['Zeeland', false],
-                c2: ['Zuid-Holland', true],
+                a1: ['Praag ', true],
+                b1: ['Wenen', false],
+                c1: ['Bratislava', false],
+                letter2: 'B',
+                a2: ['Athene ', true],
+                b2: ['Budapest', false],
+                c2: ['Rome', false],
+                letter3: 'c',
+                a3: ['Rijn', true],
+                b3: ['Wolga', false],
+                c3: ['Noordzee', false]
+            },
+            {
+                letter1: 'A',
+                a1: ['Zwarte Zee', true],
+                b1: ['Middellandse Zee', false],
+                c1: ['Het Kanaal', false],
+                letter2: 'II',
+                a2: ['Zwitserland', true],
+                b2: ['Oostenrijk', false],
+                c2: ['Frankrijk', false],
                 letter3: 'C',
-                a3: ['Eindhoven', false],
-                b3: ['Venlo', false],
-                c3: ['Maastricht', true]
+                a3: ['Madrid', true],
+                b3: ['Parijs', false],
+                c3: ['Rome', false]
             }
         ];
     }
@@ -615,6 +618,9 @@ class EuropeQuiz extends ScreenQuiz {
             this.instance = new EuropeQuiz();
         }
         return this.instance;
+    }
+    drawMap() {
+        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, 350, 100, 504, 597);
     }
 }
 EuropeQuiz.instance = null;
