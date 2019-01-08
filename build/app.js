@@ -254,7 +254,7 @@ class ScreenQuiz extends ScreenBase {
             this.firstAnswer = 1;
             this.removeButtons();
             if (this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1)
-                this.drawScreenEndResult();
+                this.drawNextScreen();
             else
                 this.drawScreenQuiz();
         };
@@ -263,7 +263,7 @@ class ScreenQuiz extends ScreenBase {
             this.secondAnswer = 1;
             this.removeButtons();
             if (this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1)
-                this.drawScreenEndResult();
+                this.drawNextScreen();
             else
                 this.drawScreenQuiz();
         };
@@ -272,9 +272,18 @@ class ScreenQuiz extends ScreenBase {
             this.thirdAnswer = 1;
             this.removeButtons();
             if (this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1)
-                this.drawScreenEndResult();
+                this.drawNextScreen();
             else
                 this.drawScreenQuiz();
+        };
+        this.drawNextScreen = () => {
+            this.canvasHelper.Clear();
+            this.removeButtons();
+            this.question++;
+            this.firstAnswer = 0;
+            this.secondAnswer = 0;
+            this.thirdAnswer = 0;
+            this.drawScreenEndResult();
         };
         this.removeButtons = () => {
             this.canvasHelper.Clear();
@@ -372,12 +381,6 @@ class AmericaQuiz extends ScreenQuiz {
             this.canvasHelper.ChangeScreen(new AmericaLevel);
         };
         this.drawScreenEndResult = () => {
-            this.canvasHelper.Clear();
-            this.removeButtons();
-            this.question++;
-            this.firstAnswer = 0;
-            this.secondAnswer = 0;
-            this.thirdAnswer = 0;
             this.canvasHelper.ChangeScreen(new AmericaEndResult);
         };
         console.log('this is AmericaQuiz');
@@ -553,12 +556,6 @@ class EuropeQuiz extends ScreenQuiz {
             this.canvasHelper.ChangeScreen(new EuropeLevel);
         };
         this.drawScreenEndResult = () => {
-            this.canvasHelper.Clear();
-            this.removeButtons();
-            this.question++;
-            this.firstAnswer = 0;
-            this.secondAnswer = 0;
-            this.thirdAnswer = 0;
             this.canvasHelper.ChangeScreen(new EuropeEndResult);
         };
         console.log('this is EuropeQuiz');
