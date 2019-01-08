@@ -647,13 +647,32 @@ class Checkpoint extends Entity {
 class Flag extends Entity {
     constructor(xCoor, yCoor) {
         super(xCoor, yCoor);
+        this.CanvasHelper = CanvasHelper.Instance();
+        this.FlagEuropeArray = [
+            "België",
+            "Denemarken",
+            "Duitsland",
+            "Finland",
+            "Frankrijk",
+            "Italië",
+            "Nederland",
+            "Noorwegen",
+            "Oekraïne",
+            "Oostenrijk",
+            "Polen",
+            "Roemenië",
+            "Zweden",
+            "Zwitserland"
+        ];
+        this.MathHelper = this.CanvasHelper.randomNumber(0, 13);
         this.width = 55;
         this.height = 80;
         let img = new Image();
         img.addEventListener('load', () => {
             this.image = img;
         });
-        img.src = './assets/images/flags/Nederland.png';
+        img.src = `./assets/images/flags/${this.FlagEuropeArray[this.MathHelper]}.png`;
+        console.log(this.MathHelper);
     }
 }
 class Platform extends Entity {
