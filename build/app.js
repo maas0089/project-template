@@ -1049,18 +1049,18 @@ class ScreenHighScore extends ScreenBase {
     }
     drawEuropeHighscores() {
         let center = this.canvasHelper.GetCenter();
-        this.canvasHelper.writeTextToCanvas('Europa', 40, this.canvasHelper.GetWidth() * 0.66, center.Y);
+        this.canvasHelper.writeTextToCanvas('Europa', 40, this.canvasHelper.GetWidth() * 0.33, center.Y);
         this.europeHighscoreText.forEach((element, index) => {
             center.Y += 80;
-            this.canvasHelper.writeTextToCanvas(`${index + 1}: ${element}`, 30, this.canvasHelper.GetWidth() * 0.66, center.Y);
+            this.canvasHelper.writeTextToCanvas(`${index + 1}: ${element}`, 30, this.canvasHelper.GetWidth() * 0.33, center.Y);
         });
     }
     drawAmericaHighscores() {
         let center = this.canvasHelper.GetCenter();
-        this.canvasHelper.writeTextToCanvas('Noord-Amerika', 40, this.canvasHelper.GetWidth() * 0.33, center.Y);
+        this.canvasHelper.writeTextToCanvas('Noord-Amerika', 40, this.canvasHelper.GetWidth() * 0.66, center.Y);
         this.americaHighscoreText.forEach((element, index) => {
             center.Y += 80;
-            this.canvasHelper.writeTextToCanvas(`${index + 1}: ${element}`, 30, this.canvasHelper.GetWidth() * 0.33, center.Y);
+            this.canvasHelper.writeTextToCanvas(`${index + 1}: ${element}`, 30, this.canvasHelper.GetWidth() * 0.66, center.Y);
         });
     }
 }
@@ -1092,8 +1092,10 @@ class ScreenLevelSelect extends ScreenBase {
     draw() {
         this.canvasHelper.writeTextToCanvas('UNtRAVEL', 50, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y / 3);
         this.canvasHelper.writeTextToCanvas('Selecteer een werelddeel', 25, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y / 3 + 60);
-        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].europe, this.canvasHelper.GetWidth() * 0.6 - 40, this.canvasHelper.GetCenter().Y - 150, 300, 300);
-        this.canvasHelper.writeButtonToCanvas("Europa", 'StartEurope', this.drawEuropeLevel, this.canvasHelper.GetWidth() * 0.6, this.canvasHelper.GetCenter().Y + 200);
+        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].europe, this.canvasHelper.GetWidth() * 0.3 - 40, this.canvasHelper.GetCenter().Y - 150, 300, 300);
+        this.canvasHelper.writeButtonToCanvas("Europa", 'StartEurope', this.drawEuropeLevel, this.canvasHelper.GetWidth() * 0.3, this.canvasHelper.GetCenter().Y + 200);
+        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].northAmerica, this.canvasHelper.GetWidth() * 0.6 - 40, this.canvasHelper.GetCenter().Y - 150, 300, 300);
+        this.canvasHelper.writeButtonToCanvas("Noord-Amerika", 'StartAmerica', this.drawAmericaLevel, this.canvasHelper.GetWidth() * 0.6, this.canvasHelper.GetCenter().Y + 200);
         this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].northAmerica, this.canvasHelper.GetWidth() * 0.3 - 40, this.canvasHelper.GetCenter().Y - 150, 300, 300);
         this.canvasHelper.writeButtonToCanvas("Noord-Amerika", 'StartAmerica', this.drawAmericaLevel, this.canvasHelper.GetWidth() * 0.3, this.canvasHelper.GetCenter().Y + 200);
         this.canvasHelper.writeTextToCanvas("Besturing", 30, 30, this.canvasHelper.GetCenter().Y + 30, undefined, "left");

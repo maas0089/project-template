@@ -21,11 +21,9 @@ class ScreenLevelSelect extends ScreenBase {
         this.canvasHelper.writeButtonToCanvas("Europa", 'StartEurope', this.drawEuropeLevel, this.canvasHelper.GetWidth() * 0.3, this.canvasHelper.GetCenter().Y + 200);
 
         //draw North America
-<<<<<<< HEAD
         this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].northAmerica, this.canvasHelper.GetWidth() * 0.6 - 40, this.canvasHelper.GetCenter().Y - 150, 300, 300);
         this.canvasHelper.writeButtonToCanvas("Noord-Amerika", 'StartAmerica', this.drawAmericaLevel, this.canvasHelper.GetWidth() * 0.6, this.canvasHelper.GetCenter().Y + 200)
 
-=======
         this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].northAmerica, this.canvasHelper.GetWidth() * 0.3 - 40, this.canvasHelper.GetCenter().Y - 150, 300, 300);
         this.canvasHelper.writeButtonToCanvas("Noord-Amerika", 'StartAmerica', this.drawAmericaLevel, this.canvasHelper.GetWidth() * 0.3, this.canvasHelper.GetCenter().Y + 200);
 
@@ -35,7 +33,6 @@ class ScreenLevelSelect extends ScreenBase {
         this.canvasHelper.writeTextToCanvas("Rechts: D / pijltjestoets rechts", 20, 30, this.canvasHelper.GetCenter().Y + 90, undefined, "left");
         this.canvasHelper.writeTextToCanvas("Springen: Spatiebalk (ingedrukt houden)", 20, 30, this.canvasHelper.GetCenter().Y + 120, undefined, "left");
         this.canvasHelper.drawBorder(0, this.canvasHelper.GetCenter().Y, 400, 130);
->>>>>>> b881fafe75b4a0033deb1b62b7ff8f9c0e3a30d0
     }
 
     public drawEuropeLevel = (): void => {
