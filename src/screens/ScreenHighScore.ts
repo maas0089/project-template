@@ -107,7 +107,7 @@ class ScreenHighScore extends ScreenBase {
     public drawEuropeHighscores(){
         let center = this.canvasHelper.GetCenter();
 
-        this.canvasHelper.writeTextToCanvas('Europa', 40, this.canvasHelper.GetWidth() * 0.66, center.Y);
+        this.canvasHelper.writeTextToCanvas('Europa', 40, this.canvasHelper.GetWidth() * 0.33, center.Y);
 
         this.europeHighscoreText.forEach((element, index) => {
 
@@ -115,7 +115,7 @@ class ScreenHighScore extends ScreenBase {
             this.canvasHelper.writeTextToCanvas(
                 `${index + 1}: ${element}`,
                 30,
-                this.canvasHelper.GetWidth() * 0.66,
+                this.canvasHelper.GetWidth() * 0.33,
                 center.Y
             );
         });
@@ -124,7 +124,7 @@ class ScreenHighScore extends ScreenBase {
     public drawAmericaHighscores(){
         let center = this.canvasHelper.GetCenter();
 
-        this.canvasHelper.writeTextToCanvas('Noord-Amerika', 40, this.canvasHelper.GetWidth() * 0.33, center.Y);
+        this.canvasHelper.writeTextToCanvas('Noord-Amerika', 40, this.canvasHelper.GetWidth() * 0.66, center.Y);
 
         this.americaHighscoreText.forEach((element, index) => {
 
@@ -132,7 +132,7 @@ class ScreenHighScore extends ScreenBase {
             this.canvasHelper.writeTextToCanvas(
                 `${index + 1}: ${element}`,
                 30,
-                this.canvasHelper.GetWidth() * 0.33,
+                this.canvasHelper.GetWidth() * 0.66,
                 center.Y
             );
         });

@@ -17,12 +17,12 @@ class ScreenLevelSelect extends ScreenBase {
         this.canvasHelper.writeTextToCanvas('Selecteer een werelddeel', 25, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y / 3 + 60);
 
         //draw Europe
-        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].europe, this.canvasHelper.GetWidth() * 0.6 - 40, this.canvasHelper.GetCenter().Y - 150, 300, 300);
-        this.canvasHelper.writeButtonToCanvas("Europa", 'StartEurope', this.drawEuropeLevel, this.canvasHelper.GetWidth() * 0.6, this.canvasHelper.GetCenter().Y + 200);
+        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].europe, this.canvasHelper.GetWidth() * 0.3 - 40, this.canvasHelper.GetCenter().Y - 150, 300, 300);
+        this.canvasHelper.writeButtonToCanvas("Europa", 'StartEurope', this.drawEuropeLevel, this.canvasHelper.GetWidth() * 0.3, this.canvasHelper.GetCenter().Y + 200);
 
         //draw North America
-        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].northAmerica, this.canvasHelper.GetWidth() * 0.3 - 40, this.canvasHelper.GetCenter().Y - 150, 300, 300);
-        this.canvasHelper.writeButtonToCanvas("Noord-Amerika", 'StartAmerica', this.drawAmericaLevel, this.canvasHelper.GetWidth() * 0.3, this.canvasHelper.GetCenter().Y + 200)
+        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].northAmerica, this.canvasHelper.GetWidth() * 0.6 - 40, this.canvasHelper.GetCenter().Y - 150, 300, 300);
+        this.canvasHelper.writeButtonToCanvas("Noord-Amerika", 'StartAmerica', this.drawAmericaLevel, this.canvasHelper.GetWidth() * 0.6, this.canvasHelper.GetCenter().Y + 200)
 
     }
 
