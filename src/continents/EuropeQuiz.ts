@@ -13,64 +13,117 @@ class EuropeQuiz extends ScreenQuiz {
         this.totalquestion = 3; //total amount of questions
 
         this.imageLocations = [
-            "./assets/questions/Netherlands1.png",
-            './assets/questions/Netherlands2.png',
-            './assets/questions/Netherlands3.png'
+            "./assets/questions/Europe1.png",
+            './assets/questions/Europe2.png',
+            './assets/questions/Europe3.png'
         ];
 
-        // this.qLetters = ['A', ];
-
         this.qAndA = [
-            {                
-                letter1: 'A',
-                a1: ['Arnhem', true],// correct
-                b1: ['Amersfoort', false],
-                c1: ['Nijmegen', false],
-
-                letter2: 'b',
-                a2: ['Gelderland', false],
-                b2: ['Drenthe', false],
-                c2: ['Overijssel', true], // correct
-
-                letter3: 'C',
-                a3: ['Amsterdam', false],
-                b3: ['Leiden', false],
-                c3: ['Haarlem', true] // correct 
-            },
-
             {
                 letter1: 'A',
-                a1: ['Leeuwarden', true], // correct
-                b1: ['Groningen', false],
-                c1: ['Assen', false],
+                a1: ['Helsinki ', true],// correct
+                b1: ['Warschau', false],
+                c1: ['Kopenhagen', false],
 
                 letter2: 'B',
-                a2: ['Rotterdam', false],
-                b2: ['Den Haag', false],
-                c2: ['Middelburg', true], // correct
+                a2: ['Londen ', true], // correct
+                b2: ['Berlijn', false],
+                c2: ['Parijs', false], 
 
-                letter3: 'c',
-                a3: ['Limburg', false],
-                b3: ['Gelderland', false],
-                c3: ['Noord-Brabant', true] // correct 
+                letter3: 'III',
+                a3: ['Tsjechië ', true], // correct
+                b3: ['Slowakije', false],
+                c3: ['Polen', false] 
             },
 
             {
                 letter1: 'A',
-                a1: ['Lelystad', true], // correct
-                b1: ['Amsterdam', false],
-                c1: ['Zwolle', false],
+                a1: ['Praag ', true], // correct
+                b1: ['Wenen', false],
+                c1: ['Bratislava', false],
 
-                letter2: 'b',
-                a2: ['Noord-Holland', false],
-                b2: ['Zeeland', false],
-                c2: ['Zuid-Holland', true], // correct
+                letter2: 'B',
+                a2: ['Athene ', true], // correct
+                b2: ['Budapest', false],
+                c2: ['Rome', false],
+
+                letter3: 'c',
+                a3: ['Rijn', true], // correct
+                b3: ['Wolga', false],
+                c3: ['Noordzee', false] 
+            },
+
+            {
+                letter1: 'A',
+                a1: ['Zwarte Zee', true], // correct
+                b1: ['Middellandse Zee', false],
+                c1: ['Het Kanaal', false],
+
+                letter2: 'II',
+                a2: ['Zwitserland', true], // correct
+                b2: ['Oostenrijk', false],
+                c2: ['Frankrijk', false],
 
                 letter3: 'C',
-                a3: ['Eindhoven', false],
-                b3: ['Venlo', false],
-                c3: ['Maastricht', true] // correct 
+                a3: ['Madrid', true], // correct
+                b3: ['Parijs', false],
+                c3: ['Rome', false] 
             }]
+
+
+
+        // questions and answers for The Netherlands
+        // this.qAndA = [
+        //     {                
+        //         letter1: 'A',
+        //         a1: ['Arnhem', true],// correct
+        //         b1: ['Amersfoort', false],
+        //         c1: ['Nijmegen', false],
+
+        //         letter2: 'b',
+        //         a2: ['Overijssel', true], // correct
+        //         b2: ['Drenthe', false],
+        //         c2: ['Gelderland', false], 
+
+        //         letter3: 'C',
+        //         a3: ['Haarlem', true], // correct
+        //         b3: ['Leiden', false],
+        //         c3: ['Amsterdam', false]  
+        //     },
+
+        //     {
+        //         letter1: 'A',
+        //         a1: ['Leeuwarden', true], // correct
+        //         b1: ['Groningen', false],
+        //         c1: ['Assen', false],
+
+        //         letter2: 'B',
+        //         a2: ['Middelburg', true], // correct
+        //         b2: ['Den Haag', false],
+        //         c2: ['Rotterdam', false], 
+
+        //         letter3: 'c',
+        //         a3: ['Noord-Brabant', true], // correct
+        //         b3: ['Gelderland', false],
+        //         c3: ['Limburg', false]  
+        //     },
+
+        //     {
+        //         letter1: 'A',
+        //         a1: ['Lelystad', true], // correct
+        //         b1: ['Amsterdam', false],
+        //         c1: ['Zwolle', false],
+
+        //         letter2: 'b',
+        //         a2: ['Zuid-Holland', true], // correct
+        //         b2: ['Zeeland', false],
+        //         c2: ['Noord-Holland', false], 
+
+        //         letter3: 'C',
+        //         a3: ['Maastricht', true], // correct
+        //         b3: ['Venlo', false],
+        //         c3: ['Eindhoven', false]  
+        //     }]
     }
 
     public static Instance(): ScreenQuiz {
@@ -78,6 +131,10 @@ class EuropeQuiz extends ScreenQuiz {
             this.instance = new EuropeQuiz();
         }
         return this.instance;
+    }
+
+    public drawMap(): void {
+        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, 350, 100, 504, 597);
     }
 
     public drawScreenLevel = (): void => {

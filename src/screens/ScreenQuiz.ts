@@ -55,9 +55,10 @@ abstract class ScreenQuiz extends ScreenBase{
         }
         let questionArray = this.qAndA[this.question];
         this.timer.pauseTimer();
-        this.canvasHelper.writeTextToCanvas('Wat ligt hier?', 50, this.canvasHelper.GetCenter().X, 50);
 
-        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, 350, 100, 504, 597);
+        this.drawMap();
+
+        this.canvasHelper.writeTextToCanvas('Wat ligt hier?', 50, this.canvasHelper.GetCenter().X, 50);
 
         //question 1
 
@@ -159,7 +160,9 @@ abstract class ScreenQuiz extends ScreenBase{
     //     this.question = newQuestion;
     // }
 
-    public abstract drawScreenLevel(): void
+    public abstract drawMap(): void;
+
+    public abstract drawScreenLevel(): void;
 
     public abstract drawScreenEndResult(): void;    
 

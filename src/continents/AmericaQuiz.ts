@@ -13,62 +13,62 @@ class AmericaQuiz extends ScreenQuiz{
         this.totalquestion = 3; //total amount of questions
 
         this.imageLocations = [
-            "./assets/questions/Netherlands1.png",
-            './assets/questions/Netherlands2.png', 
-            './assets/questions/Netherlands3.png'
+            "./assets/questions/NorthAmerica1.png",
+            './assets/questions/NorthAmerica2.png', 
+            './assets/questions/NorthAmerica3.png'
         ];   
 
         this.qAndA = [
             {
                 
-                letter1: 'A',
-                a1: ['Arnhem', true],// correct
-                b1: ['Amersfoort', false],
-                c1: ['Nijmegen', false],
-
-                letter2: 'b',
-                a2: ['Gelderland', false],
-                b2: ['Drenthe', false],
-                c2: ['Overijssel', true], // correct
-
-                letter3: 'C',
-                a3: ['Amsterdam', false],
-                b3: ['Leiden', false],
-                c3: ['Haarlem', true] // correct 
-            },
-
-            {
-                letter1: 'A',
-                a1: ['Leeuwarden', true], // correct
-                b1: ['Groningen', false],
-                c1: ['Assen', false],
+                letter1: 'a',
+                a1: ['Californië ', true], // correct
+                b1: ['Los Angeles', false],
+                c1: ['Alaska', false],
 
                 letter2: 'B',
-                a2: ['Rotterdam', false],
-                b2: ['Den Haag', false],
-                c2: ['Middelburg', true], // correct
+                a2: ['Chicago', true], // correct
+                b2: ['Washington', false],
+                c2: ['Mississipi', false], 
 
-                letter3: 'c',
-                a3: ['Limburg', false],
-                b3: ['Gelderland', false],
-                c3: ['Noord-Brabant', true] // correct 
+                letter3: 'C',
+                a3: ['New York', true], // correct
+                b3: ['Washington', false],
+                c3: ['Montreal ', false]  
             },
 
             {
                 letter1: 'A',
-                a1: ['Lelystad', true], // correct
-                b1: ['Amsterdam', false],
-                c1: ['Zwolle', false],
+                a1: ['Montreal ', true], // correct
+                b1: ['Los Angeles', false],
+                c1: ['New York', false],
 
-                letter2: 'b',
-                a2: ['Noord-Holland', false],
-                b2: ['Zeeland', false],
-                c2: ['Zuid-Holland', true], // correct
+                letter2: 'II',
+                a2: ['Groenland ', true], // correct
+                b2: ['Alaska', false],
+                c2: ['Canada', false], 
 
                 letter3: 'C',
-                a3: ['Eindhoven', false],
-                b3: ['Venlo', false],
-                c3: ['Maastricht', true] // correct 
+                a3: ['Atlantische Oceaan ', true], // correct
+                b3: ['Caribische Zee', false],
+                c3: ['Noordelijke IJszee', false]  
+            },
+
+            {
+                letter1: 'A',
+                a1: ['Mexico-Stad', true], // correct
+                b1: ['Los Angeles', false],
+                c1: ['Rocky Mountains', false],
+
+                letter2: 'b',
+                a2: ['Mississipi', true],
+                b2: ['Rocky Mountains', false],
+                c2: ['Chicago', false], // correct
+
+                letter3: 'III',
+                a3: ['Verenigde Staten', true],
+                b3: ['Hawaii', false],
+                c3: ['Canada', false] // correct 
             }]
     }
     public static Instance(): ScreenQuiz {
@@ -76,6 +76,10 @@ class AmericaQuiz extends ScreenQuiz{
             this.instance = new AmericaQuiz();
         }
         return this.instance;
+    }
+
+    public drawMap(): void {
+        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, 100, 100, 711, 700);
     }
 
     public drawScreenLevel = (): void => {
