@@ -67,6 +67,7 @@ class ScreenLevel extends ScreenBase {
             else
                 this.canvasHelper.writeTextToCanvas(`Tijd ${time.Minutes}:${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, 50, 'black');
             this.controlsInstructions();
+            this.checkpointFeedback();
             this.canvasHelper.writeTextToCanvas(`Level ${this.currentLevel}`, 20, this.canvasHelper.GetWidth() - 20, 30, undefined, "right");
             this.spikes.forEach((element) => {
                 element.draw();
@@ -80,8 +81,11 @@ class ScreenLevel extends ScreenBase {
             });
             if (this.checkpoint != null) {
                 this.checkpoint.draw();
-                if (this.player.entityCollision(this.checkpoint))
+                if (this.player.entityCollision(this.checkpoint)) {
                     this.player.updateStartPosition(this.checkpoint.getX(), this.checkpoint.getY());
+                    this.checkpointReached = true;
+                }
+                ;
             }
             this.player.draw();
             this.player.move();
@@ -112,6 +116,14 @@ class ScreenLevel extends ScreenBase {
         this.canvasHelper.writeTextToCanvas("Rechts: D / pijltjestoets rechts", 20, 30, 55, undefined, "left");
         this.canvasHelper.writeTextToCanvas("Springen: Spatiebalk (ingedrukt houden)", 20, 30, 85, undefined, "left");
         this.canvasHelper.drawBorder(0, 0, 400, 95);
+    }
+    checkpointFeedback() {
+        if (this.checkpointReached == true) {
+            this.canvasHelper.writeTextToCanvas("Checkpoint: Gehaald!", 20, 30, 120, "green", "left");
+        }
+        else {
+            this.canvasHelper.writeTextToCanvas("Checkpoint: Nog niet gehaald", 20, 30, 120, "red", "left");
+        }
     }
 }
 class AmericaLevel extends ScreenLevel {

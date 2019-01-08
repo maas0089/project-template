@@ -8,11 +8,10 @@ abstract class ScreenLevel extends ScreenBase {
     protected countryFlag: Flag;// = new Flag(1340, this.canvasHelper.GetCenter().Y + 265); // Y -75
     protected checkpoint: Checkpoint = null;
     protected background: string;
-    protected screenQuiz: ScreenQuiz //= EuropeQuiz.Instance();
-    protected currentLevel: number //= this.screenQuiz.getCurrentQuestion() + 1;
+    protected screenQuiz: ScreenQuiz; //= EuropeQuiz.Instance()
+    protected currentLevel: number; //= this.screenQuiz.getCurrentQuestion() + 1
+    protected checkpointReached: boolean;
 
-
-    //TODO: change spike width and height to match the platform
     constructor() {
         super();
     }
@@ -40,6 +39,14 @@ abstract class ScreenLevel extends ScreenBase {
         this.canvasHelper.drawBorder(0, 0, 400, 95);
     }
 
+    public checkpointFeedback() {
+        if(this.checkpointReached == true) {
+            this.canvasHelper.writeTextToCanvas("Checkpoint: Gehaald!", 20, 30, 120, "green", "left");
+        } else {
+            this.canvasHelper.writeTextToCanvas("Checkpoint: Nog niet gehaald", 20, 30, 120, "red", "left");
+        }
+    }
+
     public drawScreenLevel = () => {
         let time = this.timer.getTime();
 
@@ -50,6 +57,8 @@ abstract class ScreenLevel extends ScreenBase {
         else this.canvasHelper.writeTextToCanvas(`Tijd ${time.Minutes}:${time.Seconds}`, 20, this.canvasHelper.GetCenter().X, 50, 'black');
 
         this.controlsInstructions();
+
+        this.checkpointFeedback();
 
         this.canvasHelper.writeTextToCanvas(`Level ${this.currentLevel}`, 20, this.canvasHelper.GetWidth() - 20, 30, undefined, "right");
 
@@ -64,7 +73,10 @@ abstract class ScreenLevel extends ScreenBase {
 
         if(this.checkpoint != null){
             this.checkpoint.draw();
-            if (this.player.entityCollision(this.checkpoint)) this.player.updateStartPosition(this.checkpoint.getX(), this.checkpoint.getY());
+            if (this.player.entityCollision(this.checkpoint)) {
+                this.player.updateStartPosition(this.checkpoint.getX(), this.checkpoint.getY())
+                this.checkpointReached = true;
+            };
         }
 
         this.player.draw();
@@ -82,7 +94,6 @@ abstract class ScreenLevel extends ScreenBase {
         }
 
     }
-
 
     public abstract drawScreenQuiz(): void
 }
