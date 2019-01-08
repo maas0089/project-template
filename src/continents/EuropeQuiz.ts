@@ -87,14 +87,6 @@ class EuropeQuiz extends ScreenQuiz {
     }
 
     public drawScreenEndResult = (): void => {
-        this.canvasHelper.Clear();
-        this.removeButtons();
-
-        this.question++;
-        this.firstAnswer = 0;
-        this.secondAnswer = 0;
-        this.thirdAnswer = 0;
-
         this.canvasHelper.ChangeScreen(new EuropeEndResult);
     }
 

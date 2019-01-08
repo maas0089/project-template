@@ -3,6 +3,7 @@ abstract class ScreenQuiz extends ScreenBase{
     // protected static instance: ScreenQuiz = null;
 
     protected question: number = 0;
+    // protected usedQuestions: Array<number> = new Array<number>();
 
     protected firstAnswer: number = 0;
     protected secondAnswer: number = 0;
@@ -20,6 +21,7 @@ abstract class ScreenQuiz extends ScreenBase{
 
     public constructor(){
         super();
+        // this.generateRandomQuestion();
     }
 
     public draw(): void {
@@ -57,7 +59,7 @@ abstract class ScreenQuiz extends ScreenBase{
 
         this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, 350, 100, 504, 597);
 
-        //question 2 (answer A)
+        //question 1
 
         this.canvasHelper.writeTextToCanvas(questionArray.letter1, 20, this.canvasHelper.GetWidth() * 0.59, 125, "red");
 
@@ -70,7 +72,7 @@ abstract class ScreenQuiz extends ScreenBase{
         if (questionArray.c1[1]) this.canvasHelper.writeButtonToCanvas(`${questionArray.c1[0]}`, 'startGame3', this.checkAnswerOne, this.canvasHelper.GetWidth() * 0.6, this.positionOne[2], this.firstAnswer);
         else this.canvasHelper.writeButtonToCanvas(`${questionArray.c1[0]}`, 'startGame3', this.wrongAnswerOne, this.canvasHelper.GetWidth() * 0.6, this.positionOne[2]); 
 
-        //question 1 (answer C)
+        //question 2
         this.canvasHelper.writeTextToCanvas(questionArray.letter2, 20, this.canvasHelper.GetWidth() * 0.59, 325, "red");
 
         if (questionArray.a2[1]) this.canvasHelper.writeButtonToCanvas(`${questionArray.a2[0]}`, 'startGame4', this.checkAnswerTwo, this.canvasHelper.GetWidth() * 0.6, this.positionTwo[0], this.secondAnswer);
@@ -82,7 +84,7 @@ abstract class ScreenQuiz extends ScreenBase{
         if (questionArray.c2[1]) this.canvasHelper.writeButtonToCanvas(`${questionArray.c2[0]}`, 'startGame6', this.checkAnswerTwo, this.canvasHelper.GetWidth() * 0.6, this.positionTwo[2], this.secondAnswer);
         else this.canvasHelper.writeButtonToCanvas(`${questionArray.c2[0]}`, 'startGame6', this.wrongAnswerTwo, this.canvasHelper.GetWidth() * 0.6, this.positionTwo[2]); 
 
-        //question 3(answer C)
+        //question 3
         this.canvasHelper.writeTextToCanvas(questionArray.letter3, 20, this.canvasHelper.GetWidth() * 0.59, 525, "red");
 
         if (questionArray.a3[1]) this.canvasHelper.writeButtonToCanvas(`${questionArray.a3[0]}`, 'startGame7', this.checkAnswerThree, this.canvasHelper.GetWidth() * 0.6, this.positionThree[0], this.thirdAnswer);
@@ -112,7 +114,7 @@ abstract class ScreenQuiz extends ScreenBase{
         console.log('Correct!');
         this.firstAnswer = 1;
         this.removeButtons();
-        if(this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1) this.drawScreenEndResult();
+        if(this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1) this.drawNextScreen();
         else this.drawScreenQuiz();
     }
 
@@ -120,7 +122,7 @@ abstract class ScreenQuiz extends ScreenBase{
         console.log('Correct!');
         this.secondAnswer = 1;
         this.removeButtons();
-        if(this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1) this.drawScreenEndResult();
+        if(this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1) this.drawNextScreen();
         else this.drawScreenQuiz();
     }
 
@@ -128,10 +130,34 @@ abstract class ScreenQuiz extends ScreenBase{
         console.log('Correct!');
         this.thirdAnswer = 1;
         this.removeButtons();
-        if(this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1) this.drawScreenEndResult();
+        if(this.firstAnswer == 1 && this.secondAnswer == 1 && this.thirdAnswer == 1) this.drawNextScreen();
         else this.drawScreenQuiz();
 
     }
+
+    public drawNextScreen = (): void => {
+        this.canvasHelper.Clear();
+        this.removeButtons();
+
+        // this.generateRandomQuestion();
+        this.question++;
+        this.firstAnswer = 0;
+        this.secondAnswer = 0;
+        this.thirdAnswer = 0;
+
+        this.drawScreenEndResult();
+    }
+
+    // public generateRandomQuestion = (): void => {
+    //     let newQuestion: number = this.canvasHelper.randomNumber(0, 2);
+    //     while (this.usedQuestions.indexOf(newQuestion) != -1){
+    //         newQuestion = this.canvasHelper.randomNumber(0, 2);
+    //     }
+    //     console.log(newQuestion);
+    //     console.log(this.usedQuestions);
+    //     this.usedQuestions.push(newQuestion);
+    //     this.question = newQuestion;
+    // }
 
     public abstract drawScreenLevel(): void
 
