@@ -43,13 +43,13 @@ class AmericaLevel extends ScreenLevel {
     }
 
     public drawLevelTwo(): void {
-        this.player = new Player(0, this.canvasHelper.GetCenter().Y - 434);
-        this.platforms.push(new Platform(0, this.canvasHelper.GetCenter().Y - 400)); // starting position for player
-        this.platforms.push(new Platform(140, this.canvasHelper.GetCenter().Y - 380)); // platform 2
-        this.platforms.push(new Platform(280, this.canvasHelper.GetCenter().Y - 370)); // platform 3
-        this.platforms.push(new Platform(400, this.canvasHelper.GetCenter().Y - 350)); // platform 4
-        this.platforms.push(new Platform(530, this.canvasHelper.GetCenter().Y - 340)); // platform 5
-        this.platforms.push(new Platform(660, this.canvasHelper.GetCenter().Y - 320)); // platform 6
+        this.player = new Player(0, this.canvasHelper.GetCenter().Y - 334);
+        this.platforms.push(new Platform(0, this.canvasHelper.GetCenter().Y - 300)); // starting position for player
+        this.platforms.push(new Platform(140, this.canvasHelper.GetCenter().Y - 280)); // platform 2
+        this.platforms.push(new Platform(280, this.canvasHelper.GetCenter().Y - 270)); // platform 3
+        this.platforms.push(new Platform(400, this.canvasHelper.GetCenter().Y - 250)); // platform 4
+        this.platforms.push(new Platform(530, this.canvasHelper.GetCenter().Y - 240)); // platform 5
+        this.platforms.push(new Platform(660, this.canvasHelper.GetCenter().Y - 220)); // platform 6
 
         this.platforms.push(new Platform(280, this.canvasHelper.GetCenter().Y)); //a long line of spikey stuff
         this.spikes.push(new Spike(280, this.canvasHelper.GetCenter().Y - 15));
@@ -76,8 +76,8 @@ class AmericaLevel extends ScreenLevel {
         this.platforms.push(new Platform(1195, this.canvasHelper.GetCenter().Y));
         this.spikes.push(new Spike(1195, this.canvasHelper.GetCenter().Y - 15));
 
-        this.platforms.push(new Platform(770, this.canvasHelper.GetCenter().Y - 300)); // platform 7 with checkpoint
-        this.checkpoint = new Checkpoint(800, this.canvasHelper.GetCenter().Y - 375);
+        this.platforms.push(new Platform(770, this.canvasHelper.GetCenter().Y - 200)); // platform 7 with checkpoint
+        this.checkpoint = new Checkpoint(800, this.canvasHelper.GetCenter().Y - 275);
         this.platforms.push(new Platform(800, this.canvasHelper.GetCenter().Y + 250)); // platform 8
         this.platforms.push(new Platform(960, this.canvasHelper.GetCenter().Y + 260)); // platform 9
         this.platforms.push(new Platform(1120, this.canvasHelper.GetCenter().Y + 260)); // platform 10
