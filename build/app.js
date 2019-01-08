@@ -867,6 +867,9 @@ class CanvasHelper {
     drawBorder(xCoor, yCoor, width, height) {
         this.context.strokeRect(xCoor, yCoor, width, height);
     }
+    randomNumber(min, max) {
+        return Math.round(Math.random() * (max - min) + min);
+    }
 }
 CanvasHelper.instance = null;
 class KeyboardHelper {
