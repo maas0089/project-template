@@ -26,7 +26,7 @@ class Flag extends Entity {
     public constructor(
         xCoor: number,
         yCoor: number,
-        continent: number = 0 //to determine which flags should be used; 0 is Europe, 1 is America. Default is Europe.
+        continent: number = 1 //to determine which flags should be used; 0 is Netherlands, 1 is Europe, 2 is America. Default is Europe.
     ) {
         super(xCoor, yCoor);
         this.width = 55;
@@ -37,8 +37,9 @@ class Flag extends Entity {
             this.image = img;
         });
 
-        if (continent == 0) img.src = `./assets/images/flags/${this.FlagEuropeArray[this.MathHelper]}.png`;
-        if (continent == 1) img.src = './assets/images/flags/Noorwegen.png';
+        if (continent == 0) img.src = './assets/images/flags/Nederland.png';
+        if (continent == 1) img.src = `./assets/images/flags/${this.FlagEuropeArray[this.MathHelper]}.png`;
+        if (continent == 2) img.src = './assets/images/flags/Noorwegen.png';
         console.log(this.MathHelper);
     }
 }

@@ -4,7 +4,7 @@ class ScreenHighScore extends ScreenBase {
         600,
         600,
         600
-    ]; // this array will contain objects
+    ]; 
 
     private europeHighscoreText: Array<string> = [
         '10:00',
@@ -16,7 +16,7 @@ class ScreenHighScore extends ScreenBase {
         600,
         600,
         600
-    ]; // this array will contain objects
+    ];
 
     private americaHighscoreText: Array<string> = [
         '10:00',
@@ -24,6 +24,17 @@ class ScreenHighScore extends ScreenBase {
         '10:00'
     ]
 
+    private netherlandsHighscores: Array<number> = [
+        600,
+        600,
+        600
+    ];
+
+    private netherlandsHighscoreText: Array<string> = [
+        '10:00',
+        '10:00',
+        '10:00'
+    ]
 
     private minutes: number;
     private seconds: string;
@@ -57,15 +68,21 @@ class ScreenHighScore extends ScreenBase {
         this.canvasHelper.writeTextToCanvas('Highscores', 50, this.canvasHelper.GetCenter().X, 100);
         
         if(this.category == 0){
-            var continent = 'Europa';
-            var highscores = this.europeHighscores;
-            var highscoreText = this.europeHighscoreText;
+            var continent = 'Nederland';
+            var highscores = this.netherlandsHighscores;
+            var highscoreText = this.netherlandsHighscoreText;
         } 
         else if(this.category == 1){
             var continent = 'Noord-Amerika';
             var highscores = this.americaHighscores;
             var highscoreText = this.americaHighscoreText;
         }
+        else if(this.category == 2){
+            var continent = 'Europa';
+            var highscores = this.europeHighscores;
+            var highscoreText = this.europeHighscoreText;
+        }
+
 
         this.canvasHelper.writeTextToCanvas(`Jij hebt ${continent} voltooid in:`, 35, this.canvasHelper.GetCenter().X, 200);
         this.canvasHelper.writeTextToCanvas(`${this.minutes}:${this.seconds}`, 30, this.canvasHelper.GetCenter().X, 250);
@@ -97,6 +114,7 @@ class ScreenHighScore extends ScreenBase {
 
         }
 
+        this.drawNetherlandsHighscores();
         this.drawEuropeHighscores();
         this.drawAmericaHighscores();
 
@@ -104,10 +122,27 @@ class ScreenHighScore extends ScreenBase {
 
     }
 
+    public drawNetherlandsHighscores(){
+        let center = this.canvasHelper.GetCenter();
+
+        this.canvasHelper.writeTextToCanvas('Nederland', 40, this.canvasHelper.GetWidth() * 0.25, center.Y);
+
+        this.netherlandsHighscoreText.forEach((element, index) => {
+
+            center.Y += 80;
+            this.canvasHelper.writeTextToCanvas(
+                `${index + 1}: ${element}`,
+                30,
+                this.canvasHelper.GetWidth() * 0.25,
+                center.Y
+            );
+        });
+    }
+
     public drawEuropeHighscores(){
         let center = this.canvasHelper.GetCenter();
 
-        this.canvasHelper.writeTextToCanvas('Europa', 40, this.canvasHelper.GetWidth() * 0.33, center.Y);
+        this.canvasHelper.writeTextToCanvas('Europa', 40, center.X, center.Y,);
 
         this.europeHighscoreText.forEach((element, index) => {
 
@@ -115,8 +150,8 @@ class ScreenHighScore extends ScreenBase {
             this.canvasHelper.writeTextToCanvas(
                 `${index + 1}: ${element}`,
                 30,
-                this.canvasHelper.GetWidth() * 0.33,
-                center.Y
+                center.X,
+                center.Y,
             );
         });
     }
@@ -124,7 +159,7 @@ class ScreenHighScore extends ScreenBase {
     public drawAmericaHighscores(){
         let center = this.canvasHelper.GetCenter();
 
-        this.canvasHelper.writeTextToCanvas('Noord-Amerika', 40, this.canvasHelper.GetWidth() * 0.66, center.Y);
+        this.canvasHelper.writeTextToCanvas('Noord-Amerika', 40, this.canvasHelper.GetWidth() * 0.75, center.Y);
 
         this.americaHighscoreText.forEach((element, index) => {
 
@@ -132,7 +167,7 @@ class ScreenHighScore extends ScreenBase {
             this.canvasHelper.writeTextToCanvas(
                 `${index + 1}: ${element}`,
                 30,
-                this.canvasHelper.GetWidth() * 0.66,
+                this.canvasHelper.GetWidth() * 0.75,
                 center.Y
             );
         });

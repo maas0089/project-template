@@ -466,7 +466,7 @@ class EuropeEndResult extends ScreenEndResult {
             this.canvasHelper.Clear();
             this.screenQuiz.resetQuestion();
             this.canvasHelper.UnregisterClickListener('continue');
-            this.screenHighScore.setCategory(0);
+            this.screenHighScore.setCategory(2);
             this.canvasHelper.ChangeScreen(ScreenHighScore.Instance());
         };
         console.log('this is EuropeEndResult');
@@ -632,6 +632,184 @@ class EuropeQuiz extends ScreenQuiz {
     }
 }
 EuropeQuiz.instance = null;
+class NetherlandsEndResult extends ScreenEndResult {
+    constructor() {
+        super();
+        this.drawNextLevelScreen = () => {
+            this.canvasHelper.Clear();
+            this.canvasHelper.UnregisterClickListener('continue');
+            this.canvasHelper.ChangeScreen(new NetherlandsLevel);
+        };
+        this.drawScreenHighScore = () => {
+            this.canvasHelper.Clear();
+            this.screenQuiz.resetQuestion();
+            this.canvasHelper.UnregisterClickListener('continue');
+            this.screenHighScore.setCategory(0);
+            this.canvasHelper.ChangeScreen(ScreenHighScore.Instance());
+        };
+        console.log('this is NetherlandsEndResult');
+        this.screenQuiz = NetherlandsQuiz.Instance();
+    }
+}
+class NetherlandsLevel extends ScreenLevel {
+    constructor() {
+        super();
+        console.log('this is NetherlandsLevel');
+        this.screenQuiz = NetherlandsQuiz.Instance();
+        this.currentLevel = this.screenQuiz.getCurrentQuestion() + 1;
+    }
+    drawLevelOne() {
+        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 166);
+        this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 200));
+        this.platforms.push(new Platform(250, this.canvasHelper.GetCenter().Y + 190));
+        this.platforms.push(new Platform(180, this.canvasHelper.GetCenter().Y + 240));
+        this.spikes.push(new Spike(180, this.canvasHelper.GetCenter().Y + 225));
+        this.platforms.push(new Platform(380, this.canvasHelper.GetCenter().Y + 260));
+        this.platforms.push(new Platform(470, this.canvasHelper.GetCenter().Y + 320));
+        this.spikes.push(new Spike(470, this.canvasHelper.GetCenter().Y + 305));
+        this.platforms.push(new Platform(600, this.canvasHelper.GetCenter().Y + 360));
+        this.platforms.push(new Platform(760, this.canvasHelper.GetCenter().Y + 380));
+        this.checkpoint = new Checkpoint(800, this.canvasHelper.GetCenter().Y + 305);
+        this.platforms.push(new Platform(860, this.canvasHelper.GetCenter().Y + 340));
+        this.platforms.push(new Platform(960, this.canvasHelper.GetCenter().Y + 300));
+        this.platforms.push(new Platform(1060, this.canvasHelper.GetCenter().Y + 260));
+        this.platforms.push(new Platform(1200, this.canvasHelper.GetCenter().Y + 400));
+        this.spikes.push(new Spike(1200, this.canvasHelper.GetCenter().Y + 385));
+        this.platforms.push(new Platform(1300, this.canvasHelper.GetCenter().Y + 340));
+        this.countryFlag = new Flag(1340, this.canvasHelper.GetCenter().Y + 265, 0);
+    }
+    drawLevelTwo() {
+        this.player = new Player(100, this.canvasHelper.GetCenter().Y - 14);
+        this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 20));
+        this.platforms.push(new Platform(200, this.canvasHelper.GetCenter().Y + 50));
+        this.platforms.push(new Platform(330, this.canvasHelper.GetCenter().Y + 120));
+        this.spikes.push(new Spike(330, this.canvasHelper.GetCenter().Y + 105));
+        this.platforms.push(new Platform(430, this.canvasHelper.GetCenter().Y + 200));
+        this.platforms.push(new Platform(550, this.canvasHelper.GetCenter().Y + 190));
+        this.platforms.push(new Platform(630, this.canvasHelper.GetCenter().Y + 225));
+        this.spikes.push(new Spike(630, this.canvasHelper.GetCenter().Y + 210));
+        this.platforms.push(new Platform(710, this.canvasHelper.GetCenter().Y + 250));
+        this.platforms.push(new Platform(820, this.canvasHelper.GetCenter().Y + 210));
+        this.platforms.push(new Platform(920, this.canvasHelper.GetCenter().Y + 175));
+        this.checkpoint = new Checkpoint(950, this.canvasHelper.GetCenter().Y + 100);
+        this.platforms.push(new Platform(990, this.canvasHelper.GetCenter().Y + 210));
+        this.spikes.push(new Spike(990, this.canvasHelper.GetCenter().Y + 195));
+        this.platforms.push(new Platform(1050, this.canvasHelper.GetCenter().Y + 250));
+        this.platforms.push(new Platform(1130, this.canvasHelper.GetCenter().Y + 275));
+        this.spikes.push(new Spike(1130, this.canvasHelper.GetCenter().Y + 260));
+        this.platforms.push(new Platform(1210, this.canvasHelper.GetCenter().Y + 250));
+        this.platforms.push(new Platform(1320, this.canvasHelper.GetCenter().Y + 220));
+        this.platforms.push(new Platform(1480, this.canvasHelper.GetCenter().Y + 210));
+        this.platforms.push(new Platform(1630, this.canvasHelper.GetCenter().Y + 200));
+        this.countryFlag = new Flag(1670, this.canvasHelper.GetCenter().Y + 125, 0);
+    }
+    drawLevelThree() {
+        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 388);
+        this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 420));
+        this.platforms.push(new Platform(200, this.canvasHelper.GetCenter().Y + 380));
+        this.platforms.push(new Platform(310, this.canvasHelper.GetCenter().Y + 335));
+        this.platforms.push(new Platform(400, this.canvasHelper.GetCenter().Y + 290));
+        this.platforms.push(new Platform(530, this.canvasHelper.GetCenter().Y + 270));
+        this.spikes.push(new Spike(530, this.canvasHelper.GetCenter().Y + 255));
+        this.platforms.push(new Platform(530, this.canvasHelper.GetCenter().Y + 420));
+        this.checkpoint = new Checkpoint(560, this.canvasHelper.GetCenter().Y + 345);
+        this.platforms.push(new Platform(660, this.canvasHelper.GetCenter().Y + 400));
+        this.platforms.push(new Platform(740, this.canvasHelper.GetCenter().Y + 360));
+        this.platforms.push(new Platform(650, this.canvasHelper.GetCenter().Y + 320));
+        this.platforms.push(new Platform(750, this.canvasHelper.GetCenter().Y + 280));
+        this.platforms.push(new Platform(640, this.canvasHelper.GetCenter().Y + 240));
+        this.platforms.push(new Platform(770, this.canvasHelper.GetCenter().Y + 200));
+        this.platforms.push(new Platform(935, this.canvasHelper.GetCenter().Y + 170));
+        this.platforms.push(new Platform(875, this.canvasHelper.GetCenter().Y + 280));
+        this.spikes.push(new Spike(875, this.canvasHelper.GetCenter().Y + 265));
+        this.platforms.push(new Platform(955, this.canvasHelper.GetCenter().Y + 300));
+        this.spikes.push(new Spike(955, this.canvasHelper.GetCenter().Y + 285));
+        this.platforms.push(new Platform(620, this.canvasHelper.GetCenter().Y + 170));
+        this.platforms.push(new Platform(730, this.canvasHelper.GetCenter().Y + 130));
+        this.platforms.push(new Platform(1040, this.canvasHelper.GetCenter().Y + 220));
+        this.platforms.push(new Platform(1200, this.canvasHelper.GetCenter().Y + 270));
+        this.platforms.push(new Platform(1350, this.canvasHelper.GetCenter().Y + 340));
+        this.countryFlag = new Flag(1390, this.canvasHelper.GetCenter().Y + 265, 0);
+    }
+    drawScreenQuiz() {
+        this.canvasHelper.Clear();
+        this.canvasHelper.ChangeScreen(NetherlandsQuiz.Instance());
+    }
+}
+class NetherlandsQuiz extends ScreenQuiz {
+    constructor() {
+        super();
+        this.drawScreenLevel = () => {
+            this.canvasHelper.Clear();
+            this.removeButtons();
+            this.canvasHelper.ChangeScreen(new NetherlandsLevel);
+        };
+        this.drawScreenEndResult = () => {
+            this.canvasHelper.ChangeScreen(new NetherlandsEndResult);
+        };
+        console.log('this is NetherlandsQuiz');
+        this.totalquestion = 3;
+        this.imageLocations = [
+            "./assets/questions/Netherlands1.png",
+            './assets/questions/Netherlands2.png',
+            './assets/questions/Netherlands3.png'
+        ];
+        this.qAndA = [
+            {
+                letter1: 'A',
+                a1: ['Arnhem', true],
+                b1: ['Amersfoort', false],
+                c1: ['Nijmegen', false],
+                letter2: 'b',
+                a2: ['Overijssel', true],
+                b2: ['Drenthe', false],
+                c2: ['Gelderland', false],
+                letter3: 'C',
+                a3: ['Haarlem', true],
+                b3: ['Leiden', false],
+                c3: ['Amsterdam', false]
+            },
+            {
+                letter1: 'A',
+                a1: ['Leeuwarden', true],
+                b1: ['Groningen', false],
+                c1: ['Assen', false],
+                letter2: 'B',
+                a2: ['Middelburg', true],
+                b2: ['Den Haag', false],
+                c2: ['Rotterdam', false],
+                letter3: 'c',
+                a3: ['Noord-Brabant', true],
+                b3: ['Gelderland', false],
+                c3: ['Limburg', false]
+            },
+            {
+                letter1: 'A',
+                a1: ['Lelystad', true],
+                b1: ['Amsterdam', false],
+                c1: ['Zwolle', false],
+                letter2: 'b',
+                a2: ['Zuid-Holland', true],
+                b2: ['Zeeland', false],
+                c2: ['Noord-Holland', false],
+                letter3: 'C',
+                a3: ['Maastricht', true],
+                b3: ['Venlo', false],
+                c3: ['Eindhoven', false]
+            }
+        ];
+    }
+    static Instance() {
+        if (this.instance == null) {
+            this.instance = new NetherlandsQuiz();
+        }
+        return this.instance;
+    }
+    drawMap() {
+        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, this.canvasHelper.GetCenter().X * 0.4, 100, 504, 597);
+    }
+}
+NetherlandsQuiz.instance = null;
 class Entity {
     constructor(xCoor, yCoor) {
         this.canvas = CanvasHelper.Instance();
@@ -668,7 +846,7 @@ class Checkpoint extends Entity {
     }
 }
 class Flag extends Entity {
-    constructor(xCoor, yCoor, continent = 0) {
+    constructor(xCoor, yCoor, continent = 1) {
         super(xCoor, yCoor);
         this.CanvasHelper = CanvasHelper.Instance();
         this.FlagEuropeArray = [
@@ -695,8 +873,10 @@ class Flag extends Entity {
             this.image = img;
         });
         if (continent == 0)
-            img.src = `./assets/images/flags/${this.FlagEuropeArray[this.MathHelper]}.png`;
+            img.src = './assets/images/flags/Nederland.png';
         if (continent == 1)
+            img.src = `./assets/images/flags/${this.FlagEuropeArray[this.MathHelper]}.png`;
+        if (continent == 2)
             img.src = './assets/images/flags/Noorwegen.png';
         console.log(this.MathHelper);
     }
@@ -1034,6 +1214,16 @@ class ScreenHighScore extends ScreenBase {
             '10:00',
             '10:00'
         ];
+        this.netherlandsHighscores = [
+            600,
+            600,
+            600
+        ];
+        this.netherlandsHighscoreText = [
+            '10:00',
+            '10:00',
+            '10:00'
+        ];
         this.category = 0;
         this.drawScreenLevelSelect = () => {
             this.canvasHelper.Clear();
@@ -1060,14 +1250,19 @@ class ScreenHighScore extends ScreenBase {
             this.seconds = `${this.timer.getTime().Seconds}`;
         this.canvasHelper.writeTextToCanvas('Highscores', 50, this.canvasHelper.GetCenter().X, 100);
         if (this.category == 0) {
-            var continent = 'Europa';
-            var highscores = this.europeHighscores;
-            var highscoreText = this.europeHighscoreText;
+            var continent = 'Nederland';
+            var highscores = this.netherlandsHighscores;
+            var highscoreText = this.netherlandsHighscoreText;
         }
         else if (this.category == 1) {
             var continent = 'Noord-Amerika';
             var highscores = this.americaHighscores;
             var highscoreText = this.americaHighscoreText;
+        }
+        else if (this.category == 2) {
+            var continent = 'Europa';
+            var highscores = this.europeHighscores;
+            var highscoreText = this.europeHighscoreText;
         }
         this.canvasHelper.writeTextToCanvas(`Jij hebt ${continent} voltooid in:`, 35, this.canvasHelper.GetCenter().X, 200);
         this.canvasHelper.writeTextToCanvas(`${this.minutes}:${this.seconds}`, 30, this.canvasHelper.GetCenter().X, 250);
@@ -1091,24 +1286,33 @@ class ScreenHighScore extends ScreenBase {
             highscores[2] = score;
             highscoreText[2] = `${this.minutes}:${this.seconds}`;
         }
+        this.drawNetherlandsHighscores();
         this.drawEuropeHighscores();
         this.drawAmericaHighscores();
         this.canvasHelper.writeButtonToCanvas('Speel opnieuw', 'replay', this.drawScreenLevelSelect, undefined, this.canvasHelper.GetHeight() * 0.9);
     }
+    drawNetherlandsHighscores() {
+        let center = this.canvasHelper.GetCenter();
+        this.canvasHelper.writeTextToCanvas('Nederland', 40, this.canvasHelper.GetWidth() * 0.25, center.Y);
+        this.netherlandsHighscoreText.forEach((element, index) => {
+            center.Y += 80;
+            this.canvasHelper.writeTextToCanvas(`${index + 1}: ${element}`, 30, this.canvasHelper.GetWidth() * 0.25, center.Y);
+        });
+    }
     drawEuropeHighscores() {
         let center = this.canvasHelper.GetCenter();
-        this.canvasHelper.writeTextToCanvas('Europa', 40, this.canvasHelper.GetWidth() * 0.33, center.Y);
+        this.canvasHelper.writeTextToCanvas('Europa', 40, center.X, center.Y);
         this.europeHighscoreText.forEach((element, index) => {
             center.Y += 80;
-            this.canvasHelper.writeTextToCanvas(`${index + 1}: ${element}`, 30, this.canvasHelper.GetWidth() * 0.33, center.Y);
+            this.canvasHelper.writeTextToCanvas(`${index + 1}: ${element}`, 30, center.X, center.Y);
         });
     }
     drawAmericaHighscores() {
         let center = this.canvasHelper.GetCenter();
-        this.canvasHelper.writeTextToCanvas('Noord-Amerika', 40, this.canvasHelper.GetWidth() * 0.66, center.Y);
+        this.canvasHelper.writeTextToCanvas('Noord-Amerika', 40, this.canvasHelper.GetWidth() * 0.75, center.Y);
         this.americaHighscoreText.forEach((element, index) => {
             center.Y += 80;
-            this.canvasHelper.writeTextToCanvas(`${index + 1}: ${element}`, 30, this.canvasHelper.GetWidth() * 0.66, center.Y);
+            this.canvasHelper.writeTextToCanvas(`${index + 1}: ${element}`, 30, this.canvasHelper.GetWidth() * 0.75, center.Y);
         });
     }
 }
@@ -1117,9 +1321,15 @@ class ScreenLevelSelect extends ScreenBase {
     constructor() {
         super();
         this.continents = [{
+                netherlands: './assets/images/maps/Nederland-kaart-transparant.png',
                 europe: './assets/images/maps/Europa-transparant.png',
                 northAmerica: './assets/images/maps/Noord-Amerika-transparant.png'
             }];
+        this.drawNetherlandsLevel = () => {
+            console.log('Netherlands selected.');
+            this.removeButtons();
+            this.canvasHelper.ChangeScreen(new NetherlandsLevel);
+        };
         this.drawEuropeLevel = () => {
             console.log('Europe selected.');
             this.removeButtons();
@@ -1132,6 +1342,7 @@ class ScreenLevelSelect extends ScreenBase {
         };
         this.removeButtons = () => {
             this.canvasHelper.Clear();
+            this.canvasHelper.UnregisterClickListener('StartNetherlands');
             this.canvasHelper.UnregisterClickListener('StartEurope');
             this.canvasHelper.UnregisterClickListener('StartAmerica');
         };
@@ -1139,16 +1350,18 @@ class ScreenLevelSelect extends ScreenBase {
     }
     draw() {
         this.canvasHelper.writeTextToCanvas('UNtRAVEL', 50, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y / 3);
-        this.canvasHelper.writeTextToCanvas('Selecteer een werelddeel', 25, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y / 3 + 60);
-        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].europe, this.canvasHelper.GetWidth() * 0.33 - 170, this.canvasHelper.GetCenter().Y - 150, 380, 300);
-        this.canvasHelper.writeButtonToCanvas("Europa", 'StartEurope', this.drawEuropeLevel, this.canvasHelper.GetWidth() * 0.3, this.canvasHelper.GetCenter().Y + 200);
-        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].northAmerica, this.canvasHelper.GetWidth() * 0.66 - 210, this.canvasHelper.GetCenter().Y - 180, 355, 350);
-        this.canvasHelper.writeButtonToCanvas("Noord-Amerika", 'StartAmerica', this.drawAmericaLevel, this.canvasHelper.GetWidth() * 0.6, this.canvasHelper.GetCenter().Y + 200);
-        this.canvasHelper.writeTextToCanvas("Besturing", 30, 30, this.canvasHelper.GetCenter().Y + 30, undefined, "left");
-        this.canvasHelper.writeTextToCanvas("Links: A / pijltjestoets links", 20, 30, this.canvasHelper.GetCenter().Y + 60, undefined, "left");
-        this.canvasHelper.writeTextToCanvas("Rechts: D / pijltjestoets rechts", 20, 30, this.canvasHelper.GetCenter().Y + 90, undefined, "left");
-        this.canvasHelper.writeTextToCanvas("Springen: Spatiebalk (ingedrukt houden)", 20, 30, this.canvasHelper.GetCenter().Y + 120, undefined, "left");
-        this.canvasHelper.drawBorder(0, this.canvasHelper.GetCenter().Y, 400, 130);
+        this.canvasHelper.writeTextToCanvas('Selecteer een level', 25, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y / 3 + 60);
+        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].netherlands, this.canvasHelper.GetWidth() * 0.12, this.canvasHelper.GetCenter().Y - 180, 295, 350);
+        this.canvasHelper.writeButtonToCanvas("Nederland", 'StartNetherlands', this.drawNetherlandsLevel, this.canvasHelper.GetWidth() * 0.12, this.canvasHelper.GetCenter().Y + 200);
+        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].europe, this.canvasHelper.GetWidth() * 0.4 - 50, this.canvasHelper.GetCenter().Y - 150, 380, 300);
+        this.canvasHelper.writeButtonToCanvas("Europa", 'StartEurope', this.drawEuropeLevel, this.canvasHelper.GetWidth() * 0.4 + 60, this.canvasHelper.GetCenter().Y + 200);
+        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].northAmerica, this.canvasHelper.GetWidth() * 0.7 - 100, this.canvasHelper.GetCenter().Y - 180, 355, 350);
+        this.canvasHelper.writeButtonToCanvas("Noord-Amerika", 'StartAmerica', this.drawAmericaLevel, this.canvasHelper.GetWidth() * 0.7, this.canvasHelper.GetCenter().Y + 200);
+        this.canvasHelper.writeTextToCanvas("Besturing", 30, 30, 40, undefined, "left");
+        this.canvasHelper.writeTextToCanvas("Links: A / pijltjestoets links", 20, 30, 70, undefined, "left");
+        this.canvasHelper.writeTextToCanvas("Rechts: D / pijltjestoets rechts", 20, 30, 100, undefined, "left");
+        this.canvasHelper.writeTextToCanvas("Springen: Spatiebalk (ingedrukt houden)", 20, 30, 130, undefined, "left");
+        this.canvasHelper.drawBorder(0, 10, 400, 130);
     }
 }
 //# sourceMappingURL=app.js.map

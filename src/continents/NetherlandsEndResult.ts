@@ -2,18 +2,18 @@
 /// <reference path="../screens/ScreenEndResult.ts"/>
 
 
-class EuropeEndResult extends ScreenEndResult {
+class NetherlandsEndResult extends ScreenEndResult {
 
     constructor() {
         super();
-        console.log('this is EuropeEndResult');
-        this.screenQuiz = EuropeQuiz.Instance();
+        console.log('this is NetherlandsEndResult');
+        this.screenQuiz = NetherlandsQuiz.Instance();
     }
 
     public drawNextLevelScreen = (): void => {
         this.canvasHelper.Clear();
         this.canvasHelper.UnregisterClickListener('continue');
-        this.canvasHelper.ChangeScreen(new EuropeLevel);
+        this.canvasHelper.ChangeScreen(new NetherlandsLevel);
 
     }
 
@@ -21,7 +21,7 @@ class EuropeEndResult extends ScreenEndResult {
         this.canvasHelper.Clear();
         this.screenQuiz.resetQuestion();
         this.canvasHelper.UnregisterClickListener('continue');
-        this.screenHighScore.setCategory(2);
+        this.screenHighScore.setCategory(0);
         this.canvasHelper.ChangeScreen(ScreenHighScore.Instance());
     }
 }
