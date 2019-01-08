@@ -877,7 +877,7 @@ class Flag extends Entity {
         if (continent == 1)
             img.src = `./assets/images/flags/${this.FlagEuropeArray[this.MathHelper]}.png`;
         if (continent == 2)
-            img.src = './assets/images/flags/Noorwegen.png';
+            img.src = './assets/images/flags/USA.png';
         console.log(this.MathHelper);
     }
 }
