@@ -15,7 +15,7 @@ class Checkpoint extends Entity {
             this.image = img;
         });
 
-        img.src = './assets/images/flags/Nederland.png';
+        img.src = './assets/images/flags/Surrender.png';
 
     }
 }
