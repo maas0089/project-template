@@ -161,7 +161,7 @@ class AmericaLevel extends ScreenLevel {
         this.platforms.push(new Platform(1340, this.canvasHelper.GetCenter().Y + 241));
         this.spikes.push(new Spike(1340, this.canvasHelper.GetCenter().Y + 226));
         this.platforms.push(new Platform(1430, this.canvasHelper.GetCenter().Y + 250));
-        this.countryFlag = new Flag(1470, this.canvasHelper.GetCenter().Y + 175);
+        this.countryFlag = new Flag(1470, this.canvasHelper.GetCenter().Y + 175, 1);
     }
     drawLevelTwo() {
         this.player = new Player(0, this.canvasHelper.GetCenter().Y - 334);
@@ -203,7 +203,7 @@ class AmericaLevel extends ScreenLevel {
         this.platforms.push(new Platform(1280, this.canvasHelper.GetCenter().Y + 250));
         this.platforms.push(new Platform(1420, this.canvasHelper.GetCenter().Y + 230));
         this.platforms.push(new Platform(1600, this.canvasHelper.GetCenter().Y + 275));
-        this.countryFlag = new Flag(1650, this.canvasHelper.GetCenter().Y + 200);
+        this.countryFlag = new Flag(1650, this.canvasHelper.GetCenter().Y + 200, 1);
     }
     drawLevelThree() {
         this.player = new Player(0, this.canvasHelper.GetCenter().Y + 166);
@@ -223,7 +223,7 @@ class AmericaLevel extends ScreenLevel {
         this.platforms.push(new Platform(880, this.canvasHelper.GetCenter().Y + 140));
         this.platforms.push(new Platform(1050, this.canvasHelper.GetCenter().Y + 220));
         this.platforms.push(new Platform(1270, this.canvasHelper.GetCenter().Y + 300));
-        this.countryFlag = new Flag(1300, this.canvasHelper.GetCenter().Y + 225);
+        this.countryFlag = new Flag(1300, this.canvasHelper.GetCenter().Y + 225, 1);
     }
     drawScreenQuiz() {
         this.canvasHelper.Clear();
@@ -620,7 +620,7 @@ class EuropeQuiz extends ScreenQuiz {
         return this.instance;
     }
     drawMap() {
-        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, 350, 100, 504, 597);
+        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, 50, 100, 1000, 790);
     }
 }
 EuropeQuiz.instance = null;
@@ -660,7 +660,7 @@ class Checkpoint extends Entity {
     }
 }
 class Flag extends Entity {
-    constructor(xCoor, yCoor) {
+    constructor(xCoor, yCoor, continent = 0) {
         super(xCoor, yCoor);
         this.CanvasHelper = CanvasHelper.Instance();
         this.FlagEuropeArray = [
@@ -679,14 +679,17 @@ class Flag extends Entity {
             "Zweden",
             "Zwitserland"
         ];
-        this.MathHelper = this.CanvasHelper.randomNumber(0, 13);
+        this.MathHelper = this.CanvasHelper.randomNumber(0, this.FlagEuropeArray.length - 1);
         this.width = 55;
         this.height = 80;
         let img = new Image();
         img.addEventListener('load', () => {
             this.image = img;
         });
-        img.src = `./assets/images/flags/${this.FlagEuropeArray[this.MathHelper]}.png`;
+        if (continent == 0)
+            img.src = `./assets/images/flags/${this.FlagEuropeArray[this.MathHelper]}.png`;
+        if (continent == 1)
+            img.src = './assets/images/flags/Noorwegen.png';
         console.log(this.MathHelper);
     }
 }

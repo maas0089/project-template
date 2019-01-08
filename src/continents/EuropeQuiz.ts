@@ -134,7 +134,7 @@ class EuropeQuiz extends ScreenQuiz {
     }
 
     public drawMap(): void {
-        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, 350, 100, 504, 597);
+        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, 50, 100, 1000, 790);
     }
 
     public drawScreenLevel = (): void => {
