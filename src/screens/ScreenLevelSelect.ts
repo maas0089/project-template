@@ -6,6 +6,8 @@ class ScreenLevelSelect extends ScreenBase {
         northAmerica: './assets/images/maps/Noord-Amerika-transparant.png'
     }] ;
 
+    private unTravelLogo: string = "./assets/images/logo.png";
+
     public constructor(){
         super();
         this.canvasHelper.ChangeScreen()
@@ -14,21 +16,21 @@ class ScreenLevelSelect extends ScreenBase {
     public draw(): void {
 
         //draw main text
-        this.canvasHelper.writeTextToCanvas('UNtRAVEL', 50, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y / 3);
-        this.canvasHelper.writeTextToCanvas('Selecteer een level', 25, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y / 3 + 60);
+        // this.canvasHelper.writeTextToCanvas('UNtRAVEL', 50, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y / 3);
+        this.canvasHelper.writeImageFromFileToCanvas(this.unTravelLogo, this.canvasHelper.GetCenter().X - 150, 20, 300, 300);
+        this.canvasHelper.writeTextToCanvas('Selecteer een level', 25, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y / 3 + 200);
 
         //draw The Netherlands
-        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].netherlands, this.canvasHelper.GetWidth() * 0.12, this.canvasHelper.GetCenter().Y - 180, 295, 350)
-        this.canvasHelper.writeButtonToCanvas("Nederland", 'StartNetherlands', this.drawNetherlandsLevel, this.canvasHelper.GetWidth() * 0.12, this.canvasHelper.GetCenter().Y + 200);
-        
+        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].netherlands, this.canvasHelper.GetWidth() * 0.12, this.canvasHelper.GetCenter().Y - 80, 295, 350)
+        this.canvasHelper.writeButtonToCanvas("Nederland", 'StartNetherlands', this.drawNetherlandsLevel, this.canvasHelper.GetWidth() * 0.12, this.canvasHelper.GetCenter().Y + 300);
 
         //draw Europe
-        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].europe, this.canvasHelper.GetWidth() * 0.4 - 50, this.canvasHelper.GetCenter().Y - 150, 380, 300);
-        this.canvasHelper.writeButtonToCanvas("Europa", 'StartEurope', this.drawEuropeLevel, this.canvasHelper.GetWidth() * 0.4 + 60, this.canvasHelper.GetCenter().Y + 200);
+        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].europe, this.canvasHelper.GetWidth() * 0.4 - 50, this.canvasHelper.GetCenter().Y - 50, 380, 300);
+        this.canvasHelper.writeButtonToCanvas("Europa", 'StartEurope', this.drawEuropeLevel, this.canvasHelper.GetWidth() * 0.4 + 60, this.canvasHelper.GetCenter().Y + 300);
 
         //draw North America
-        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].northAmerica, this.canvasHelper.GetWidth() * 0.7 - 100, this.canvasHelper.GetCenter().Y - 180, 355, 350);
-        this.canvasHelper.writeButtonToCanvas("Noord-Amerika", 'StartAmerica', this.drawAmericaLevel, this.canvasHelper.GetWidth() * 0.7, this.canvasHelper.GetCenter().Y + 200)
+        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].northAmerica, this.canvasHelper.GetWidth() * 0.7 - 100, this.canvasHelper.GetCenter().Y - 80, 355, 350);
+        this.canvasHelper.writeButtonToCanvas("Noord-Amerika", 'StartAmerica', this.drawAmericaLevel, this.canvasHelper.GetWidth() * 0.7, this.canvasHelper.GetCenter().Y + 300);
 
         // draw controls instructions
         this.canvasHelper.writeTextToCanvas("Besturing", 30, 30, 40, undefined, "left");
