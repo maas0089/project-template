@@ -24,8 +24,16 @@ abstract class ScreenQuiz extends ScreenBase{
         // this.generateRandomQuestion();
     }
 
+    public QuizExplanation() {
+        this.canvasHelper.writeTextToCanvas("Legenda", 30, this.canvasHelper.GetWidth() - 300, 130, undefined, "left");
+        this.canvasHelper.writeTextToCanvas("A, B, C: Stad / Zee / Oceaan", 20, this.canvasHelper.GetWidth() - 300, 160, undefined, "left");
+        this.canvasHelper.writeTextToCanvas("a, b, c: Rivier / Provincie", 20, this.canvasHelper.GetWidth() - 300, 190, undefined, "left");
+        this.canvasHelper.writeTextToCanvas("I, II, III: Land", 20, this.canvasHelper.GetWidth() - 300, 220, undefined, "left");
+        this.canvasHelper.drawBorder(this.canvasHelper.GetWidth() - 320, 100, 320, 130);
+    }
+
     public draw(): void {
-        this.drawScreenQuiz()
+        this.drawScreenQuiz();
     }
 
     public shuffle(array: any) {
@@ -55,6 +63,8 @@ abstract class ScreenQuiz extends ScreenBase{
         }
         let questionArray = this.qAndA[this.question];
         this.timer.pauseTimer();
+
+        this.QuizExplanation();
 
         this.drawMap();
 

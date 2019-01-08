@@ -298,6 +298,13 @@ class ScreenQuiz extends ScreenBase {
             this.canvasHelper.UnregisterClickListener('startGame9');
         };
     }
+    QuizExplanation() {
+        this.canvasHelper.writeTextToCanvas("Legenda", 30, this.canvasHelper.GetWidth() - 300, 130, undefined, "left");
+        this.canvasHelper.writeTextToCanvas("A, B, C: Stad / Zee / Oceaan", 20, this.canvasHelper.GetWidth() - 300, 160, undefined, "left");
+        this.canvasHelper.writeTextToCanvas("a, b, c: Rivier / Provincie", 20, this.canvasHelper.GetWidth() - 300, 190, undefined, "left");
+        this.canvasHelper.writeTextToCanvas("I, II, III: Land", 20, this.canvasHelper.GetWidth() - 300, 220, undefined, "left");
+        this.canvasHelper.drawBorder(this.canvasHelper.GetWidth() - 320, 100, 320, 130);
+    }
     draw() {
         this.drawScreenQuiz();
     }
@@ -320,6 +327,7 @@ class ScreenQuiz extends ScreenBase {
         }
         let questionArray = this.qAndA[this.question];
         this.timer.pauseTimer();
+        this.QuizExplanation();
         this.drawMap();
         this.canvasHelper.writeTextToCanvas('Wat ligt hier?', 50, this.canvasHelper.GetCenter().X, 50);
         this.canvasHelper.writeTextToCanvas(questionArray.letter1, 20, this.canvasHelper.GetWidth() * 0.59, 125, "red");
@@ -656,7 +664,7 @@ class Checkpoint extends Entity {
         img.addEventListener('load', () => {
             this.image = img;
         });
-        img.src = './assets/images/flags/Nederland.png';
+        img.src = './assets/images/flags/Surrender.png';
     }
 }
 class Flag extends Entity {
@@ -1109,8 +1117,8 @@ class ScreenLevelSelect extends ScreenBase {
     constructor() {
         super();
         this.continents = [{
-                europe: './assets/images/maps/Europa-kaart.png',
-                northAmerica: './assets/images/maps/Noord-Amerika-kaart.png'
+                europe: './assets/images/maps/Europa-transparant.png',
+                northAmerica: './assets/images/maps/Noord-Amerika-transparant.png'
             }];
         this.drawEuropeLevel = () => {
             console.log('Europe selected.');
@@ -1132,9 +1140,9 @@ class ScreenLevelSelect extends ScreenBase {
     draw() {
         this.canvasHelper.writeTextToCanvas('UNtRAVEL', 50, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y / 3);
         this.canvasHelper.writeTextToCanvas('Selecteer een werelddeel', 25, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y / 3 + 60);
-        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].europe, this.canvasHelper.GetWidth() * 0.3 - 40, this.canvasHelper.GetCenter().Y - 150, 300, 300);
+        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].europe, this.canvasHelper.GetWidth() * 0.33 - 170, this.canvasHelper.GetCenter().Y - 150, 380, 300);
         this.canvasHelper.writeButtonToCanvas("Europa", 'StartEurope', this.drawEuropeLevel, this.canvasHelper.GetWidth() * 0.3, this.canvasHelper.GetCenter().Y + 200);
-        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].northAmerica, this.canvasHelper.GetWidth() * 0.6 - 40, this.canvasHelper.GetCenter().Y - 150, 300, 300);
+        this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].northAmerica, this.canvasHelper.GetWidth() * 0.66 - 210, this.canvasHelper.GetCenter().Y - 180, 355, 350);
         this.canvasHelper.writeButtonToCanvas("Noord-Amerika", 'StartAmerica', this.drawAmericaLevel, this.canvasHelper.GetWidth() * 0.6, this.canvasHelper.GetCenter().Y + 200);
         this.canvasHelper.writeTextToCanvas("Besturing", 30, 30, this.canvasHelper.GetCenter().Y + 30, undefined, "left");
         this.canvasHelper.writeTextToCanvas("Links: A / pijltjestoets links", 20, 30, this.canvasHelper.GetCenter().Y + 60, undefined, "left");
