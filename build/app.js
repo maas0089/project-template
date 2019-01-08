@@ -778,10 +778,10 @@ class Player extends Entity {
         return false;
     }
     entityCollision(entity) {
-        if (this.getX() < entity.getX() + entity.getWidth() &&
-            this.getX() + this.getWidth() > entity.getX() &&
-            this.getY() < entity.getY() + entity.getHeight() &&
-            this.getY() + this.getHeight() > entity.getY()) {
+        if (this.getX() < (entity.getX() + 2) + (entity.getWidth() - 2) &&
+            (this.getX() + 1) + this.getWidth() > (entity.getX() + 2) &&
+            (this.getY() - 2) < (entity.getY() + 2) + (entity.getHeight() - 2) &&
+            this.getY() + this.getHeight() > (entity.getY() + 2)) {
             return true;
         }
         return false;
