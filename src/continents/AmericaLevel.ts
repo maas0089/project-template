@@ -39,7 +39,7 @@ class AmericaLevel extends ScreenLevel {
         this.platforms.push(new Platform(1340, this.canvasHelper.GetCenter().Y + 241)); // platform with spike 4
         this.spikes.push(new Spike(1340, this.canvasHelper.GetCenter().Y + 226));
         this.platforms.push(new Platform(1430, this.canvasHelper.GetCenter().Y + 250)); // platform with flag
-        this.countryFlag = new Flag(1470, this.canvasHelper.GetCenter().Y + 175, 1);
+        this.countryFlag = new Flag(1470, this.canvasHelper.GetCenter().Y + 175, 2);
     }
 
     public drawLevelTwo(): void {
@@ -84,7 +84,7 @@ class AmericaLevel extends ScreenLevel {
         this.platforms.push(new Platform(1280, this.canvasHelper.GetCenter().Y + 250)); // platform 11
         this.platforms.push(new Platform(1420, this.canvasHelper.GetCenter().Y + 230)); // platform 12
         this.platforms.push(new Platform(1600, this.canvasHelper.GetCenter().Y + 275)); // platform with flag
-        this.countryFlag = new Flag(1650, this.canvasHelper.GetCenter().Y + 200, 1); // X + 40, Y -75
+        this.countryFlag = new Flag(1650, this.canvasHelper.GetCenter().Y + 200, 2); // X + 40, Y -75
     }
 
     public drawLevelThree(): void {
@@ -105,7 +105,7 @@ class AmericaLevel extends ScreenLevel {
         this.platforms.push(new Platform(880, this.canvasHelper.GetCenter().Y + 140)); // platform 12
         this.platforms.push(new Platform(1050, this.canvasHelper.GetCenter().Y + 220)); // platform 13
         this.platforms.push(new Platform(1270, this.canvasHelper.GetCenter().Y + 300)); // platform 14
-        this.countryFlag = new Flag(1300, this.canvasHelper.GetCenter().Y + 225, 1); // Y -75
+        this.countryFlag = new Flag(1300, this.canvasHelper.GetCenter().Y + 225, 2); // Y -75
     }
 
     public drawScreenQuiz(): void {

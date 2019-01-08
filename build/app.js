@@ -161,7 +161,7 @@ class AmericaLevel extends ScreenLevel {
         this.platforms.push(new Platform(1340, this.canvasHelper.GetCenter().Y + 241));
         this.spikes.push(new Spike(1340, this.canvasHelper.GetCenter().Y + 226));
         this.platforms.push(new Platform(1430, this.canvasHelper.GetCenter().Y + 250));
-        this.countryFlag = new Flag(1470, this.canvasHelper.GetCenter().Y + 175, 1);
+        this.countryFlag = new Flag(1470, this.canvasHelper.GetCenter().Y + 175, 2);
     }
     drawLevelTwo() {
         this.player = new Player(0, this.canvasHelper.GetCenter().Y - 334);
@@ -203,7 +203,7 @@ class AmericaLevel extends ScreenLevel {
         this.platforms.push(new Platform(1280, this.canvasHelper.GetCenter().Y + 250));
         this.platforms.push(new Platform(1420, this.canvasHelper.GetCenter().Y + 230));
         this.platforms.push(new Platform(1600, this.canvasHelper.GetCenter().Y + 275));
-        this.countryFlag = new Flag(1650, this.canvasHelper.GetCenter().Y + 200, 1);
+        this.countryFlag = new Flag(1650, this.canvasHelper.GetCenter().Y + 200, 2);
     }
     drawLevelThree() {
         this.player = new Player(0, this.canvasHelper.GetCenter().Y + 166);
@@ -223,7 +223,7 @@ class AmericaLevel extends ScreenLevel {
         this.platforms.push(new Platform(880, this.canvasHelper.GetCenter().Y + 140));
         this.platforms.push(new Platform(1050, this.canvasHelper.GetCenter().Y + 220));
         this.platforms.push(new Platform(1270, this.canvasHelper.GetCenter().Y + 300));
-        this.countryFlag = new Flag(1300, this.canvasHelper.GetCenter().Y + 225, 1);
+        this.countryFlag = new Flag(1300, this.canvasHelper.GetCenter().Y + 225, 2);
     }
     drawScreenQuiz() {
         this.canvasHelper.Clear();
@@ -877,7 +877,7 @@ class Flag extends Entity {
         if (continent == 1)
             img.src = `./assets/images/flags/${this.FlagEuropeArray[this.MathHelper]}.png`;
         if (continent == 2)
-            img.src = './assets/images/flags/USA.png';
+            img.src = './assets/images/flags/VerenigdeStaten.png';
         console.log(this.MathHelper);
     }
 }
