@@ -3,7 +3,8 @@ abstract class ScreenQuiz extends ScreenBase{
     // protected static instance: ScreenQuiz = null;
 
     protected question: number = 0;
-    // protected usedQuestions: Array<number> = new Array<number>();
+    protected currentQuestion: number;
+    protected usedQuestions: Array<number> = new Array<number>();
 
     protected firstAnswer: number = 0;
     protected secondAnswer: number = 0;
@@ -21,7 +22,6 @@ abstract class ScreenQuiz extends ScreenBase{
 
     public constructor(){
         super();
-        // this.generateRandomQuestion();
     }
 
     public QuizExplanation() {
@@ -57,11 +57,14 @@ abstract class ScreenQuiz extends ScreenBase{
       
     public drawScreenQuiz(): void {
         if (this.firstAnswer == 0 && this.secondAnswer == 0 && this.thirdAnswer == 0){
+            this.generateRandomQuestion();
             this.positionOne = this.shuffle([100, 150, 200]);
             this.positionTwo = this.shuffle([300, 350, 400]);
             this.positionThree = this.shuffle([500, 550, 600]);    
         }
-        let questionArray = this.qAndA[this.question];
+
+
+        let questionArray = this.qAndA[this.currentQuestion];
         this.timer.pauseTimer();
 
         this.QuizExplanation();
@@ -150,7 +153,6 @@ abstract class ScreenQuiz extends ScreenBase{
         this.canvasHelper.Clear();
         this.removeButtons();
 
-        // this.generateRandomQuestion();
         this.question++;
         this.firstAnswer = 0;
         this.secondAnswer = 0;
@@ -159,16 +161,15 @@ abstract class ScreenQuiz extends ScreenBase{
         this.drawScreenEndResult();
     }
 
-    // public generateRandomQuestion = (): void => {
-    //     let newQuestion: number = this.canvasHelper.randomNumber(0, 2);
-    //     while (this.usedQuestions.indexOf(newQuestion) != -1){
-    //         newQuestion = this.canvasHelper.randomNumber(0, 2);
-    //     }
-    //     console.log(newQuestion);
-    //     console.log(this.usedQuestions);
-    //     this.usedQuestions.push(newQuestion);
-    //     this.question = newQuestion;
-    // }
+    public generateRandomQuestion = (): void => {
+        console.log('generating question...');
+        do this.currentQuestion = this.canvasHelper.randomNumber(0, this.totalquestion - 1);
+        while (this.usedQuestions.indexOf(this.currentQuestion) != -1);
+        console.log(`current question: ${this.currentQuestion + 1}`);
+        // console.log(this.usedQuestions);
+        this.usedQuestions.push(this.currentQuestion);
+        // this.question = currentQuestion;
+    }
 
     public abstract drawMap(): void;
 

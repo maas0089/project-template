@@ -69,61 +69,6 @@ class EuropeQuiz extends ScreenQuiz {
                 b3: ['Parijs', false],
                 c3: ['Rome', false] 
             }]
-
-
-
-        // questions and answers for The Netherlands
-        // this.qAndA = [
-        //     {                
-        //         letter1: 'A',
-        //         a1: ['Arnhem', true],// correct
-        //         b1: ['Amersfoort', false],
-        //         c1: ['Nijmegen', false],
-
-        //         letter2: 'b',
-        //         a2: ['Overijssel', true], // correct
-        //         b2: ['Drenthe', false],
-        //         c2: ['Gelderland', false], 
-
-        //         letter3: 'C',
-        //         a3: ['Haarlem', true], // correct
-        //         b3: ['Leiden', false],
-        //         c3: ['Amsterdam', false]  
-        //     },
-
-        //     {
-        //         letter1: 'A',
-        //         a1: ['Leeuwarden', true], // correct
-        //         b1: ['Groningen', false],
-        //         c1: ['Assen', false],
-
-        //         letter2: 'B',
-        //         a2: ['Middelburg', true], // correct
-        //         b2: ['Den Haag', false],
-        //         c2: ['Rotterdam', false], 
-
-        //         letter3: 'c',
-        //         a3: ['Noord-Brabant', true], // correct
-        //         b3: ['Gelderland', false],
-        //         c3: ['Limburg', false]  
-        //     },
-
-        //     {
-        //         letter1: 'A',
-        //         a1: ['Lelystad', true], // correct
-        //         b1: ['Amsterdam', false],
-        //         c1: ['Zwolle', false],
-
-        //         letter2: 'b',
-        //         a2: ['Zuid-Holland', true], // correct
-        //         b2: ['Zeeland', false],
-        //         c2: ['Noord-Holland', false], 
-
-        //         letter3: 'C',
-        //         a3: ['Maastricht', true], // correct
-        //         b3: ['Venlo', false],
-        //         c3: ['Eindhoven', false]  
-        //     }]
     }
 
     public static Instance(): ScreenQuiz {
@@ -134,7 +79,7 @@ class EuropeQuiz extends ScreenQuiz {
     }
 
     public drawMap(): void {
-        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, 50, 100, 1000, 790);
+        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.currentQuestion]}`, 50, 100, 1000, 790);
     }
 
     public drawScreenLevel = (): void => {

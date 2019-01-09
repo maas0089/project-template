@@ -79,7 +79,7 @@ class NetherlandsQuiz extends ScreenQuiz {
     }
 
     public drawMap(): void {
-        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, this.canvasHelper.GetCenter().X * 0.4, 100, 504, 597);
+        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.currentQuestion]}`, this.canvasHelper.GetCenter().X * 0.4, 100, 504, 597);
     }
 
     public drawScreenLevel = (): void => {

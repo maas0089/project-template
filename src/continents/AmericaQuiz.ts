@@ -79,7 +79,7 @@ class AmericaQuiz extends ScreenQuiz{
     }
 
     public drawMap(): void {
-        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, 100, 100, 711, 700);
+        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.currentQuestion]}`, 100, 100, 711, 700);
     }
 
     public drawScreenLevel = (): void => {
