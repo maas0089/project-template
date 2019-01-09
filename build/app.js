@@ -15,27 +15,44 @@ class ScreenBase {
     }
 }
 class ScreenEndResult extends ScreenBase {
-    constructor() {
+    constructor(correct) {
         super();
         this.screenHighScore = ScreenHighScore.Instance();
+        this.drawCorrectScreen = () => {
+            let time = this.timer.getTime();
+            this.canvasHelper.writeTextToCanvas(`Level ${this.screenQuiz.getCurrentQuestion()} voltooid!`, 50, this.canvasHelper.GetCenter().X, 100);
+            this.canvasHelper.writeTextToCanvas('Tijd:', 30, this.canvasHelper.GetCenter().X, 250);
+            if (time.Seconds < 10)
+                this.canvasHelper.writeTextToCanvas(` ${time.Minutes}:0${time.Seconds}`, 30, this.canvasHelper.GetCenter().X, 350, 'black');
+            else
+                this.canvasHelper.writeTextToCanvas(` ${time.Minutes}:${time.Seconds}`, 30, this.canvasHelper.GetCenter().X, 350, 'black');
+            if (this.screenQuiz.getCurrentQuestion() > this.screenQuiz.getMaxQuestion() - 1)
+                this.canvasHelper.writeButtonToCanvas('Highscores', 'continue', this.drawScreenHighScore, undefined, undefined);
+            else
+                this.canvasHelper.writeButtonToCanvas('Volgend level', 'continue', this.drawNextLevelScreen, undefined, undefined);
+        };
+        this.drawWrongScreen = () => {
+            this.canvasHelper.writeTextToCanvas('Helaas,', 50, this.canvasHelper.GetCenter().X, this.canvasHelper.GetHeight() * 0.3, 'red');
+            this.canvasHelper.writeTextToCanvas('Dat antwoord was fout!', 40, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y - 50, 'red');
+            this.canvasHelper.writeButtonToCanvas('Probeer opnieuw', 'drawScreenlevel', this.drawScreenLevel);
+        };
+        this.correct = correct;
     }
     draw() {
-        let time = this.timer.getTime();
-        this.canvasHelper.writeTextToCanvas(`Level ${this.screenQuiz.getCurrentQuestion()} voltooid!`, 50, this.canvasHelper.GetCenter().X, 100);
-        this.canvasHelper.writeTextToCanvas('Tijd:', 30, this.canvasHelper.GetCenter().X, 250);
-        if (time.Seconds < 10)
-            this.canvasHelper.writeTextToCanvas(` ${time.Minutes}:0${time.Seconds}`, 30, this.canvasHelper.GetCenter().X, 350, 'black');
+        if (this.correct)
+            this.drawCorrectScreen();
         else
-            this.canvasHelper.writeTextToCanvas(` ${time.Minutes}:${time.Seconds}`, 30, this.canvasHelper.GetCenter().X, 350, 'black');
-        if (this.screenQuiz.getCurrentQuestion() > this.screenQuiz.getMaxQuestion() - 1)
-            this.canvasHelper.writeButtonToCanvas('Highscores', 'continue', this.drawScreenHighScore, undefined, undefined);
-        else
-            this.canvasHelper.writeButtonToCanvas('Volgend level', 'continue', this.drawNextLevelScreen, undefined, undefined);
+            this.drawWrongScreen();
     }
 }
 class AmericaEndResult extends ScreenEndResult {
-    constructor() {
-        super();
+    constructor(correct) {
+        super(correct);
+        this.drawScreenLevel = () => {
+            this.canvasHelper.Clear();
+            this.canvasHelper.UnregisterClickListener('drawScreenLevel');
+            this.canvasHelper.ChangeScreen(new AmericaLevel);
+        };
         this.drawNextLevelScreen = () => {
             this.canvasHelper.Clear();
             this.canvasHelper.UnregisterClickListener('continue');
@@ -240,15 +257,15 @@ class ScreenQuiz extends ScreenBase {
         this.thirdAnswer = 0;
         this.wrongAnswerOne = () => {
             if (this.firstAnswer != 1)
-                this.drawScreenLevel();
+                this.drawWrongScreen();
         };
         this.wrongAnswerTwo = () => {
             if (this.secondAnswer != 1)
-                this.drawScreenLevel();
+                this.drawWrongScreen();
         };
         this.wrongAnswerThree = () => {
             if (this.thirdAnswer != 1)
-                this.drawScreenLevel();
+                this.drawWrongScreen();
         };
         this.checkAnswerOne = () => {
             console.log('Correct!');
@@ -284,7 +301,7 @@ class ScreenQuiz extends ScreenBase {
             this.firstAnswer = 0;
             this.secondAnswer = 0;
             this.thirdAnswer = 0;
-            this.drawScreenEndResult();
+            this.drawCorrectScreen();
         };
         this.generateRandomQuestion = () => {
             console.log('generating question...');
@@ -393,13 +410,13 @@ class ScreenQuiz extends ScreenBase {
 class AmericaQuiz extends ScreenQuiz {
     constructor() {
         super();
-        this.drawScreenLevel = () => {
+        this.drawWrongScreen = () => {
             this.canvasHelper.Clear();
             this.removeButtons();
-            this.canvasHelper.ChangeScreen(new AmericaLevel);
+            this.canvasHelper.ChangeScreen(new AmericaEndResult(false));
         };
-        this.drawScreenEndResult = () => {
-            this.canvasHelper.ChangeScreen(new AmericaEndResult);
+        this.drawCorrectScreen = () => {
+            this.canvasHelper.ChangeScreen(new AmericaEndResult(true));
         };
         console.log('this is AmericaQuiz');
         this.totalquestion = 3;
@@ -465,8 +482,13 @@ class AmericaQuiz extends ScreenQuiz {
 }
 AmericaQuiz.instance = null;
 class EuropeEndResult extends ScreenEndResult {
-    constructor() {
-        super();
+    constructor(correct) {
+        super(correct);
+        this.drawScreenLevel = () => {
+            this.canvasHelper.Clear();
+            this.canvasHelper.UnregisterClickListener('drawScreenLevel');
+            this.canvasHelper.ChangeScreen(new EuropeLevel);
+        };
         this.drawNextLevelScreen = () => {
             this.canvasHelper.Clear();
             this.canvasHelper.UnregisterClickListener('continue');
@@ -571,13 +593,13 @@ class EuropeLevel extends ScreenLevel {
 class EuropeQuiz extends ScreenQuiz {
     constructor() {
         super();
-        this.drawScreenLevel = () => {
+        this.drawWrongScreen = () => {
             this.canvasHelper.Clear();
             this.removeButtons();
-            this.canvasHelper.ChangeScreen(new EuropeLevel);
+            this.canvasHelper.ChangeScreen(new EuropeEndResult(false));
         };
-        this.drawScreenEndResult = () => {
-            this.canvasHelper.ChangeScreen(new EuropeEndResult);
+        this.drawCorrectScreen = () => {
+            this.canvasHelper.ChangeScreen(new EuropeEndResult(true));
         };
         console.log('this is EuropeQuiz');
         this.totalquestion = 3;
@@ -643,8 +665,13 @@ class EuropeQuiz extends ScreenQuiz {
 }
 EuropeQuiz.instance = null;
 class NetherlandsEndResult extends ScreenEndResult {
-    constructor() {
-        super();
+    constructor(correct) {
+        super(correct);
+        this.drawScreenLevel = () => {
+            this.canvasHelper.Clear();
+            this.canvasHelper.UnregisterClickListener('drawScreenLevel');
+            this.canvasHelper.ChangeScreen(new NetherlandsLevel);
+        };
         this.drawNextLevelScreen = () => {
             this.canvasHelper.Clear();
             this.canvasHelper.UnregisterClickListener('continue');
@@ -751,13 +778,13 @@ class NetherlandsLevel extends ScreenLevel {
 class NetherlandsQuiz extends ScreenQuiz {
     constructor() {
         super();
-        this.drawScreenLevel = () => {
+        this.drawWrongScreen = () => {
             this.canvasHelper.Clear();
             this.removeButtons();
-            this.canvasHelper.ChangeScreen(new NetherlandsLevel);
+            this.canvasHelper.ChangeScreen(new NetherlandsEndResult(false));
         };
-        this.drawScreenEndResult = () => {
-            this.canvasHelper.ChangeScreen(new NetherlandsEndResult);
+        this.drawCorrectScreen = () => {
+            this.canvasHelper.ChangeScreen(new NetherlandsEndResult(true));
         };
         console.log('this is NetherlandsQuiz');
         this.totalquestion = 3;
@@ -970,10 +997,10 @@ class Player extends Entity {
         return false;
     }
     entityCollision(entity) {
-        if (this.getX() < (entity.getX() + 2) + (entity.getWidth() - 2) &&
-            (this.getX() + 1) + this.getWidth() > (entity.getX() + 2) &&
-            (this.getY() - 2) < (entity.getY() + 2) + (entity.getHeight() - 2) &&
-            this.getY() + this.getHeight() > (entity.getY() + 2)) {
+        if (this.getX() < entity.getX() + entity.getWidth() &&
+            this.getX() + this.getWidth() > entity.getX() &&
+            this.getY() < entity.getY() + entity.getHeight() &&
+            this.getY() + this.getHeight() > entity.getY()) {
             return true;
         }
         return false;

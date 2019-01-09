@@ -4,10 +4,16 @@
 
 class AmericaEndResult extends ScreenEndResult {
 
-    constructor() {
-        super();
+    constructor(correct: boolean) {
+        super(correct);
         console.log('this is AmericaEndResult');
         this.screenQuiz = AmericaQuiz.Instance();
+    }
+
+    public drawScreenLevel = (): void =>{
+        this.canvasHelper.Clear();
+        this.canvasHelper.UnregisterClickListener('drawScreenLevel');
+        this.canvasHelper.ChangeScreen(new AmericaLevel)
     }
 
     public drawNextLevelScreen = (): void => {

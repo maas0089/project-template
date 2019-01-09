@@ -82,14 +82,15 @@ class AmericaQuiz extends ScreenQuiz{
         this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.currentQuestion]}`, 100, 100, 711, 700);
     }
 
-    public drawScreenLevel = (): void => {
+    public drawWrongScreen = (): void => {
         this.canvasHelper.Clear();
         this.removeButtons();
-        this.canvasHelper.ChangeScreen(new AmericaLevel);
+        // this.canvasHelper.ChangeScreen(new AmericaLevel);
+        this.canvasHelper.ChangeScreen(new AmericaEndResult(false));
     }
 
-    public drawScreenEndResult = (): void => {
-        this.canvasHelper.ChangeScreen(new AmericaEndResult);
+    public drawCorrectScreen = (): void => {
+        this.canvasHelper.ChangeScreen(new AmericaEndResult(true));
     }
 
 }

@@ -112,15 +112,15 @@ abstract class ScreenQuiz extends ScreenBase{
     }
 
     public wrongAnswerOne = (): void => {
-        if (this.firstAnswer != 1) this.drawScreenLevel();
+        if (this.firstAnswer != 1) this.drawWrongScreen();
     }
 
     public wrongAnswerTwo = (): void => {
-        if (this.secondAnswer != 1) this.drawScreenLevel();
+        if (this.secondAnswer != 1) this.drawWrongScreen();
     }
     
     public wrongAnswerThree = (): void => {
-        if (this.thirdAnswer != 1) this.drawScreenLevel();
+        if (this.thirdAnswer != 1) this.drawWrongScreen();
     }
 
     
@@ -158,7 +158,7 @@ abstract class ScreenQuiz extends ScreenBase{
         this.secondAnswer = 0;
         this.thirdAnswer = 0;
 
-        this.drawScreenEndResult();
+        this.drawCorrectScreen();
     }
 
     public generateRandomQuestion = (): void => {
@@ -173,9 +173,9 @@ abstract class ScreenQuiz extends ScreenBase{
 
     public abstract drawMap(): void;
 
-    public abstract drawScreenLevel(): void;
+    public abstract drawWrongScreen(): void;
 
-    public abstract drawScreenEndResult(): void;    
+    public abstract drawCorrectScreen(): void;    
 
     public removeButtons = (): void => {
         this.canvasHelper.Clear();

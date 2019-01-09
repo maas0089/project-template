@@ -82,14 +82,15 @@ class EuropeQuiz extends ScreenQuiz {
         this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.currentQuestion]}`, 50, 100, 1000, 790);
     }
 
-    public drawScreenLevel = (): void => {
+    public drawWrongScreen = (): void => {
         this.canvasHelper.Clear();
         this.removeButtons();
-        this.canvasHelper.ChangeScreen(new EuropeLevel);
+        // this.canvasHelper.ChangeScreen(new EuropeLevel);
+        this.canvasHelper.ChangeScreen(new EuropeEndResult(false));
     }
 
-    public drawScreenEndResult = (): void => {
-        this.canvasHelper.ChangeScreen(new EuropeEndResult);
+    public drawCorrectScreen = (): void => {
+        this.canvasHelper.ChangeScreen(new EuropeEndResult(true));
     }
 
 }
