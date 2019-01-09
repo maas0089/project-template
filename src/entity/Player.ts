@@ -92,11 +92,11 @@ class Player extends Entity {
     public entityCollision(entity: Entity): boolean {
         if (
             //check if player.x is within borders of entity.x
-            this.getX() < (entity.getX() + 2) + (entity.getWidth() -2) &&
-            (this.getX() + 1) + this.getWidth() > (entity.getX() + 2) &&
+            this.getX() < entity.getX() + entity.getWidth() &&
+            this.getX() + this.getWidth() > entity.getX() &&
             //check if player.y is within borders of entity.y
-            (this.getY() - 2) < (entity.getY() + 2) + (entity.getHeight() - 2) &&
-            this.getY() + this.getHeight() > (entity.getY() + 2)
+            this.getY() < entity.getY() + entity.getHeight() &&
+            this.getY() + this.getHeight() > entity.getY()
         ) {
             return true;
         }
