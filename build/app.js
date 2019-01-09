@@ -1066,7 +1066,7 @@ class CanvasHelper {
     writeImageToCanvas(image, xpos, ypos, width, height) {
         this.context.drawImage(image, xpos, ypos, width, height);
     }
-    writeButtonToCanvas(caption, fnName, fn, xpos = -1, ypos = -1, button = 0) {
+    writeButtonToCanvas(caption, fnName, fn, xpos = -1, ypos = -1, fontSize = 20, button = 0) {
         let buttonSource = [
             "./assets/images/buttonBlue.png",
             "./assets/images/correctButtonBlue.png"
@@ -1083,7 +1083,7 @@ class CanvasHelper {
             let fontX = dx + ((buttonImage.width + caption.length - 18) / 2);
             let fontY = dy + (buttonImage.height - 12);
             this.context.drawImage(buttonImage, dx, dy);
-            this.writeTextToCanvas(caption, 20, fontX, fontY, '#000');
+            this.writeTextToCanvas(caption, fontSize, fontX, fontY, '#000');
             if (fn != null) {
                 this.clickCommands.set(fnName, new ButtonAction(dx, dy, buttonImage.height, buttonImage.width, fn));
             }
@@ -1351,13 +1351,13 @@ class ScreenLevelSelect extends ScreenBase {
     }
     draw() {
         this.canvasHelper.writeImageFromFileToCanvas(this.unTravelLogo, this.canvasHelper.GetCenter().X - 150, 20, 300, 300);
-        this.canvasHelper.writeTextToCanvas('Selecteer een level', 25, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y / 3 + 200);
+        this.canvasHelper.writeTextToCanvas('Selecteer een groep', 25, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y / 3 + 200);
         this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].netherlands, this.canvasHelper.GetWidth() * 0.12, this.canvasHelper.GetCenter().Y - 80, 295, 350);
-        this.canvasHelper.writeButtonToCanvas("Nederland", 'StartNetherlands', this.drawNetherlandsLevel, this.canvasHelper.GetWidth() * 0.12, this.canvasHelper.GetCenter().Y + 300);
+        this.canvasHelper.writeButtonToCanvas("Groep 6: Nederland", 'StartNetherlands', this.drawNetherlandsLevel, this.canvasHelper.GetWidth() * 0.12, this.canvasHelper.GetCenter().Y + 300, 19);
         this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].europe, this.canvasHelper.GetWidth() * 0.4 - 50, this.canvasHelper.GetCenter().Y - 50, 380, 300);
-        this.canvasHelper.writeButtonToCanvas("Europa", 'StartEurope', this.drawEuropeLevel, this.canvasHelper.GetWidth() * 0.4 + 60, this.canvasHelper.GetCenter().Y + 300);
+        this.canvasHelper.writeButtonToCanvas("Groep 7: Europa", 'StartEurope', this.drawEuropeLevel, this.canvasHelper.GetWidth() * 0.4 + 60, this.canvasHelper.GetCenter().Y + 300, 19);
         this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].northAmerica, this.canvasHelper.GetWidth() * 0.7 - 100, this.canvasHelper.GetCenter().Y - 80, 355, 350);
-        this.canvasHelper.writeButtonToCanvas("Noord-Amerika", 'StartAmerica', this.drawAmericaLevel, this.canvasHelper.GetWidth() * 0.7, this.canvasHelper.GetCenter().Y + 300);
+        this.canvasHelper.writeButtonToCanvas("Groep 8: Noord-Amerika", 'StartAmerica', this.drawAmericaLevel, this.canvasHelper.GetWidth() * 0.7, this.canvasHelper.GetCenter().Y + 300, 19);
         this.canvasHelper.writeTextToCanvas("Besturing", 30, 30, 40, undefined, "left");
         this.canvasHelper.writeTextToCanvas("Links: A / pijltjestoets links", 20, 30, 70, undefined, "left");
         this.canvasHelper.writeTextToCanvas("Rechts: D / pijltjestoets rechts", 20, 30, 100, undefined, "left");

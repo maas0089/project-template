@@ -181,7 +181,7 @@ class CanvasHelper {
      * @param ypos - the left top y position of the button
      * @param button - which button to use (0 or 1)
      */
-    public writeButtonToCanvas(caption: string, fnName: string, fn: () => void, xpos: number = -1, ypos: number = -1, button: number = 0) {
+    public writeButtonToCanvas(caption: string, fnName: string, fn: () => void, xpos: number = -1, ypos: number = -1, fontSize: number = 20, button: number = 0) {
         let buttonSource = [
             "./assets/images/buttonBlue.png",
             "./assets/images/correctButtonBlue.png"
@@ -201,7 +201,7 @@ class CanvasHelper {
             let fontX = dx + ((buttonImage.width + caption.length - 18) / 2); // - 1/2 fontsize + buttonBorder
             let fontY = dy + (buttonImage.height - 12); // - 1/2 fontsize + buttonBorder
             this.context.drawImage(buttonImage, dx, dy);
-            this.writeTextToCanvas(caption, 20, fontX, fontY, '#000');
+            this.writeTextToCanvas(caption, fontSize, fontX, fontY, '#000');
 
             // check if there is a valid callback given
             // if the callback is valid store the callback in the Map
