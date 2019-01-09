@@ -10,7 +10,9 @@ class NetherlandsLevel extends ScreenLevel {
         this.currentLevel = this.screenQuiz.getCurrentQuestion() + 1;
     }
 
+    
     public drawLevelOne(): void {
+        /*
         this.player = new Player(100, this.canvasHelper.GetCenter().Y + 166);
         this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 200)); // starting position for player
         this.platforms.push(new Platform(250, this.canvasHelper.GetCenter().Y + 190)); // platform 2
@@ -32,6 +34,40 @@ class NetherlandsLevel extends ScreenLevel {
         this.spikes.push(new Spike(1200, this.canvasHelper.GetCenter().Y + 385));
         this.platforms.push(new Platform(1300, this.canvasHelper.GetCenter().Y + 340)); // platform with flag
         this.countryFlag = new Flag(1340, this.canvasHelper.GetCenter().Y + 265, 0); // Y -75
+        //*/
+
+        // redesign intro level
+
+        // to display platforms, show all items on screen - y = horizontal
+        this.player = new Player(70, this.canvasHelper.GetCenter().Y + 166);
+        this.platforms.push(new Platform(70, this.canvasHelper.GetCenter().Y + 200)); // plaform 1 - starting position for player
+        this.platforms.push(new Platform(150, this.canvasHelper.GetCenter().Y + 200)); // platform 2
+
+        this.platforms.push(new Platform(240, this.canvasHelper.GetCenter().Y + 230)); // platform with spike 1
+        this.spikes.push(new Spike(240, this.canvasHelper.GetCenter().Y + 215)); // spikes
+
+        this.platforms.push(new Platform(330, this.canvasHelper.GetCenter().Y + 200)); // platform 3
+        this.platforms.push(new Platform(440, this.canvasHelper.GetCenter().Y + 200)); // platform 4
+        this.platforms.push(new Platform(550, this.canvasHelper.GetCenter().Y + 200)); // platform 5
+
+        this.platforms.push(new Platform(640, this.canvasHelper.GetCenter().Y + 230)); // platform with spike 2
+        this.spikes.push(new Spike(640, this.canvasHelper.GetCenter().Y + 215)); // spikes
+        
+        //test checkpoint
+        this.platforms.push(new Platform(720, this.canvasHelper.GetCenter().Y + 260)); // platform 6
+        this.checkpoint = new Checkpoint(760, this.canvasHelper.GetCenter().Y + 185); // checkpoint on platform 6
+
+        this.platforms.push(new Platform(810, this.canvasHelper.GetCenter().Y + 230)); // platform 7
+        this.platforms.push(new Platform(900, this.canvasHelper.GetCenter().Y + 200)); // platform 8
+        this.platforms.push(new Platform(980, this.canvasHelper.GetCenter().Y + 200)); // platform 9
+        this.platforms.push(new Platform(1060, this.canvasHelper.GetCenter().Y + 200)); // platform 10
+
+        this.platforms.push(new Platform(1160, this.canvasHelper.GetCenter().Y + 230)); // platform with spike 2
+        this.spikes.push(new Spike(1160, this.canvasHelper.GetCenter().Y + 215)); // spikes
+
+        // finish
+        this.platforms.push(new Platform(1260, this.canvasHelper.GetCenter().Y + 240)); // platform with flag
+        this.countryFlag = new Flag(1300, this.canvasHelper.GetCenter().Y + 165, 0); // Y -75
     }
 
     public drawLevelTwo(): void {

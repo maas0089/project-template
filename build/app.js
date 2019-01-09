@@ -234,6 +234,7 @@ class ScreenQuiz extends ScreenBase {
     constructor() {
         super();
         this.question = 0;
+        this.usedQuestions = new Array();
         this.firstAnswer = 0;
         this.secondAnswer = 0;
         this.thirdAnswer = 0;
@@ -285,6 +286,14 @@ class ScreenQuiz extends ScreenBase {
             this.thirdAnswer = 0;
             this.drawScreenEndResult();
         };
+        this.generateRandomQuestion = () => {
+            console.log('generating question...');
+            do
+                this.currentQuestion = this.canvasHelper.randomNumber(0, this.totalquestion - 1);
+            while (this.usedQuestions.indexOf(this.currentQuestion) != -1);
+            console.log(`current question: ${this.currentQuestion + 1}`);
+            this.usedQuestions.push(this.currentQuestion);
+        };
         this.removeButtons = () => {
             this.canvasHelper.Clear();
             this.canvasHelper.UnregisterClickListener('startGame1');
@@ -321,11 +330,12 @@ class ScreenQuiz extends ScreenBase {
     }
     drawScreenQuiz() {
         if (this.firstAnswer == 0 && this.secondAnswer == 0 && this.thirdAnswer == 0) {
+            this.generateRandomQuestion();
             this.positionOne = this.shuffle([100, 150, 200]);
             this.positionTwo = this.shuffle([300, 350, 400]);
             this.positionThree = this.shuffle([500, 550, 600]);
         }
-        let questionArray = this.qAndA[this.question];
+        let questionArray = this.qAndA[this.currentQuestion];
         this.timer.pauseTimer();
         this.QuizExplanation();
         this.drawMap();
@@ -450,7 +460,7 @@ class AmericaQuiz extends ScreenQuiz {
         return this.instance;
     }
     drawMap() {
-        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, 100, 100, 711, 700);
+        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.currentQuestion]}`, 100, 100, 711, 700);
     }
 }
 AmericaQuiz.instance = null;
@@ -628,7 +638,7 @@ class EuropeQuiz extends ScreenQuiz {
         return this.instance;
     }
     drawMap() {
-        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, 50, 100, 1000, 790);
+        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.currentQuestion]}`, 50, 100, 1000, 790);
     }
 }
 EuropeQuiz.instance = null;
@@ -659,24 +669,26 @@ class NetherlandsLevel extends ScreenLevel {
         this.currentLevel = this.screenQuiz.getCurrentQuestion() + 1;
     }
     drawLevelOne() {
-        this.player = new Player(100, this.canvasHelper.GetCenter().Y + 166);
-        this.platforms.push(new Platform(100, this.canvasHelper.GetCenter().Y + 200));
-        this.platforms.push(new Platform(250, this.canvasHelper.GetCenter().Y + 190));
-        this.platforms.push(new Platform(180, this.canvasHelper.GetCenter().Y + 240));
-        this.spikes.push(new Spike(180, this.canvasHelper.GetCenter().Y + 225));
-        this.platforms.push(new Platform(380, this.canvasHelper.GetCenter().Y + 260));
-        this.platforms.push(new Platform(470, this.canvasHelper.GetCenter().Y + 320));
-        this.spikes.push(new Spike(470, this.canvasHelper.GetCenter().Y + 305));
-        this.platforms.push(new Platform(600, this.canvasHelper.GetCenter().Y + 360));
-        this.platforms.push(new Platform(760, this.canvasHelper.GetCenter().Y + 380));
-        this.checkpoint = new Checkpoint(800, this.canvasHelper.GetCenter().Y + 305);
-        this.platforms.push(new Platform(860, this.canvasHelper.GetCenter().Y + 340));
-        this.platforms.push(new Platform(960, this.canvasHelper.GetCenter().Y + 300));
-        this.platforms.push(new Platform(1060, this.canvasHelper.GetCenter().Y + 260));
-        this.platforms.push(new Platform(1200, this.canvasHelper.GetCenter().Y + 400));
-        this.spikes.push(new Spike(1200, this.canvasHelper.GetCenter().Y + 385));
-        this.platforms.push(new Platform(1300, this.canvasHelper.GetCenter().Y + 340));
-        this.countryFlag = new Flag(1340, this.canvasHelper.GetCenter().Y + 265, 0);
+        this.player = new Player(70, this.canvasHelper.GetCenter().Y + 166);
+        this.platforms.push(new Platform(70, this.canvasHelper.GetCenter().Y + 200));
+        this.platforms.push(new Platform(150, this.canvasHelper.GetCenter().Y + 200));
+        this.platforms.push(new Platform(240, this.canvasHelper.GetCenter().Y + 230));
+        this.spikes.push(new Spike(240, this.canvasHelper.GetCenter().Y + 215));
+        this.platforms.push(new Platform(330, this.canvasHelper.GetCenter().Y + 200));
+        this.platforms.push(new Platform(440, this.canvasHelper.GetCenter().Y + 200));
+        this.platforms.push(new Platform(550, this.canvasHelper.GetCenter().Y + 200));
+        this.platforms.push(new Platform(640, this.canvasHelper.GetCenter().Y + 230));
+        this.spikes.push(new Spike(640, this.canvasHelper.GetCenter().Y + 215));
+        this.platforms.push(new Platform(720, this.canvasHelper.GetCenter().Y + 260));
+        this.checkpoint = new Checkpoint(760, this.canvasHelper.GetCenter().Y + 185);
+        this.platforms.push(new Platform(810, this.canvasHelper.GetCenter().Y + 230));
+        this.platforms.push(new Platform(900, this.canvasHelper.GetCenter().Y + 200));
+        this.platforms.push(new Platform(980, this.canvasHelper.GetCenter().Y + 200));
+        this.platforms.push(new Platform(1060, this.canvasHelper.GetCenter().Y + 200));
+        this.platforms.push(new Platform(1160, this.canvasHelper.GetCenter().Y + 230));
+        this.spikes.push(new Spike(1160, this.canvasHelper.GetCenter().Y + 215));
+        this.platforms.push(new Platform(1260, this.canvasHelper.GetCenter().Y + 240));
+        this.countryFlag = new Flag(1300, this.canvasHelper.GetCenter().Y + 165, 0);
     }
     drawLevelTwo() {
         this.player = new Player(100, this.canvasHelper.GetCenter().Y - 14);
@@ -806,7 +818,7 @@ class NetherlandsQuiz extends ScreenQuiz {
         return this.instance;
     }
     drawMap() {
-        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.question]}`, this.canvasHelper.GetCenter().X * 0.4, 100, 504, 597);
+        this.canvasHelper.writeImageFromFileToCanvas(`${this.imageLocations[this.currentQuestion]}`, this.canvasHelper.GetCenter().X * 0.4, 100, 504, 597);
     }
 }
 NetherlandsQuiz.instance = null;
