@@ -131,7 +131,7 @@ class ScreenHighScore extends ScreenBase {
 
             center.Y += 80;
             this.canvasHelper.writeTextToCanvas(
-                `${index + 1}: ${element}`,
+                `${index + 1}\u1D49\ plaats: ${element}`,
                 30,
                 this.canvasHelper.GetWidth() * 0.25,
                 center.Y
@@ -148,7 +148,7 @@ class ScreenHighScore extends ScreenBase {
 
             center.Y += 80;
             this.canvasHelper.writeTextToCanvas(
-                `${index + 1}: ${element}`,
+                `${index + 1}\u1D49\ plaats: ${element}`,
                 30,
                 center.X,
                 center.Y,
@@ -165,7 +165,7 @@ class ScreenHighScore extends ScreenBase {
 
             center.Y += 80;
             this.canvasHelper.writeTextToCanvas(
-                `${index + 1}: ${element}`,
+                `${index + 1}\u1D49\ plaats: ${element}`,
                 30,
                 this.canvasHelper.GetWidth() * 0.75,
                 center.Y

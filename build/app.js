@@ -1296,7 +1296,7 @@ class ScreenHighScore extends ScreenBase {
         this.canvasHelper.writeTextToCanvas('Nederland', 40, this.canvasHelper.GetWidth() * 0.25, center.Y);
         this.netherlandsHighscoreText.forEach((element, index) => {
             center.Y += 80;
-            this.canvasHelper.writeTextToCanvas(`${index + 1}: ${element}`, 30, this.canvasHelper.GetWidth() * 0.25, center.Y);
+            this.canvasHelper.writeTextToCanvas(`${index + 1}\u1D49\ plaats: ${element}`, 30, this.canvasHelper.GetWidth() * 0.25, center.Y);
         });
     }
     drawEuropeHighscores() {
@@ -1304,7 +1304,7 @@ class ScreenHighScore extends ScreenBase {
         this.canvasHelper.writeTextToCanvas('Europa', 40, center.X, center.Y);
         this.europeHighscoreText.forEach((element, index) => {
             center.Y += 80;
-            this.canvasHelper.writeTextToCanvas(`${index + 1}: ${element}`, 30, center.X, center.Y);
+            this.canvasHelper.writeTextToCanvas(`${index + 1}\u1D49\ plaats: ${element}`, 30, center.X, center.Y);
         });
     }
     drawAmericaHighscores() {
@@ -1312,7 +1312,7 @@ class ScreenHighScore extends ScreenBase {
         this.canvasHelper.writeTextToCanvas('Noord-Amerika', 40, this.canvasHelper.GetWidth() * 0.75, center.Y);
         this.americaHighscoreText.forEach((element, index) => {
             center.Y += 80;
-            this.canvasHelper.writeTextToCanvas(`${index + 1}: ${element}`, 30, this.canvasHelper.GetWidth() * 0.75, center.Y);
+            this.canvasHelper.writeTextToCanvas(`${index + 1}\u1D49\ plaats: ${element}`, 30, this.canvasHelper.GetWidth() * 0.75, center.Y);
         });
     }
 }
@@ -1353,11 +1353,11 @@ class ScreenLevelSelect extends ScreenBase {
         this.canvasHelper.writeImageFromFileToCanvas(this.unTravelLogo, this.canvasHelper.GetCenter().X - 150, 20, 300, 300);
         this.canvasHelper.writeTextToCanvas('Selecteer een groep', 25, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y / 3 + 200);
         this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].netherlands, this.canvasHelper.GetWidth() * 0.12, this.canvasHelper.GetCenter().Y - 80, 295, 350);
-        this.canvasHelper.writeButtonToCanvas("Groep 6: Nederland", 'StartNetherlands', this.drawNetherlandsLevel, this.canvasHelper.GetWidth() * 0.12, this.canvasHelper.GetCenter().Y + 300, 19);
+        this.canvasHelper.writeButtonToCanvas("Groep 6: Nederland", 'StartNetherlands', this.drawNetherlandsLevel, this.canvasHelper.GetWidth() * 0.12, this.canvasHelper.GetCenter().Y + 300, undefined, 19);
         this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].europe, this.canvasHelper.GetWidth() * 0.4 - 50, this.canvasHelper.GetCenter().Y - 50, 380, 300);
-        this.canvasHelper.writeButtonToCanvas("Groep 7: Europa", 'StartEurope', this.drawEuropeLevel, this.canvasHelper.GetWidth() * 0.4 + 60, this.canvasHelper.GetCenter().Y + 300, 19);
+        this.canvasHelper.writeButtonToCanvas("Groep 7: Europa", 'StartEurope', this.drawEuropeLevel, this.canvasHelper.GetWidth() * 0.4 + 60, this.canvasHelper.GetCenter().Y + 300, undefined, 19);
         this.canvasHelper.writeImageFromFileToCanvas(this.continents[0].northAmerica, this.canvasHelper.GetWidth() * 0.7 - 100, this.canvasHelper.GetCenter().Y - 80, 355, 350);
-        this.canvasHelper.writeButtonToCanvas("Groep 8: Noord-Amerika", 'StartAmerica', this.drawAmericaLevel, this.canvasHelper.GetWidth() * 0.7, this.canvasHelper.GetCenter().Y + 300, 19);
+        this.canvasHelper.writeButtonToCanvas("Groep 8: Noord-Amerika", 'StartAmerica', this.drawAmericaLevel, this.canvasHelper.GetWidth() * 0.7, this.canvasHelper.GetCenter().Y + 300, undefined, 19);
         this.canvasHelper.writeTextToCanvas("Besturing", 30, 30, 40, undefined, "left");
         this.canvasHelper.writeTextToCanvas("Links: A / pijltjestoets links", 20, 30, 70, undefined, "left");
         this.canvasHelper.writeTextToCanvas("Rechts: D / pijltjestoets rechts", 20, 30, 100, undefined, "left");
