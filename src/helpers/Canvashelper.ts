@@ -181,7 +181,7 @@ class CanvasHelper {
      * @param ypos - the left top y position of the button
      * @param button - which button to use (0 or 1)
      */
-    public writeButtonToCanvas(caption: string, fnName: string, fn: () => void, xpos: number = -1, ypos: number = -1, fontSize: number = 20, button: number = 0) {
+    public writeButtonToCanvas(caption: string, fnName: string, fn: () => void, xpos: number = -1, ypos: number = -1, button: number = 0, fontSize: number = 20) {
         let buttonSource = [
             "./assets/images/buttonBlue.png",
             "./assets/images/correctButtonBlue.png"

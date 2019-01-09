@@ -1066,7 +1066,7 @@ class CanvasHelper {
     writeImageToCanvas(image, xpos, ypos, width, height) {
         this.context.drawImage(image, xpos, ypos, width, height);
     }
-    writeButtonToCanvas(caption, fnName, fn, xpos = -1, ypos = -1, fontSize = 20, button = 0) {
+    writeButtonToCanvas(caption, fnName, fn, xpos = -1, ypos = -1, button = 0, fontSize = 20) {
         let buttonSource = [
             "./assets/images/buttonBlue.png",
             "./assets/images/correctButtonBlue.png"
