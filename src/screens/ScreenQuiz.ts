@@ -10,6 +10,8 @@ abstract class ScreenQuiz extends ScreenBase{
     protected secondAnswer: number = 0;
     protected thirdAnswer: number = 0;
 
+    protected retry: boolean = false;
+
     protected positionOne: Array<number>;
     protected positionTwo: Array<number>;
     protected positionThree: Array<number>;
@@ -56,11 +58,16 @@ abstract class ScreenQuiz extends ScreenBase{
       }
       
     public drawScreenQuiz(): void {
-        if (this.firstAnswer == 0 && this.secondAnswer == 0 && this.thirdAnswer == 0){
+        if (this.firstAnswer == 0 && this.secondAnswer == 0 && this.thirdAnswer == 0 && this.retry == false){
             this.generateRandomQuestion();
             this.positionOne = this.shuffle([100, 150, 200]);
             this.positionTwo = this.shuffle([300, 350, 400]);
             this.positionThree = this.shuffle([500, 550, 600]);    
+        } else if (this.retry == true){
+            this.positionOne = this.shuffle([100, 150, 200]);
+            this.positionTwo = this.shuffle([300, 350, 400]);
+            this.positionThree = this.shuffle([500, 550, 600]);
+            this.retry = false;            
         }
 
 
@@ -112,15 +119,24 @@ abstract class ScreenQuiz extends ScreenBase{
     }
 
     public wrongAnswerOne = (): void => {
-        if (this.firstAnswer != 1) this.drawWrongScreen();
+        if (this.firstAnswer != 1){
+            this.drawWrongScreen();
+            this.retry = true;
+        } 
     }
 
     public wrongAnswerTwo = (): void => {
-        if (this.secondAnswer != 1) this.drawWrongScreen();
+        if (this.secondAnswer != 1){
+            this.drawWrongScreen();
+            this.retry = true;
+        } 
     }
     
     public wrongAnswerThree = (): void => {
-        if (this.thirdAnswer != 1) this.drawWrongScreen();
+        if (this.thirdAnswer != 1){
+            this.drawWrongScreen();
+            this.retry = true;
+        } 
     }
 
     
@@ -157,6 +173,7 @@ abstract class ScreenQuiz extends ScreenBase{
         this.firstAnswer = 0;
         this.secondAnswer = 0;
         this.thirdAnswer = 0;
+        this.retry = false;
 
         this.drawCorrectScreen();
     }
@@ -192,6 +209,7 @@ abstract class ScreenQuiz extends ScreenBase{
 
     public resetQuestion(): void {
         this.question = 0;
+        this.usedQuestions.length = 0;
     }
 
     public getCurrentQuestion(): number {

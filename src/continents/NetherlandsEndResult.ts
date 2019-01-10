@@ -24,6 +24,7 @@ class NetherlandsEndResult extends ScreenEndResult {
     }
 
     public drawScreenHighScore = (): void => {
+        console.log('To highscores');
         this.canvasHelper.Clear();
         this.screenQuiz.resetQuestion();
         this.canvasHelper.UnregisterClickListener('continue');

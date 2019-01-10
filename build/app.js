@@ -34,7 +34,7 @@ class ScreenEndResult extends ScreenBase {
         this.drawWrongScreen = () => {
             this.canvasHelper.writeTextToCanvas('Helaas,', 50, this.canvasHelper.GetCenter().X, this.canvasHelper.GetHeight() * 0.3, 'red');
             this.canvasHelper.writeTextToCanvas('Dat antwoord was fout!', 40, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y - 50, 'red');
-            this.canvasHelper.writeButtonToCanvas('Probeer opnieuw', 'drawScreenlevel', this.drawScreenLevel);
+            this.canvasHelper.writeButtonToCanvas('Probeer opnieuw', 'drawScreenLevel', this.drawScreenLevel);
         };
         this.correct = correct;
     }
@@ -255,17 +255,24 @@ class ScreenQuiz extends ScreenBase {
         this.firstAnswer = 0;
         this.secondAnswer = 0;
         this.thirdAnswer = 0;
+        this.retry = false;
         this.wrongAnswerOne = () => {
-            if (this.firstAnswer != 1)
+            if (this.firstAnswer != 1) {
                 this.drawWrongScreen();
+                this.retry = true;
+            }
         };
         this.wrongAnswerTwo = () => {
-            if (this.secondAnswer != 1)
+            if (this.secondAnswer != 1) {
                 this.drawWrongScreen();
+                this.retry = true;
+            }
         };
         this.wrongAnswerThree = () => {
-            if (this.thirdAnswer != 1)
+            if (this.thirdAnswer != 1) {
                 this.drawWrongScreen();
+                this.retry = true;
+            }
         };
         this.checkAnswerOne = () => {
             console.log('Correct!');
@@ -301,6 +308,7 @@ class ScreenQuiz extends ScreenBase {
             this.firstAnswer = 0;
             this.secondAnswer = 0;
             this.thirdAnswer = 0;
+            this.retry = false;
             this.drawCorrectScreen();
         };
         this.generateRandomQuestion = () => {
@@ -346,11 +354,17 @@ class ScreenQuiz extends ScreenBase {
         return array;
     }
     drawScreenQuiz() {
-        if (this.firstAnswer == 0 && this.secondAnswer == 0 && this.thirdAnswer == 0) {
+        if (this.firstAnswer == 0 && this.secondAnswer == 0 && this.thirdAnswer == 0 && this.retry == false) {
             this.generateRandomQuestion();
             this.positionOne = this.shuffle([100, 150, 200]);
             this.positionTwo = this.shuffle([300, 350, 400]);
             this.positionThree = this.shuffle([500, 550, 600]);
+        }
+        else if (this.retry == true) {
+            this.positionOne = this.shuffle([100, 150, 200]);
+            this.positionTwo = this.shuffle([300, 350, 400]);
+            this.positionThree = this.shuffle([500, 550, 600]);
+            this.retry = false;
         }
         let questionArray = this.qAndA[this.currentQuestion];
         this.timer.pauseTimer();
@@ -399,6 +413,7 @@ class ScreenQuiz extends ScreenBase {
     }
     resetQuestion() {
         this.question = 0;
+        this.usedQuestions.length = 0;
     }
     getCurrentQuestion() {
         return this.question;
@@ -678,6 +693,7 @@ class NetherlandsEndResult extends ScreenEndResult {
             this.canvasHelper.ChangeScreen(new NetherlandsLevel);
         };
         this.drawScreenHighScore = () => {
+            console.log('To highscores');
             this.canvasHelper.Clear();
             this.screenQuiz.resetQuestion();
             this.canvasHelper.UnregisterClickListener('continue');

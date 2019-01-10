@@ -29,7 +29,7 @@ abstract class ScreenEndResult extends ScreenBase {
     public drawWrongScreen = (): void =>{
         this.canvasHelper.writeTextToCanvas('Helaas,', 50, this.canvasHelper.GetCenter().X, this.canvasHelper.GetHeight() * 0.3, 'red');
         this.canvasHelper.writeTextToCanvas('Dat antwoord was fout!', 40, this.canvasHelper.GetCenter().X, this.canvasHelper.GetCenter().Y - 50, 'red');
-        this.canvasHelper.writeButtonToCanvas('Probeer opnieuw', 'drawScreenlevel', this.drawScreenLevel);
+        this.canvasHelper.writeButtonToCanvas('Probeer opnieuw', 'drawScreenLevel', this.drawScreenLevel);
     }
 
     //drawScrenLevel and drawNextlevelScreen functions are the same. Both are kept for clarity right now
